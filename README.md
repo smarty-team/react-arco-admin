@@ -22,6 +22,9 @@ pnpm dev
 # 后台启动可以加 -d
 docker-compose up
 
+# 编译程序
+pnpm build
+
 # 启动服务端  
 # 需要pm2环境
 cd packages/server
