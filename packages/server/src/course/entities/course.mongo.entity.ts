@@ -5,7 +5,7 @@ import { Entity, Column, UpdateDateColumn, ObjectIdColumn, PrimaryGeneratedColum
 export class Course {
 
     @ObjectIdColumn()
-    _id?: ObjectId;
+    id?: ObjectId;
 
     @Column({ default: null })
     name: string;

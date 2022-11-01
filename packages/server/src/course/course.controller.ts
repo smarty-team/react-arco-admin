@@ -37,6 +37,7 @@ export class CourseController {
   @ApiOperation({
     summary: '更新单个课程',
   })
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
     return this.courseService.update(id, updateCourseDto);
