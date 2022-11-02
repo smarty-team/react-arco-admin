@@ -26,7 +26,7 @@ function Course() {
   const [pagination, setPatination] = useState<PaginationProps>({
     sizeCanChange: true,
     showTotal: true,
-    pageSize: 2,
+    pageSize: 10,
     current: 1,
     pageSizeChangeResetCurrent: true,
   });
@@ -106,15 +106,13 @@ function Course() {
         },
       })
       .then((res) => {
-        const data = res.data;
-        setData(data);
-        // setPatination({
-        //   ...pagination,
-        //   current,
-        //   pageSize,
-        //   // total: data.total,
-        //   total: data.length,
-        // });
+        setData(res.data.list);
+        setPatination({
+          ...pagination,
+          current,
+          pageSize,
+          total: res.data.total,
+        });
         setLoading(false);
       });
   };
