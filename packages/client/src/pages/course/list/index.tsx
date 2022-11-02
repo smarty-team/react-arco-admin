@@ -10,6 +10,8 @@ import {
   Form,
   Input,
   Message,
+  Popconfirm,
+  Space,
 } from '@arco-design/web-react';
 import axios from 'axios';
 import './mock';
@@ -39,7 +41,7 @@ function Course() {
   const columns = [
     {
       title: '课程ID',
-      dataIndex: '_id',
+      dataIndex: 'id',
       render: (value) => <Text copyable>{value}</Text>,
     },
     {
@@ -58,7 +60,18 @@ function Course() {
           >
             编辑
           </Button>
-          <Popover
+          <Popconfirm
+            focusLock
+            title="确认要删除吗?"
+            okText="确认"
+            cancelText="取消"
+            onOk={() => tableCallback(record, 'delete')}
+          >
+            <Button type="text" size="small">
+              删除
+            </Button>
+          </Popconfirm>
+          {/* <Popover
             trigger="click"
             title="确定删除？"
             content={
@@ -71,10 +84,8 @@ function Course() {
               </Button>
             }
           >
-            <Button type="text" size="small">
-              删除
-            </Button>
-          </Popover>
+            
+          </Popover> */}
         </>
       ),
     },
@@ -113,14 +124,16 @@ function Course() {
       setVisible(true);
       setEditedItem(record);
     } else if (type === 'delete') {
-      remove(record._id);
+      remove(record.id);
     }
   };
 
   const remove = (id: string) => {
-    debugger;
     if (id) {
       axios.delete('/api/course/' + id).then((res) => {
+        // 删除成功
+        Message.success('删除成功');
+        // 重新获取
         fetchData();
       });
     }
@@ -130,7 +143,7 @@ function Course() {
   const [visible, setVisible] = useState(false);
   // 编辑项
   const initial = {
-    _id: '',
+    id: '',
     name: '',
   };
   const [editedItem, setEditedItem] = useState(initial);
@@ -139,7 +152,7 @@ function Course() {
   };
   const onSubmit = () => {
     // 根据标识符决定新增或更新
-    if (editedItem._id) {
+    if (editedItem.id) {
       // 更新
       update(editedItem);
     } else {
@@ -149,46 +162,50 @@ function Course() {
     setVisible(false);
   };
   const add = (course) => {
-    axios
-      .post('/api/course/', {
-        data: course,
-      })
-      .then((res) => {
-        // 提交成功
-        Message.success('新增成功');
-        // 重新获取
-        fetchData();
-      });
+    axios.post('/api/course', course).then((res) => {
+      // 提交成功
+      Message.success('新增成功');
+      // 重新获取
+      fetchData();
+    });
   };
   const update = (course) => {
-    axios
-      .patch('/api/course/' + course._id, {
-        data: course,
-      })
-      .then((res) => {
-        // 提交成功
-        Message.success('更新成功');
-        // 重新获取
-        fetchData();
-      });
+    axios.patch('/api/course/' + course.id, course).then((res) => {
+      // 提交成功
+      Message.success('更新成功');
+      // 重新获取
+      fetchData();
+    });
+  };
+
+  const onAdd = () => {
+    // 还原表单数据
+    setEditedItem(initial);
+    // 弹出表单
+    setVisible(true);
   };
 
   return (
     <>
       <Card>
         <Title heading={6}>课程管理</Title>
-        <Table
-          rowKey="_id"
-          loading={loading}
-          onChange={onChangeTable}
-          pagination={pagination}
-          columns={columns}
-          data={data}
-        />
+        <Space direction="vertical" style={{width: '100%'}}>
+          <Button onClick={onAdd} type="primary">
+            新增
+          </Button>
+          <Table
+            rowKey="id"
+            loading={loading}
+            onChange={onChangeTable}
+            pagination={pagination}
+            columns={columns}
+            data={data}
+          />
+        </Space>
       </Card>
       <Drawer
         width={400}
-        title={<span>Basic Information </span>}
+        title={editedItem.id ? '更新' : '新增'}
         visible={visible}
         onOk={onSubmit}
         onCancel={() => {
@@ -197,9 +214,9 @@ function Course() {
       >
         <Form autoComplete="off">
           <FormItem label="ID">
-            <Text>{editedItem._id}</Text>
+            <Text>{editedItem.id}</Text>
           </FormItem>
-          <FormItem label="Post">
+          <FormItem label="课程名称">
             <Input value={editedItem.name} onChange={onItemChange} />
           </FormItem>
         </Form>
