@@ -33,7 +33,9 @@ export const routes: IRoute[] = [
       {
         name: '课程列表',
         key: 'course/list',
-        requiredPermissions: [{ resource: '课程列表' }],
+        requiredPermissions: [
+          { resource: '课程列表' }
+        ],
       },
     ],
   },
@@ -59,6 +61,7 @@ export const getName = (path: string, routes) => {
 };
 
 export const generatePermission = (role: string) => {
+
   const actions = role === 'admin' ? ['*'] : ['read'];
   const result = {};
   routes.forEach((item) => {
