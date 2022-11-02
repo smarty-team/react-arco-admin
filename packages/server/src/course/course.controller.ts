@@ -1,10 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CourseService } from './course.service';
+import {
+  Body,
+  Controller,
+  DefaultValuePipe,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Patch,
+  Query,
+  Res,
+  Scope,
+  UseGuards
+} from '@nestjs/common'; import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-
-
+import { PaginationParams2Dto } from '../shared/dto/pagination-params.dto'
 @ApiTags('课程')
 @Controller('course')
 export class CourseController {
@@ -22,8 +35,11 @@ export class CourseController {
     summary: '查找所有课程',
   })
   @Get()
-  findAll() {
-    return this.courseService.findAll();
+  findAll(
+    @Query() query: PaginationParams2Dto
+  ) {
+    console.log(query)
+    return this.courseService.findAll({ skip: 0, limit: 0, });
   }
 
   @ApiOperation({
@@ -37,6 +53,7 @@ export class CourseController {
   @ApiOperation({
     summary: '更新单个课程',
   })
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
     return this.courseService.update(id, updateCourseDto);

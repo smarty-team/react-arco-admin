@@ -16,21 +16,19 @@ export class CourseService {
     return this.courseRepository.save(course)
   }
 
-  async findAll(): Promise<Course[]> {
-    return await this.courseRepository.find()
+  async findAll({ skip, limit }): Promise<Course[]> {
+    return await this.courseRepository.find({
+      order: { createdAt: 'DESC' },
+      skip,
+      take: limit,
+      cache: true
+    })
   }
 
   async findOne(_id: string) {
     // return await this.courseRepository.findOneBy({ _id: id })
     let ret = null
-
-    console.log('id:', _id)
-    try {
-      ret = await this.courseRepository.findOneBy(_id)
-    } catch (error) {
-      console.log('eee', error)
-    }
-
+    ret = await this.courseRepository.findOneBy(_id)
     return ret
   }
 
@@ -40,9 +38,9 @@ export class CourseService {
     return await this.courseRepository.update(_id, updateCourseDto)
   }
 
-  async remove(_id: string): Promise<any> {
+  async remove(id: string): Promise<any> {
     // const r = await this.courseRepository.findOneBy(_id)
     // return await this.courseRepository.remove(r)
-    return await this.courseRepository.delete(_id)
+    return await this.courseRepository.delete(id)
   }
 }
