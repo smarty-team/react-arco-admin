@@ -20,7 +20,7 @@ const { list } = Mock.mock({
 });
 
 setupMock({
-  mock: true,
+  mock: false,
   setup: () => {
     Mock.mock(new RegExp('/api/course'), (params) => {
       const {
