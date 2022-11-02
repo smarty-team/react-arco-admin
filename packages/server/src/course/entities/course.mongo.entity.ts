@@ -1,5 +1,7 @@
 import { ObjectId } from 'mongoose';
-import { Entity, Column, UpdateDateColumn, ObjectIdColumn, PrimaryGeneratedColumn, PrimaryColumn } from 'typeorm';
+import { Entity, Column, UpdateDateColumn, ObjectIdColumn, CreateDateColumn, } from 'typeorm';
+
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator'
 
 @Entity()
 export class Course {
@@ -8,5 +10,13 @@ export class Course {
     id?: ObjectId;
 
     @Column({ default: null })
+    @IsString()
+    @IsNotEmpty()
     name: string;
+
+    @CreateDateColumn({ type: 'timestamp' })
+    createdAt?: string
+
+    @UpdateDateColumn({ type: 'timestamp' })
+    updatedAt?: string
 }
