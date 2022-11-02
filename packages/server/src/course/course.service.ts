@@ -3,7 +3,7 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { In, Like, Raw, MongoRepository, ObjectID } from 'typeorm';
 import { Course } from './entities/course.mongo.entity'
-
+import { PaginationParams2Dto } from '../shared/dto/pagination-params.dto'
 @Injectable()
 export class CourseService {
   constructor(
@@ -16,13 +16,17 @@ export class CourseService {
     return this.courseRepository.save(course)
   }
 
-  async findAll({ skip, limit }): Promise<Course[]> {
-    return await this.courseRepository.find({
+  async findAll({ pageSize, page }: PaginationParams2Dto): Promise<{ list: Course[], total: number }> {
+
+    const [list, count] = await this.courseRepository.findAndCount({
       order: { createdAt: 'DESC' },
-      skip,
-      take: limit,
+      skip: (page - 1) * pageSize,
+      take: (pageSize * 1),
       cache: true
     })
+    return {
+      list, total: count
+    }
   }
 
   async findOne(_id: string) {

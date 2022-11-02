@@ -38,8 +38,8 @@ export class CourseController {
   findAll(
     @Query() query: PaginationParams2Dto
   ) {
-    console.log(query)
-    return this.courseService.findAll({ skip: 0, limit: 0, });
+    // console.log(query)
+    return this.courseService.findAll(query);
   }
 
   @ApiOperation({
