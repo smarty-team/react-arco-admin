@@ -2145,7 +2145,7 @@ packages:
     dev: true
 
   /@types/superagent/4.1.15:
-    resolution: {integrity: sha512-iiXaOL2wSbnSY4qg0mFPWJHL9iwyEsoNYwaHF2w58/fsVAQJlj+KUfFAFZu+nzbz+b7dUprJEAc+O9vhHHhQTA==, tarball: '@types/superagent/-/superagent-4.1.14.tgz'}
+    resolution: {integrity: sha512-iiXaOL2wSbnSY4qg0mFPWJHL9iwyEsoNYwaHF2w58/fsVAQJlj+KUfFAFZu+nzbz+b7dUprJEAc+O9vhHHhQTA==}
     deprecated: '[WARNING] Use 4.1.14 instead of 4.1.15, reason: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/58445'
     dependencies:
       '@types/cookiejar': 2.1.2

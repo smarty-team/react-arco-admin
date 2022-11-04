@@ -16,8 +16,8 @@ import {
   HttpStatus,
 
 } from '@nestjs/common'; import { CourseService } from './course.service';
-import { CreateCourseDto } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-course.dto';
+import { CreateCourseDto } from './dtos/create-course.dto';
+import { UpdateCourseDto } from './dtos/update-course.dto';
 import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
 
 import {

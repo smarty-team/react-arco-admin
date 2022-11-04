@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { CreateCourseDto } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-course.dto';
+import { CreateCourseDto } from './dtos/create-course.dto';
+import { UpdateCourseDto } from './dtos/update-course.dto';
 import { In, Like, Raw, MongoRepository, ObjectID } from 'typeorm';
 import { Course } from './entities/course.mongo.entity'
 import { PaginationParams2Dto } from '../shared/dtos/pagination-params.dto'
@@ -37,14 +37,18 @@ export class CourseService {
 
   }
 
-  async update(id: string, updateCourseDto: UpdateCourseDto) {
+  async update(id: string, course: Course) {
     // const r = await this.courseRepository.findOneBy(_id)
     // 删除时间戳
-    const update: UpdateCourseDto = {
-      name: updateCourseDto.name
-    }
 
-    return await this.courseRepository.update(id, update)
+    // 去除时间戳和id
+    ['id', 'createdAt', 'updatedAt'].forEach(
+      k => delete course[k]
+    )
+    // 更新时间戳
+    course.updatedAt = new Date()
+
+    return await this.courseRepository.update(id, course)
   }
 
   async remove(id: string): Promise<any> {
