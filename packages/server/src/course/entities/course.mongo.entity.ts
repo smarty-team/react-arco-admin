@@ -15,8 +15,8 @@ export class Course {
     name: string;
 
     @CreateDateColumn({ type: 'timestamp' })
-    createdAt?: string
+    createdAt?: Date
 
     @UpdateDateColumn({ type: 'timestamp' })
-    updatedAt?: string
+    updatedAt?: Date
 }

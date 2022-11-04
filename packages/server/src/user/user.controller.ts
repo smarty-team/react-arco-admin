@@ -1,7 +1,12 @@
-import { Controller, Post, Body, Query, Get } from '@nestjs/common';
+import { Controller, HttpStatus, Post, Body, Query, Get, Patch, Param, Delete } from '@nestjs/common';
 import { UserService } from './user.service';
-import { AddUserDto } from './user.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { CreateUserDto } from './dtos/user.dto';
+import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+import {
+  BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
+} from '../shared/dtos/base-api-response.dto';
+import { PaginationParams2Dto } from '../shared/dtos/pagination-params.dto'
+
 
 @ApiTags('用户')
 @Controller('user')
@@ -13,8 +18,89 @@ export class UserController {
   @ApiOperation({
     summary: '新增用户',
   })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    type: SwaggerBaseApiResponse(CreateUserDto),
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    type: BaseApiErrorResponse,
+  })
   @Post('')
-  create(@Body() user: AddUserDto) {
-    return this.userService.createOrSave(user);
+  create(@Body() user: CreateUserDto) {
+    return this.userService.create(user);
   }
+
+  @ApiOperation({
+    summary: '查找所有用户',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: SwaggerBaseApiResponse([CreateUserDto]),
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    type: BaseApiErrorResponse,
+  })
+  @Get()
+  async findAll(
+    @Query() query: PaginationParams2Dto
+  ) {
+    // console.log(query)
+    const { data, count } = await this.userService.findAll(query);
+    return {
+      data,
+      mata: { total: count }
+    }
+  }
+
+  @ApiOperation({
+    summary: '查找单个用户',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: SwaggerBaseApiResponse(CreateUserDto),
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    type: BaseApiErrorResponse,
+  })
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return {
+      data: await this.userService.findOne(id)
+    }
+  }
+
+  @ApiOperation({
+    summary: '更新单个用户',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: SwaggerBaseApiResponse(CreateUserDto),
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    type: BaseApiErrorResponse,
+  })
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() updateCourseDto: CreateUserDto) {
+    return {
+      data: await this.userService.update(id, updateCourseDto)
+    }
+  }
+
+  @ApiOperation({
+    summary: '删除单个用户',
+  })
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+  })
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.userService.remove(id);
+  }
+
+
+
 }
