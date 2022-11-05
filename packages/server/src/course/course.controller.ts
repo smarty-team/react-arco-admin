@@ -66,7 +66,7 @@ export class CourseController {
     const { data, count } = await this.courseService.findAll(query);
     return {
       data,
-      mata: { total: count }
+      meta: { total: count }
     }
   }
 

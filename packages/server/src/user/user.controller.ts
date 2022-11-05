@@ -50,7 +50,7 @@ export class UserController {
     const { data, count } = await this.userService.findAll(query);
     return {
       data,
-      mata: { total: count }
+      meta: { total: count }
     }
   }
 
