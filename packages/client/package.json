@@ -20,6 +20,7 @@
     "@arco-themes/react-arco-pro": "^0.0.7",
     "@loadable/component": "^5.13.2",
     "@turf/turf": "^6.5.0",
+    "ahooks": "^3.7.2",
     "arco-design-pro": "^2.7.0",
     "axios": "^0.24.0",
     "bizcharts": "^4.1.11",
