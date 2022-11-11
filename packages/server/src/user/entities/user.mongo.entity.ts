@@ -5,18 +5,23 @@ export class User {
     @ObjectIdColumn()
     id?: ObjectId;
 
-    @Column({ default: null })
-    name: string;
+    // 昵称
+    @Column('text')
+    nickname: string;
+
+    // 手机号
+    @Column('text')
+    mobile: string;
 
     @Column()
     password: string;
 
-    // @Unique('username', ['username'])
-    @Column({ length: 200 })
-    username: string;
-
-    // @Column('simple-array')
-    // roles?: string[];
+    // 加密盐
+    @Column({
+        type: 'text',
+        select: false,
+    })
+    salt: string;
 
     @Column()
     isAccountDisabled?: boolean;

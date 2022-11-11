@@ -35,15 +35,15 @@ export class UserService {
 
   }
 
-  async update(id: string, course: User) {
+  async update(id: string, user: CreateUserDto) {
 
     // 去除时间戳和id
     ['id', 'createdAt', 'updatedAt'].forEach(
-      k => delete course[k]
+      k => delete user[k]
     )
     // 更新时间戳
-    course.updatedAt = new Date()
-    return await this.userRepository.update(id, course)
+    // course.updatedAt = new Date()
+    return await this.userRepository.update(id, user)
   }
 
   async remove(id: string): Promise<any> {
