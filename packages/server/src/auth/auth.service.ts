@@ -51,11 +51,11 @@ export class AuthService {
     newUser.mobile = mobile
     newUser.password = hashPassword
     newUser.salt = salt
-    const result = await this.userRepository.save(newUser)
-    delete result.password
-    delete result.salt
+    const data = await this.userRepository.save(newUser)
+    delete data.password
+    delete data.salt
     return {
-      info: result
+      data
     }
   }
 
@@ -97,7 +97,7 @@ export class AuthService {
     const user = await this.checkLoginForm(loginDTO)
     const token = await this.certificate(user)
     return {
-      info: {
+      data: {
         token
       }
     }

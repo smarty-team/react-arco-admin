@@ -1,11 +1,12 @@
-import { Controller, HttpStatus, Post, Body, Query, Get, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, UseGuards, HttpStatus, Post, Body, Query, Get, Patch, Param, Delete } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dtos/user.dto';
-import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import {
   BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
 } from '../shared/dtos/base-api-response.dto';
 import { PaginationParams2Dto } from '../shared/dtos/pagination-params.dto'
+import { AuthGuard } from '@nestjs/passport';
 
 
 @ApiTags('用户')
@@ -31,6 +32,7 @@ export class UserController {
     return this.userService.create(user);
   }
 
+
   @ApiOperation({
     summary: '查找所有用户',
   })
@@ -42,6 +44,8 @@ export class UserController {
     status: HttpStatus.NOT_FOUND,
     type: BaseApiErrorResponse,
   })
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @Get()
   async findAll(
     @Query() query: PaginationParams2Dto
@@ -75,6 +79,8 @@ export class UserController {
   @ApiOperation({
     summary: '更新单个用户',
   })
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @ApiResponse({
     status: HttpStatus.OK,
     type: SwaggerBaseApiResponse(CreateUserDto),
@@ -90,6 +96,8 @@ export class UserController {
     }
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @ApiOperation({
     summary: '删除单个用户',
   })

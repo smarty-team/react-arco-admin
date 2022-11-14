@@ -2,7 +2,7 @@ import { Body, Controller, Post, HttpStatus } from '@nestjs/common';
 import { LoginDTO } from './dto/login.dto';
 import { RegisterDTO } from './dto/register.dto';
 import { AuthService } from './auth.service';
-import { TokenSuccessVO, TokenVO } from './vo/token.vo';
+import { TokenVO } from './vo/token.vo';
 import { UserInfoSuccessVO } from './vo/user-info.vo';
 import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
 import {

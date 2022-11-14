@@ -16,7 +16,7 @@ import { UserProviders } from '@/user/user.providers';
       // inject: [ConfigService],  // 注入 ConfigService
       useFactory: () => ({
         // secret: process.env.JWT_SECRET, // 密钥
-        secret: 'dasdjanksjdasd',
+        secret: 'ranshu666',
         signOptions: {
           // expiresIn: process.env.JWT_EXPIRES_IN, // token 过期时效
           expiresIn: '24h'

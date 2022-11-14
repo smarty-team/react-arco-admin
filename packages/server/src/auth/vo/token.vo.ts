@@ -8,11 +8,5 @@ export class TokenItem {
 }
 
 export class TokenVO {
-  info: TokenItem
+  data: TokenItem
 }
-
-export class TokenSuccessVO extends SuccessVO{
-  data: {
-    info: TokenItem
-  }
-} 
