@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { User } from './entity/user.entity';
+import { User } from '../user/entities/user.mongo.entity';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';

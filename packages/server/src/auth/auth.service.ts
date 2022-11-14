@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { encryptPassword, makeSalt } from '@/utils/cryptogram.util';
 import { LoginDTO } from './dto/login.dto';
 import { RegisterDTO } from './dto/register.dto';
-import { User } from './entity/user.entity';
+import { User } from '../user/entities/user.mongo.entity';
 import { TokenVO } from './vo/token.vo';
 import { JwtService } from '@nestjs/jwt';
 import { In, Like, Raw, MongoRepository } from 'typeorm';
