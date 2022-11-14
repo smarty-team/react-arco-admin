@@ -6,7 +6,7 @@ import { CourseModule } from './course/course.module';
 import { AuthModule } from './auth/auth.module'
 
 @Module({
-  imports: [UserModule, CourseModule, AuthModule],
+  imports: [AuthModule, UserModule, CourseModule,],
   controllers: [AppController,],
   providers: [AppService],
 })

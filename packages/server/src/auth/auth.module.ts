@@ -7,6 +7,8 @@ import { JwtStrategy } from './jwt.strategy';
 import { ConfigService } from '@nestjs/config';
 import { DatabaseModule } from '@/common/database/database.module';
 import { UserProviders } from '@/user/user.providers';
+import { UserModule } from '@/user/user.module';
+
 
 @Module({
   imports: [
@@ -23,8 +25,11 @@ import { UserProviders } from '@/user/user.providers';
         },
       }), // 获取配置信息
     }),
+    UserModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, ...UserProviders]
+  providers: [AuthService, JwtStrategy],
+
+
 })
 export class AuthModule { }
