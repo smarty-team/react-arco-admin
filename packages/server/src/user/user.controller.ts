@@ -44,8 +44,8 @@ export class UserController {
     status: HttpStatus.NOT_FOUND,
     type: BaseApiErrorResponse,
   })
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt'))
   @Get()
   async findAll(
     @Query() query: PaginationParams2Dto
