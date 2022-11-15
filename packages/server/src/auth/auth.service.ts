@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, Inject } from '@nestjs/common';
-import { encryptPassword, makeSalt } from '@/utils/cryptogram.util';
+import { encryptPassword, makeSalt } from '@/shared/utils/cryptogram.util';
 import { LoginDTO } from './dto/login.dto';
 import { RegisterDTO } from './dto/register.dto';
 import { User } from '../user/entities/user.mongo.entity';

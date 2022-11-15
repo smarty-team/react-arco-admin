@@ -1,5 +1,5 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { getConfig } from 'src/utils/index'
+import { getConfig } from '@/shared/utils/index'
 const path = require('path');
 
 // 设置数据库类型
