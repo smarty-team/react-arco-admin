@@ -27,9 +27,9 @@ export class AuthService {
     if (registerDTO.password !== registerDTO.passwordRepeat) {
       throw new NotFoundException('两次输入的密码不一致，请检查')
     }
-    const { mobile } = registerDTO
+    const { phoneNumber } = registerDTO
     const hasUser = await this.userRepository
-      .findOneBy({ mobile })
+      .findOneBy({ phoneNumber })
     if (hasUser) {
       throw new NotFoundException('用户已存在')
     }
@@ -42,13 +42,13 @@ export class AuthService {
 
     await this.checkRegisterForm(registerDTO)
 
-    const { nickname, password, mobile } = registerDTO;
+    const { name, password, phoneNumber } = registerDTO;
     const salt = makeSalt(); // 制作密码盐
     const hashPassword = encryptPassword(password, salt);  // 加密密码
 
     const newUser: User = new User()
-    newUser.nickname = nickname
-    newUser.mobile = mobile
+    newUser.name = name
+    newUser.phoneNumber = phoneNumber
     newUser.password = hashPassword
     newUser.salt = salt
     const data = await this.userRepository.save(newUser)
@@ -63,9 +63,9 @@ export class AuthService {
   async checkLoginForm(
     loginDTO: LoginDTO
   ): Promise<any> {
-    const { mobile, password } = loginDTO
+    const { phoneNumber, password } = loginDTO
     const user = await this.userRepository
-      .findOneBy({ mobile })
+      .findOneBy({ phoneNumber })
 
     if (!user) {
       throw new NotFoundException('用户不存在')
@@ -84,8 +84,8 @@ export class AuthService {
   async certificate(user: User) {
     const payload = {
       id: user.id,
-      nickname: user.nickname,
-      mobile: user.mobile,
+      name: user.name,
+      phoneNumber: user.phoneNumber,
     };
     const token = this.jwtService.sign(payload);
     return token
@@ -102,6 +102,5 @@ export class AuthService {
       }
     }
   }
-
 
 }
