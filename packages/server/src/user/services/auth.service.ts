@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { encryptPassword, makeSalt } from '@/shared/utils/cryptogram.util';
-import { LoginDTO } from './dto/login.dto';
-import { RegisterDTO } from './dto/register.dto';
-import { User } from '../user/entities/user.mongo.entity';
-import { TokenVO } from './vo/token.vo';
+import { LoginDTO } from '../dtos/login.dto';
+import { RegisterDTO } from '../dtos/register.dto';
+import { User } from '../entities/user.mongo.entity';
+import { TokenVO } from '../dtos/token.vo';
 import { JwtService } from '@nestjs/jwt';
 import { In, Like, Raw, MongoRepository } from 'typeorm';
 
@@ -101,6 +101,12 @@ export class AuthService {
         token
       }
     }
+  }
+
+
+  async info(id: string) {
+    // 查询用户并获取权限
+    return await this.userRepository.findOneBy(id)
   }
 
 }

@@ -48,12 +48,4 @@ export class CreateUserDto {
     @IsNotEmpty()
     personalWebsite: string;
 
-
-    @ApiProperty({
-        example: [{
-
-        }]
-    })
-    permissions: object;
-
 }

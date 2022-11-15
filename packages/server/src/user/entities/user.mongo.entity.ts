@@ -25,6 +25,9 @@ export class User {
     password: string;
 
     @Column()
+    role?: ObjectId
+
+    @Column()
     job: string;
 
     @Column()

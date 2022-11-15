@@ -1,11 +1,11 @@
 import { Controller, UseGuards, HttpStatus, Post, Body, Query, Get, Patch, Param, Delete } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateUserDto } from './dtos/user.dto';
+import { UserService } from '../services/user.service';
+import { CreateUserDto } from '../dtos/user.dto';
 import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import {
   BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
-} from '../shared/dtos/base-api-response.dto';
-import { PaginationParams2Dto } from '../shared/dtos/pagination-params.dto'
+} from '../../shared/dtos/base-api-response.dto';
+import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 import { AuthGuard } from '@nestjs/passport';
 
 

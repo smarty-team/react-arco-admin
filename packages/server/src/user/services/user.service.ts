@@ -1,8 +1,8 @@
 import { In, Like, Raw, MongoRepository } from 'typeorm';
 import { Injectable, Inject } from '@nestjs/common';
-import { User } from './entities/user.mongo.entity';
-import { CreateUserDto } from './dtos/user.dto'
-import { PaginationParams2Dto } from '../shared/dtos/pagination-params.dto'
+import { User } from '../entities/user.mongo.entity';
+import { CreateUserDto } from '../dtos/user.dto'
+import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 
 @Injectable()
 export class UserService {

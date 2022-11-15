@@ -1,19 +1,22 @@
-import { Body, Controller, Post, Get, HttpStatus } from '@nestjs/common';
-import { LoginDTO } from './dto/login.dto';
-import { RegisterDTO } from './dto/register.dto';
-import { AuthService } from './auth.service';
-import { TokenVO } from './vo/token.vo';
-import { UserInfoSuccessVO } from './vo/user-info.vo';
+import { Body, Controller, Post, Get, HttpStatus, Req, UseGuards, } from '@nestjs/common';
+import { LoginDTO } from '../dtos/login.dto';
+import { RegisterDTO } from '../dtos//register.dto';
+import { AuthService } from '../services/auth.service';
+import { TokenVO } from '../dtos/token.vo';
+import { UserInfoSuccessVO } from '../dtos/user-info.vo';
 import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import {
   BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
-} from '../shared/dtos/base-api-response.dto';
+} from '../../shared/dtos/base-api-response.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { UserService } from '@/user/services/user.service'
 
 @ApiTags('认证鉴权')
 @Controller('auth')
 export class AuthController {
   constructor(
-    private userService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) { }
 
   @ApiOperation({
@@ -31,7 +34,7 @@ export class AuthController {
   async register(
     @Body() registerDTO: RegisterDTO
   ): Promise<UserInfoSuccessVO> {
-    return this.userService.register(registerDTO)
+    return this.authService.register(registerDTO)
   }
 
 
@@ -50,7 +53,7 @@ export class AuthController {
   async login(
     @Body() loginDTO: LoginDTO
   ): Promise<TokenVO> {
-    return this.userService.login(loginDTO)
+    return this.authService.login(loginDTO)
   }
 
 
@@ -67,9 +70,14 @@ export class AuthController {
     type: BaseApiErrorResponse,
   })
   @Get('info')
-  async info(): Promise<any> {
-    // return this.userService.login(loginDTO)
-    return { data: { ok: 1 } }
+  @UseGuards(AuthGuard('jwt'))
+  async info(@Req() req: any): Promise<any> {
+
+    const data = await this.userService.findOne(req.user.id)
+    console.log('Req', req.user, data)
+    delete data.password
+    // this.authService
+    return { data }
   }
 
 
