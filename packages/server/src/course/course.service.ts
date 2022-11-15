@@ -12,7 +12,7 @@ export class CourseService {
   ) { }
 
 
-  async create(course: Course) {
+  async create(course: CreateCourseDto) {
     return await this.courseRepository.save(course)
   }
 
@@ -30,23 +30,17 @@ export class CourseService {
   }
 
   async findOne(id: string) {
-    // return await this.courseRepository.findOneBy({ _id: id })
     console.log('id', id)
     return await this.courseRepository.findOneBy(id)
 
 
   }
 
-  async update(id: string, course: Course) {
-    // const r = await this.courseRepository.findOneBy(_id)
-    // 删除时间戳
-
+  async update(id: string, course: UpdateCourseDto) {
     // 去除时间戳和id
     ['id', 'createdAt', 'updatedAt'].forEach(
       k => delete course[k]
     )
-    // 更新时间戳
-    course.updatedAt = new Date()
 
     return await this.courseRepository.update(id, course)
   }

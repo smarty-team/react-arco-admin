@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '@/common/database/database.module';
+import { DatabaseModule } from '@/shared/database/database.module';
 import { AuthController } from './controllers/auth.controller';
 import { UserController } from './controllers/user.controller';
 import { RoleController } from './controllers/role.controller';

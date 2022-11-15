@@ -1,10 +1,10 @@
 import { Entity, Column, Unique, UpdateDateColumn, ObjectIdColumn, CreateDateColumn, ManyToMany, JoinTable, OneToOne } from 'typeorm';
 import { ObjectId } from 'mongoose';
 import { Role } from './role.mongo.entity';
+import { Common } from '@/shared/entities/common.entity';
+
 @Entity()
-export class User {
-    @ObjectIdColumn()
-    id?: ObjectId;
+export class User extends Common {
 
     // 昵称
     @Column('text')
@@ -64,11 +64,4 @@ export class User {
 
     @Column()
     isAccountDisabled?: boolean;
-
-
-    @CreateDateColumn({ name: 'createdAt', nullable: true })
-    createdAt?: Date;
-
-    @UpdateDateColumn({ name: 'updatedAt', nullable: true })
-    updatedAt?: Date;
 }

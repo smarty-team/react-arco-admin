@@ -1,4 +1,4 @@
-import { SuccessVO } from "@/common/dto/success.dto";
+import { SuccessVO } from "@/shared/dtos/success.dto";
 
 export class UserInfoItem {
   /**

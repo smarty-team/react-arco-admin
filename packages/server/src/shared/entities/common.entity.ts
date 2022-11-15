@@ -1,6 +1,6 @@
 import {
-  Column, 
-  PrimaryGeneratedColumn, 
+  Column,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
   CreateDateColumn,
   VersionColumn,
@@ -13,11 +13,11 @@ export abstract class Common {
 
   // 创建时间
   @CreateDateColumn()
-  createTime: Date
+  createdAt: Date
 
   // 更新时间
   @UpdateDateColumn()
-  updateTime: Date
+  updatedAt: Date
 
   // 软删除
   @Column({
