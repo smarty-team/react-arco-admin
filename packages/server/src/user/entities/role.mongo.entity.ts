@@ -1,5 +1,6 @@
-import { Entity, Column, Unique, UpdateDateColumn, ObjectIdColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, Unique, UpdateDateColumn, ObjectIdColumn, CreateDateColumn, ManyToMany, JoinTable } from 'typeorm';
 import { ObjectId } from 'mongoose';
+import { User } from './user.mongo.entity';
 @Entity()
 export class Role {
     @ObjectIdColumn()
@@ -12,6 +13,7 @@ export class Role {
     // 权限
     @Column('')
     permissions: object;
+
 
     @CreateDateColumn({ name: 'createdAt', nullable: true })
     createdAt?: Date;

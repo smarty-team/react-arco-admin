@@ -15,6 +15,7 @@ specifiers:
   '@nestjs/schematics': ^9.0.0
   '@nestjs/swagger': ^6.1.2
   '@nestjs/testing': ^9.0.0
+  '@nestjs/typeorm': ^9.0.1
   '@types/express': ^4.17.13
   '@types/jest': 28.1.8
   '@types/node': ^16.0.0
@@ -60,6 +61,7 @@ dependencies:
   '@nestjs/platform-express': 9.1.6_6whalgrsvisgjemghedgkfq7dm
   '@nestjs/platform-fastify': 9.1.6_frdr3xk4e6zl6uz67hsjykt7si
   '@nestjs/swagger': 6.1.3_tqdhayurpyu2ctyxryvrqn3rla
+  '@nestjs/typeorm': registry.npmmirror.com/@nestjs/typeorm/9.0.1_v5sk3sol6y4pjqg44yrie3mozm
   class-transformer: 0.5.1
   class-validator: 0.13.2
   cross-env: 7.0.3
@@ -618,7 +620,7 @@ packages:
       '@aws-sdk/types': 3.200.0
       '@aws-sdk/util-middleware': 3.200.0
       tslib: 2.4.1
-      uuid: 8.3.2
+      uuid: registry.npmmirror.com/uuid/8.3.2
     dev: false
     optional: true
 
@@ -6592,6 +6594,26 @@ packages:
       passport: registry.npmmirror.com/passport/0.6.0
     dev: false
 
+  registry.npmmirror.com/@nestjs/typeorm/9.0.1_v5sk3sol6y4pjqg44yrie3mozm:
+    resolution: {integrity: sha512-A2BgLIPsMtmMI0bPKEf4bmzgFPsnvHqNBx3KkvaJ7hJrBQy0OqYOb+Rr06ifblKWDWS2tUPNrAFQbZjtk3PI+g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@nestjs/typeorm/-/typeorm-9.0.1.tgz}
+    id: registry.npmmirror.com/@nestjs/typeorm/9.0.1
+    name: '@nestjs/typeorm'
+    version: 9.0.1
+    peerDependencies:
+      '@nestjs/common': ^8.0.0 || ^9.0.0
+      '@nestjs/core': ^8.0.0 || ^9.0.0
+      reflect-metadata: ^0.1.13
+      rxjs: ^7.2.0
+      typeorm: ^0.3.0
+    dependencies:
+      '@nestjs/common': 9.1.6_x6yqyveuahcdef4z4mxykmuv6a
+      '@nestjs/core': 9.1.6_bx3wiubfryfbvpzqwr6ml4ajpu
+      reflect-metadata: 0.1.13
+      rxjs: 7.5.7
+      typeorm: 0.3.10_uqz743nptq2jd6gcrh44nem7vi
+      uuid: registry.npmmirror.com/uuid/8.3.2
+    dev: false
+
   registry.npmmirror.com/@types/jsonwebtoken/8.5.8:
     resolution: {integrity: sha512-zm6xBQpFDIDM6o9r6HSgDeIcLy82TKWctCXEPbJJcXb5AKmi5BNNdLXneixK4lplX3PqIVcwLBCGE/kAGnlD4A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/jsonwebtoken/-/jsonwebtoken-8.5.8.tgz}
     name: '@types/jsonwebtoken'
@@ -6817,4 +6839,11 @@ packages:
     name: utils-merge
     version: 1.0.1
     engines: {node: '>= 0.4.0'}
+    dev: false
+
+  registry.npmmirror.com/uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/uuid/-/uuid-8.3.2.tgz}
+    name: uuid
+    version: 8.3.2
+    hasBin: true
     dev: false

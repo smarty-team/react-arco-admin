@@ -1,5 +1,6 @@
-import { Entity, Column, Unique, UpdateDateColumn, ObjectIdColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, Unique, UpdateDateColumn, ObjectIdColumn, CreateDateColumn, ManyToMany, JoinTable, OneToOne } from 'typeorm';
 import { ObjectId } from 'mongoose';
+import { Role } from './role.mongo.entity';
 @Entity()
 export class User {
     @ObjectIdColumn()

@@ -10,9 +10,16 @@ import { UserProviders } from './user.providers';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
+
+// import { TypeOrmModule } from '@nestjs/typeorm';
+
+// import { User } from '../'
+
+
 @Module({
   imports: [
     DatabaseModule,
+
     JwtModule.registerAsync({
       // inject: [ConfigService],  // 注入 ConfigService
       useFactory: () => ({

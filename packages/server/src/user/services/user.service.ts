@@ -1,6 +1,7 @@
 import { In, Like, Raw, MongoRepository } from 'typeorm';
 import { Injectable, Inject } from '@nestjs/common';
 import { User } from '../entities/user.mongo.entity';
+import { Role } from '../entities/role.mongo.entity'
 import { CreateUserDto } from '../dtos/user.dto'
 import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 
@@ -8,10 +9,13 @@ import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 export class UserService {
   constructor(
     @Inject('USER_REPOSITORY')
-    private userRepository: MongoRepository<User>
+    private userRepository: MongoRepository<User>,
+
+    @Inject('ROLE_REPOSITORY')
+    private roleRepository: MongoRepository<Role>
   ) { }
 
-  create(user) {
+  async create(user) {
     return this.userRepository.save(user)
   }
 
@@ -31,8 +35,6 @@ export class UserService {
 
   async findOne(id: string) {
     return await this.userRepository.findOneBy(id)
-
-
   }
 
   async update(id: string, user: CreateUserDto) {
