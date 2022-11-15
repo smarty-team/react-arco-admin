@@ -46,6 +46,6 @@ export class CreateUserDto {
 
     @ApiProperty({ example: 'cookieboty' })
     @IsNotEmpty()
-    personalWebsite: string;
+    personalWebsite?: string;
 
 }

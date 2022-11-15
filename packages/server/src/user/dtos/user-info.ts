@@ -49,6 +49,8 @@ export class UserInfoDto {
   personalWebsite: string;
 
   @ApiProperty({ example: 'cookieboty' })
-  permissions: []
+  permissions?: object | []
+
+  salt?: string
 
 }

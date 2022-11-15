@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { encryptPassword, makeSalt } from '@/shared/utils/cryptogram.util';
 import { LoginDTO } from '../dtos/login.dto';
 import { RegisterDTO } from '../dtos/register.dto';
+import { UserInfoDto } from '../dtos/user-info'
 import { User } from '../entities/user.mongo.entity';
 import { Role } from '../entities/role.mongo.entity'
 import { TokenVO } from '../dtos/token.vo';
@@ -112,8 +113,12 @@ export class AuthService {
   async info(id: string) {
     // 查询用户并获取权限
     const user = await this.userRepository.findOneBy(id)
-    const { permissions } = await this.roleRepository.findOneBy(user.role)
-    const data = Object.assign({}, user, { permissions })
+    const data: UserInfoDto = Object.assign({}, user)
+    if (user.role) {
+      const role = await this.roleRepository.findOneBy(user.role)
+      if (role) data.permissions = role.permissions
+    }
+
     return data
 
   }

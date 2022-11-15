@@ -75,6 +75,7 @@ export class AuthController {
   async info(@Req() req: any): Promise<any> {
     const data = await this.authService.info(req.user.id)
     delete data.password
+    delete data.salt
     return { data }
   }
 }
