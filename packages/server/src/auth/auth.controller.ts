@@ -1,10 +1,10 @@
-import { Body, Controller, Post, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Post, Get, HttpStatus } from '@nestjs/common';
 import { LoginDTO } from './dto/login.dto';
 import { RegisterDTO } from './dto/register.dto';
 import { AuthService } from './auth.service';
 import { TokenVO } from './vo/token.vo';
 import { UserInfoSuccessVO } from './vo/user-info.vo';
-import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import {
   BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
 } from '../shared/dtos/base-api-response.dto';
@@ -52,4 +52,25 @@ export class AuthController {
   ): Promise<TokenVO> {
     return this.userService.login(loginDTO)
   }
+
+
+  @ApiOperation({
+    summary: '当前用户信息',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: SwaggerBaseApiResponse(LoginDTO),
+  })
+  @ApiBearerAuth()
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    type: BaseApiErrorResponse,
+  })
+  @Get('info')
+  async info(): Promise<any> {
+    // return this.userService.login(loginDTO)
+    return { data: { ok: 1 } }
+  }
+
+
 }
