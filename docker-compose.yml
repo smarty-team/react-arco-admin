@@ -1,5 +1,33 @@
-version: '3.1'
+version: '3.8'
 services:
+  server:
+    build:
+      context: ./packages/server/
+      args:
+        - APP_ENV
+    # command: npm run start:dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./packages/server:/usr/src/app
+      - ./packages/server/node_modules:/usr/src/app/node_modules/
+    environment:
+      APP_ENV: ${APP_ENV}
+      APP_PORT: ${APP_PORT}
+      DB_URL: mongodb://mongo:27017
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_ENTITY_NAME: ${DB_ENTITY_NAME}
+      DB_SYNCHRONIZE: ${DB_SYNCHRONIZE}
+      DB_LOGGING: ${DB_LOGGING}
+      JWT_ACCESS_TOKEN_EXP_IN_SEC: ${JWT_ACCESS_TOKEN_EXP_IN_SEC}
+      JWT_REFRESH_TOKEN_EXP_IN_SEC: ${JWT_REFRESH_TOKEN_EXP_IN_SEC}
+      JWT_PUBLIC_KEY_BASE64: ${JWT_PUBLIC_KEY_BASE64}
+      JWT_PRIVATE_KEY_BASE64: ${JWT_PRIVATE_KEY_BASE64}
+      DEFAULT_ADMIN_USER_PASSWORD: ${DEFAULT_ADMIN_USER_PASSWORD}
+    depends_on:
+      - mongo
   mongo:
     image: mongo
     restart: always
@@ -10,6 +38,8 @@ services:
     restart: always
     ports:
       - 8081:8081
+    depends_on:
+      - mongo
   redis:
     image: redis
     ports:
