@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@fastify/static": "^6.5.0",
+    "@hapi/joi": "^17.1.1",
     "@nestjs/common": "^9.1.6",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
@@ -37,6 +38,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "cross-env": "^7.0.3",
+    "joi": "^17.7.0",
     "mongodb": "^3.6.0",
     "mongoose": "^6.7.0",
     "mysql2": "^2.3.3",
