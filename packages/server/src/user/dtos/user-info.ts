@@ -48,8 +48,11 @@ export class UserInfoDto {
   @IsNotEmpty()
   personalWebsite: string;
 
-  @ApiProperty({ example: 'cookieboty' })
+  @ApiProperty({ example: '{}' })
   permissions?: object | []
+
+  @ApiProperty({ example: 'roleid' })
+  role?;
 
   salt?: string
 
