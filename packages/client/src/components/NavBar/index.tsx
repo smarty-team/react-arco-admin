@@ -41,13 +41,15 @@ function Navbar({ show }: { show: boolean }) {
   const userInfo = useSelector((state: GlobalState) => state.userInfo);
   const dispatch = useDispatch();
 
-  const [_, setUserStatus] = useStorage('userStatus');
+  const [, setUserStatus] = useStorage('userStatus');
+  const [, setToken] = useStorage('token');
   const [role, setRole] = useStorage('userRole', 'admin');
 
   const { setLang, lang, theme, setTheme } = useContext(GlobalContext);
 
   function logout() {
     setUserStatus('logout');
+    setToken('')
     window.location.href = '/login';
   }
 
