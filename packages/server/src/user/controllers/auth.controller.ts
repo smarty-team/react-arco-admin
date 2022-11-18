@@ -1,6 +1,7 @@
 import { Body, Controller, Post, Get, HttpStatus, Req, UseGuards, } from '@nestjs/common';
 import { LoginDTO } from '../dtos/login.dto';
 import { RegisterDTO } from '../dtos//register.dto';
+import { UserInfoDto } from '../dtos/user-info'
 import { AuthService } from '../services/auth.service';
 import { TokenVO } from '../dtos/token.vo';
 import { UserInfoSuccessVO } from '../dtos/user-info.vo';
@@ -62,7 +63,7 @@ export class AuthController {
   })
   @ApiResponse({
     status: HttpStatus.OK,
-    type: SwaggerBaseApiResponse(LoginDTO),
+    type: SwaggerBaseApiResponse(UserInfoDto),
   })
   @ApiBearerAuth()
   @ApiResponse({
@@ -72,13 +73,9 @@ export class AuthController {
   @Get('info')
   @UseGuards(AuthGuard('jwt'))
   async info(@Req() req: any): Promise<any> {
-
-    const data = await this.userService.findOne(req.user.id)
-    console.log('Req', req.user, data)
+    const data = await this.authService.info(req.user.id)
     delete data.password
-    // this.authService
+    delete data.salt
     return { data }
   }
-
-
 }

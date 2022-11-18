@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CourseController } from './course.controller';
 import { CourseProviders } from './course.providers'
-import { DatabaseModule } from '@/common/database/database.module';
+import { SharedModule } from '@/shared/shared.module';
 
 // import { MongooseModule } from '@nestjs/mongoose';
 
@@ -10,7 +10,7 @@ import { DatabaseModule } from '@/common/database/database.module';
 
 @Module({
   imports: [
-    DatabaseModule
+    SharedModule
     // MongooseModule.forFeature([
     //   { name: Course.name, schema: Course },
     // ]),

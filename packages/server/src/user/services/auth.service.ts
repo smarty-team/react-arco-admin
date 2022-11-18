@@ -2,7 +2,9 @@ import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { encryptPassword, makeSalt } from '@/shared/utils/cryptogram.util';
 import { LoginDTO } from '../dtos/login.dto';
 import { RegisterDTO } from '../dtos/register.dto';
+import { UserInfoDto } from '../dtos/user-info'
 import { User } from '../entities/user.mongo.entity';
+import { Role } from '../entities/role.mongo.entity'
 import { TokenVO } from '../dtos/token.vo';
 import { JwtService } from '@nestjs/jwt';
 import { In, Like, Raw, MongoRepository } from 'typeorm';
@@ -13,6 +15,10 @@ export class AuthService {
   constructor(
     @Inject('USER_REPOSITORY')
     private userRepository: MongoRepository<User>,
+
+
+    @Inject('ROLE_REPOSITORY')
+    private roleRepository: MongoRepository<Role>,
 
     private readonly jwtService: JwtService
   ) { }
@@ -84,8 +90,7 @@ export class AuthService {
   async certificate(user: User) {
     const payload = {
       id: user.id,
-      name: user.name,
-      phoneNumber: user.phoneNumber,
+      role: user.role
     };
     const token = this.jwtService.sign(payload);
     return token
@@ -106,7 +111,15 @@ export class AuthService {
 
   async info(id: string) {
     // 查询用户并获取权限
-    return await this.userRepository.findOneBy(id)
+    const user = await this.userRepository.findOneBy(id)
+    const data: UserInfoDto = Object.assign({}, user)
+    if (user.role) {
+      const role = await this.roleRepository.findOneBy(user.role)
+      if (role) data.permissions = role.permissions
+    }
+
+    return data
+
   }
 
 }

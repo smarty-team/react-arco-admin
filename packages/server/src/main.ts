@@ -13,11 +13,9 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
 
+
   // 创建文档
   generateDocument(app)
-
-
-
-  await app.listen(3000);
+  await app.listen(3000, '0.0.0.0');
 }
 bootstrap();

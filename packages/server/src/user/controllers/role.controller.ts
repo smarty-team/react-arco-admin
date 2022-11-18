@@ -10,7 +10,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 
 @ApiTags('角色')
-@Controller('Role')
+@Controller('role')
 export class RoleController {
   constructor(
     private readonly RoleService: RoleService,

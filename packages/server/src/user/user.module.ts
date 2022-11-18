@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '@/common/database/database.module';
+import { SharedModule } from '@/shared/shared.module';
 import { AuthController } from './controllers/auth.controller';
 import { UserController } from './controllers/user.controller';
 import { RoleController } from './controllers/role.controller';
@@ -10,9 +10,15 @@ import { UserProviders } from './user.providers';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
+
+// import { TypeOrmModule } from '@nestjs/typeorm';
+
+// import { User } from '../'
+
+
 @Module({
   imports: [
-    DatabaseModule,
+    SharedModule,
     JwtModule.registerAsync({
       // inject: [ConfigService],  // 注入 ConfigService
       useFactory: () => ({

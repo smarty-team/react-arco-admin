@@ -4,12 +4,12 @@ export class CommonDTO extends IdDTO {
   /**
    * 创建时间
    */
-  readonly createTime: Date
+  readonly createAt: Date
 
   /**
    * 更新时间
    */
-  readonly updateTime: Date
+  readonly updateAt: Date
 
 
   /**
