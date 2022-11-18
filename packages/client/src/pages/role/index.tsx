@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Typography,
   Card,
@@ -56,6 +57,7 @@ function Index() {
       // 进入编辑模式
       setDrawerVisibleVisible(true);
       setEditedItem(record);
+      console.log('edit', record);
     } else if (type === 'delete') {
       try {
         // 请求删除
@@ -83,14 +85,13 @@ function Index() {
     setEditedItem(initial);
     // 弹出抽屉
     setDrawerVisibleVisible(true);
-    
   };
 
   // 编辑项
   const [editedItem, setEditedItem] = useState<Role>(initial);
 
   // 用户修改编辑项
-  const onEditedItemChange = (key: string, value: string) => {
+  const onEditedItemChange = (key: string, value: unknown) => {
     setEditedItem({ ...editedItem, [key]: value });
   };
 
@@ -177,7 +178,7 @@ function Index() {
     return routes.map((route) => {
       const item: TreeDataType = {
         title: t[route.name],
-        key: route.name,
+        key: route.key,
       };
       if (route.children) {
         item.children = generateMenus(route.children);
@@ -186,6 +187,25 @@ function Index() {
     });
   }
 
+  const RenderExtra = (node: TreeNodeProps) => {
+    const options = ['read', 'write'];
+    const { selected, setSelected } = Checkbox.useCheckbox(options);
+    useEffect(() => {
+      setSelected(editedItem.permissions[node.dataRef.key]);
+      console.log(editedItem.permissions[node.dataRef.key]);
+    }, [editedItem.permissions]);
+    return (
+      <Checkbox.Group
+        value={selected}
+        options={options}
+        onChange={(value) => {
+          setSelected(value);
+          editedItem.permissions[node.dataRef.key] = value;
+          onEditedItemChange('permissions', editedItem.permissions);
+        }}
+      />
+    );
+  };
   return (
     <>
       <Card>
@@ -224,28 +244,7 @@ function Index() {
             />
           </FormItem>
           <FormItem label="权限设置">
-            <Tree
-              treeData={menus}
-              blockNode
-              renderExtra={(node: TreeNodeProps) => {
-                const defaultValue =
-                  editedItem.permissions[node.dataRef.key] || [];
-                  // console.log('----');
-                  // console.log(editedItem, defaultValue);
-
-                return (
-                  <Checkbox.Group
-                    defaultValue={defaultValue}
-                    options={['read', 'write']}
-                    onChange={(value) => {
-                      editedItem.permissions[node.dataRef.key] = value;
-                      setEditedItem({ ...editedItem });
-                      console.log(editedItem);
-                    }}
-                  />
-                );
-              }}
-            ></Tree>
+            <Tree treeData={menus} blockNode renderExtra={RenderExtra}></Tree>
           </FormItem>
         </Form>
       </Drawer>
