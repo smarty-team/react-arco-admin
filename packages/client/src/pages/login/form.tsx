@@ -7,7 +7,7 @@ import {
   Space,
 } from '@arco-design/web-react';
 import { FormInstance } from '@arco-design/web-react/es/Form';
-import { IconLock, IconUser } from '@arco-design/web-react/icon';
+import { IconLock, IconUser, IconPhone } from '@arco-design/web-react/icon';
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import useStorage from '@/utils/useStorage';
@@ -26,7 +26,7 @@ export default function LoginForm() {
 
   const [rememberPassword, setRememberPassword] = useState(!!loginParams);
 
-  function afterLoginSuccess(params) {
+  function afterLoginSuccess(params, token) {
     // 记住密码
     if (rememberPassword) {
       setLoginParams(JSON.stringify(params));
@@ -35,6 +35,8 @@ export default function LoginForm() {
     }
     // 记录登录状态
     localStorage.setItem('userStatus', 'login');
+    // 存储令牌
+    localStorage.setItem('token', token)
     // 跳转首页
     window.location.href = '/';
   }
@@ -43,13 +45,13 @@ export default function LoginForm() {
     setErrorMessage('');
     setLoading(true);
     axios
-      .post('/api/user/login', params)
+      .post('/api/auth/login', params)
       .then((res) => {
-        const { status, msg } = res.data;
-        if (status === 'ok') {
-          afterLoginSuccess(params);
+        const { token } = res.data.data;
+        if (token) {
+          afterLoginSuccess(params, token);
         } else {
-          setErrorMessage(msg || t['login.form.login.errMsg']);
+          setErrorMessage(t['login.form.login.errMsg']);
         }
       })
       .finally(() => {
@@ -84,14 +86,14 @@ export default function LoginForm() {
         className={styles['login-form']}
         layout="vertical"
         ref={formRef}
-        initialValues={{ userName: 'admin', password: 'admin' }}
+        initialValues={{ phoneNumber: '15011046537', password: '888888' }}
       >
         <Form.Item
-          field="userName"
+          field="phoneNumber"
           rules={[{ required: true, message: t['login.form.userName.errMsg'] }]}
         >
           <Input
-            prefix={<IconUser />}
+            prefix={<IconPhone />}
             placeholder={t['login.form.userName.placeholder']}
             onPressEnter={onSubmitClick}
           />

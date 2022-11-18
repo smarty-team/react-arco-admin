@@ -7,6 +7,7 @@ if (!isSSR) {
   Mock.XHR.prototype.withCredentials = true;
 
   setupMock({
+    // mock: false,
     setup: () => {
       // 用户信息
       const userRole = window.localStorage.getItem('userRole') || 'admin';
@@ -50,6 +51,9 @@ if (!isSSR) {
         if (userName === 'admin' && password === 'admin') {
           return {
             status: 'ok',
+            data: {
+              token: 'a mock token'
+            }
           };
         }
         return {

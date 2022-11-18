@@ -1,104 +1,91 @@
-import axios from 'axios'
-import { Modal, Message } from '@arco-design/webpack-plugin'
-// import store from '@/store'
-// import { getToken } from '@/utils/auth'
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { Modal, Message } from '@arco-design/web-react';
 
 // create an axios instance
 const service = axios.create({
-  // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  // baseURL: import.meta.env.API_BASE, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
-})
+  timeout: 5000, // request timeout
+});
 
 // request interceptor
 service.interceptors.request.use(
-  config => {
+  (config: AxiosRequestConfig) => {
     // do something before request is sent
     // 获取本地存储的token，若存在附加在请求头上
-    // if (store.getters.token) {
+    const token = localStorage.getItem('token');
+    if (token) {
       // let each request carry token
-      // ['X-Token'] is a custom headers key
+      // ['Authorization'] is a custom headers key
       // please modify it according to the actual situation
       // 在这里附加令牌
-      // config.headers['X-Token'] = getToken()
-    // }
-    return config
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
   },
-  error => {
+  (error: AxiosError) => {
     // do something with request error
-    console.log(error) // for debug
-    return Promise.reject(error)
+    console.log(error); // for debug
+    return Promise.reject(error);
   }
-)
+);
 
 // response interceptor
 service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
    * Please return  response => response
-  */
+   */
 
   /**
    * Determine the request status by custom code
    * Here is just an example
    * You can also judge the status by HTTP Status Code
    */
-  response => {
-    const res = response.data
+  (response: AxiosResponse) => response.data,
+  (error: AxiosError) => {
+    // 根据状态码决定错误处理方式：
+    // 403-需要重新登陆
+    console.log('err' + error); // for debug
 
-    // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 20000) {
-      Message({
-        message: res.message || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
-
-      // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-        // to re-login
+    // 处理 HTTP 网络错误
+    let message = '';
+    // HTTP 状态码
+    const status = error.response?.status;
+    switch (status) {
+      case 401:
+        message = 'token失效，请重新登录';
+        // 这里可以触发退出的 action
         Modal.confirm({
-          title: '确认登出',
-          content:
-            '您将要执行注销，取消留在当前页面，确认重新登录',
-          okButtonProps: {
-            status: 'danger',
-          },
+          title: 'token失效',
+          content: 'token失效，请重新登录',
+          okText: '去登录',
+          cancelText: '取消',
           onOk: () => {
-            return new Promise((resolve, reject) => {
-              setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-            }).catch((e) => {
-              Message.error({
-                content: 'Error occurs!',
-              });
-              throw e;
-            });
+            // 清除过期令牌
+            localStorage.removeItem('token');
+            localStorage.removeItem('userStatus');
+
+            // 去登录页面
+            window.location.href = '/login';
           },
         });
-        MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
-          confirmButtonText: 'Re-Login',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
-            location.reload()
-          })
-        })
-      }
-      return Promise.reject(new Error(res.message || 'Error'))
-    } else {
-      return res
+        break;
+      case 403:
+        message = '拒绝访问';
+        break;
+      case 404:
+        message = '请求地址错误';
+        break;
+      case 500:
+        message = '服务器故障';
+        break;
+      default:
+        message = '网络连接故障';
     }
-  },
-  error => {
-    console.log('err' + error) // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
-    return Promise.reject(error)
+    Message.error(message);
+    return Promise.reject(error);
   }
-)
+);
 
-export default service
+export default service;

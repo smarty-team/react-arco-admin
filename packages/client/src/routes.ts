@@ -14,7 +14,7 @@ export type IRoute = AuthParams & {
 export const routes: IRoute[] = [
   {
     name: 'menu.dashboard',
-    key: 'dashboard', 
+    key: 'dashboard',
     children: [
       {
         name: 'menu.dashboard.workplace',
@@ -23,30 +23,20 @@ export const routes: IRoute[] = [
     ],
   },
   {
-    name: 'Example',
-    key: 'example',
+    name: 'menu.course',
+    key: 'course',
+    requiredPermissions: [{ resource: 'menu.course' }],
   },
   {
-    name: '课程管理',
-    key: 'course',
-    children: [
-      {
-        name: '课程列表',
-        key: 'course/list',
-        requiredPermissions: [
-          { resource: '课程列表' }
-        ],
-      },
-    ],
+    name: 'menu.user',
+    key: 'user',
+    requiredPermissions: [{ resource: 'menu.user' }],
   },
-  // {
-  //   name: '讲师',
-  //   key: 'teacher',
-  // },
-  // {
-  //   name: '留言',
-  //   key: 'comment',
-  // },
+  {
+    name: 'menu.role',
+    key: 'role',
+    requiredPermissions: [{ resource: 'menu.role' }],
+  },
 ];
 
 export const getName = (path: string, routes) => {
@@ -61,10 +51,10 @@ export const getName = (path: string, routes) => {
 };
 
 export const generatePermission = (role: string) => {
-
   const actions = role === 'admin' ? ['*'] : ['read'];
   const result = {};
   routes.forEach((item) => {
+    result[item.name] = actions;
     if (item.children) {
       item.children.forEach((child) => {
         result[child.name] = actions;
