@@ -25,17 +25,17 @@ export const routes: IRoute[] = [
   {
     name: 'menu.course',
     key: 'course',
-    requiredPermissions: [{ resource: 'menu.course' }],
+    requiredPermissions: [{ resource: 'course' }],
   },
   {
     name: 'menu.user',
     key: 'user',
-    requiredPermissions: [{ resource: 'menu.user' }],
+    requiredPermissions: [{ resource: 'user' }],
   },
   {
     name: 'menu.role',
     key: 'role',
-    requiredPermissions: [{ resource: 'menu.role' }],
+    requiredPermissions: [{ resource: 'role' }],
   },
 ];
 
@@ -54,10 +54,10 @@ export const generatePermission = (role: string) => {
   const actions = role === 'admin' ? ['*'] : ['read'];
   const result = {};
   routes.forEach((item) => {
-    result[item.name] = actions;
+    result[item.key] = actions;
     if (item.children) {
       item.children.forEach((child) => {
-        result[child.name] = actions;
+        result[child.key] = actions;
       });
     }
   });

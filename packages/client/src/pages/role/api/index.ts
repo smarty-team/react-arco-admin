@@ -1,7 +1,6 @@
 import { Result } from '@/api/types';
 import { PaginationProps } from '@arco-design/web-react';
 import http from '@/api/http';
-import { routes } from '@/routes';
 
 const url = '/api/Role';
 
