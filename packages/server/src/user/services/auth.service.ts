@@ -89,7 +89,7 @@ export class AuthService {
   // 生成 token
   async certificate(user: User) {
     const payload = {
-      id: user.id,
+      id: user._id,
       role: user.role
     };
     const token = this.jwtService.sign(payload);

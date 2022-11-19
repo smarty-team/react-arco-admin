@@ -48,4 +48,7 @@ export class CreateUserDto {
     @IsNotEmpty()
     personalWebsite?: string;
 
+    @ApiProperty({ example: '637855e9e8c408970ef9f4de' })
+    role?;
+
 }

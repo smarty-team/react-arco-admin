@@ -4,7 +4,7 @@ import { RegisterDTO } from '../dtos//register.dto';
 import { UserInfoDto } from '../dtos/user-info'
 import { AuthService } from '../services/auth.service';
 import { TokenVO } from '../dtos/token.vo';
-import { UserInfoSuccessVO } from '../dtos/user-info.vo';
+import { UserInfoSuccessVO } from '../dtos/auth';
 import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import {
   BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse

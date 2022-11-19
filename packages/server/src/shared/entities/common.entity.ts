@@ -4,12 +4,17 @@ import {
   UpdateDateColumn,
   CreateDateColumn,
   VersionColumn,
+  ObjectID,
+  ObjectIdColumn
 } from 'typeorm';
 
 export abstract class Common {
-  // 主键id
-  @PrimaryGeneratedColumn()
-  id: number;
+  // // 主键id
+  // @PrimaryGeneratedColumn()
+  // _id: string;
+
+  @ObjectIdColumn()
+  _id: ObjectID;
 
   // 创建时间
   @CreateDateColumn()

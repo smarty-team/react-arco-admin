@@ -3,7 +3,7 @@
     "paths": {
       "@/*": [
         "src/*"
-      ],
+      ]
     },
     "module": "commonjs",
     "declaration": true,

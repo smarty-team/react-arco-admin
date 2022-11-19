@@ -1,4 +1,4 @@
-import { Entity, Column, Unique, UpdateDateColumn, ObjectIdColumn, CreateDateColumn, ManyToMany, JoinTable } from 'typeorm';
+import { PrimaryGeneratedColumn, Entity, Column, Unique, UpdateDateColumn, ObjectIdColumn, CreateDateColumn, ManyToMany, JoinTable } from 'typeorm';
 import { ObjectId } from 'mongoose';
 import { User } from './user.mongo.entity';
 import { Common } from '@/shared/entities/common.entity';
