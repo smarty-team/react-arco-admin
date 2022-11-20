@@ -51,9 +51,6 @@ export class UserInfoDto {
   @ApiProperty({ example: '{}' })
   permissions?: object | []
 
-  @ApiProperty({ example: 'roleid' })
-  role?;
-
   salt?: string
 
 }
