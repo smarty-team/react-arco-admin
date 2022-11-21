@@ -9,7 +9,26 @@ export class CreateRoleDto extends IdDTO {
     @IsNotEmpty()
     name: string;
 
-    @ApiProperty({ example: [{ name: '菜单一', permissions: ['*'] }] })
+    @ApiProperty({
+        example: {
+            'dashboard/workplace': [
+                'write',
+                'read'
+            ],
+            user: [
+                'read',
+                'write'
+            ],
+            course: [
+                'write',
+                'read'
+            ],
+            role: [
+                'read',
+                'write'
+            ]
+        }
+    })
     @IsNotEmpty()
     permissions: object;
 
