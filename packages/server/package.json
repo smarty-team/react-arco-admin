@@ -15,11 +15,11 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
+    "test": "pnpm test:e2e",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest.e2e.config.js"
+    "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@fastify/static": "^6.5.0",
@@ -39,6 +39,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "cross-env": "^7.0.3",
+    "jest-resolver-tsconfig-paths": "^0.14.4",
     "joi": "link:@types/@hapi/joi",
     "mongodb": "^3.6.0",
     "mongoose": "^6.7.0",
@@ -50,6 +51,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "tsconfig-paths-jest": "^0.0.1",
+    "tsconfig-paths-jest-mapper": "^1.4.0",
     "typeorm": "^0.3.10",
     "yaml": "^2.1.3"
   },
