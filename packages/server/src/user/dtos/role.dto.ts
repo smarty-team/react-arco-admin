@@ -8,14 +8,31 @@ export class CreateRoleDto extends IdDTO {
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({
-    example: {
-      'dashboard/workplace': ['write', 'read'],
-      user: ['read', 'write'],
-      course: ['write', 'read'],
-      role: ['read', 'write'],
-    },
-  })
-  @IsNotEmpty()
-  permissions: object;
+    @ApiProperty({ example: 'admin' })
+    @IsNotEmpty()
+    name: string;
+
+    @ApiProperty({
+        example: {
+            'dashboard/workplace': [
+                'write',
+                'read'
+            ],
+            user: [
+                'read',
+                'write'
+            ],
+            course: [
+                'write',
+                'read'
+            ],
+            role: [
+                'read',
+                'write'
+            ]
+        }
+    })
+    @IsNotEmpty()
+    permissions: object;
+
 }
