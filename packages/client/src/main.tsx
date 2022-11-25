@@ -7,7 +7,6 @@ import { ConfigProvider } from '@arco-design/web-react';
 import zhCN from '@arco-design/web-react/es/locale/zh-CN';
 import enUS from '@arco-design/web-react/es/locale/en-US';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import axios from 'axios';
 import rootReducer from './store';
 import PageLayout from './layout';
 import { GlobalContext } from './context';
@@ -16,6 +15,7 @@ import checkLogin from './utils/checkLogin';
 import changeTheme from './utils/changeTheme';
 import useStorage from './utils/useStorage';
 import './mock';
+import { getUserInfo } from './api/user';
 
 const store = createStore(rootReducer);
 
@@ -34,22 +34,20 @@ function Index() {
     }
   }
 
-  function fetchUserInfo() {
-    store.dispatch({
-      type: 'update-userInfo',
-      payload: { userLoading: true },
-    });
-    axios.get('/api/user/userInfo').then((res) => {
-      store.dispatch({
-        type: 'update-userInfo',
-        payload: { userInfo: res.data, userLoading: false },
-      });
-    });
-  }
-
   useEffect(() => {
     if (checkLogin()) {
-      fetchUserInfo();
+      store.dispatch({
+        type: 'update-userInfo',
+        payload: { userLoading: true },
+      });
+      getUserInfo().then((userInfo) => {
+        console.log(userInfo);
+        
+        store.dispatch({
+          type: 'update-userInfo',
+          payload: { userInfo, userLoading: false },
+        });
+      });
     } else if (window.location.pathname.replace(/\//g, '') !== 'login') {
       window.location.pathname = '/login';
     }

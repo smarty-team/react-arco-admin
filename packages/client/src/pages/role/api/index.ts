@@ -2,16 +2,16 @@ import { Result } from '@/api/types';
 import { PaginationProps } from '@arco-design/web-react';
 import http from '@/api/http';
 
-const url = '/api/Role';
+const url = '/api/role';
 
 export interface Role {
-  id: string;
+  _id: string;
   name: string;
   permissions?: Record<string, string[]>;
 }
 // 编辑项初始值
 export const initial = {
-  id: '',
+  _id: '',
   name: '',
   permissions: {}
 };
@@ -31,9 +31,10 @@ export function deleteRole(id: string) {
 }
 
 export function updateRole(role: Role) {
-  return http.patch(`/api/Role/${role.id}`, role);
+  return http.patch(`/api/Role/${role._id}`, role);
 }
 
 export function addRole(role: Role) {
+  delete role._id
   return http.post(url, role);
 }
