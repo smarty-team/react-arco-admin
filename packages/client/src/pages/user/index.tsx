@@ -16,6 +16,7 @@ import {
   addUser,
   deleteUser,
   getUserList,
+  initial,
   updateUser,
   User,
 } from './api';
@@ -24,7 +25,7 @@ const Text = Typography.Text;
 const Title = Typography.Title;
 const FormItem = Form.Item;
 
-// 课程页面组件
+// 用户页面组件
 function Index() {
   // 获取列表数据
   const { data, loading, pagination, refresh } = usePagination(getUserList, {
@@ -52,9 +53,9 @@ function Index() {
     } else if (type === 'delete') {
       try {
         // 请求删除
-        await deleteUser(record.id);
+        await deleteUser(record._id);
         // 操作成功
-        Message.success('删除课程成功!');
+        Message.success('删除用户成功!');
         // 重新获取当前页面，
         // 如果恰好当前页面只有一条数据，回到上一页
         const { current, total, changeCurrent } = pagination;
@@ -65,7 +66,7 @@ function Index() {
         }
       } catch (error) {
         // 操作失败
-        Message.success('删除课程失败，请重试!');
+        Message.success('删除用户失败，请重试!');
       }
     }
   };
@@ -77,11 +78,6 @@ function Index() {
     setDrawerVisibleVisible(true);
   };
 
-  // 编辑项初始值
-  const initial = {
-    id: '',
-    name: '',
-  };
   // 编辑项
   const [editedItem, setEditedItem] = useState(initial);
   // 用户修改编辑项
@@ -93,14 +89,14 @@ function Index() {
   const [drawerVisible, setDrawerVisibleVisible] = useState(false);
   // 抽屉标题
   const drawerTitle = useMemo(
-    () => (editedItem.id ? '更新' : '新增') + '课程',
-    [editedItem.id]
+    () => (editedItem._id ? '更新' : '新增') + '用户',
+    [editedItem._id]
   );
 
   // 提交编辑表单
   const onSubmit = async () => {
     // id存在说明是编辑
-    const isEdit = editedItem.id ? true : false;
+    const isEdit = editedItem._id ? true : false;
     let message: string = isEdit ? '编辑' : '新增';
     try {
       // 根据标识符决定新增或更新
@@ -110,7 +106,7 @@ function Index() {
         await addUser(editedItem);
       }
       // 操作成功
-      message += '课程成功!';
+      message += '用户成功!';
       Message.success(message);
       // 关闭抽屉
       setDrawerVisibleVisible(false);
@@ -122,19 +118,19 @@ function Index() {
         refresh();
       }
     } catch (error) {
-      message += '课程失败，请重试!';
+      message += '用户失败，请重试!';
       Message.error(message);
     }
   };
 
   const columns = [
     {
-      title: '课程ID',
-      dataIndex: 'id',
+      title: '用户ID',
+      dataIndex: '_id',
       render: (value: string) => <Text copyable>{value}</Text>,
     },
     {
-      title: '课程名称',
+      title: '用户名称',
       dataIndex: 'name',
     },
     {
@@ -172,7 +168,7 @@ function Index() {
           新增
         </Button>
         <Table
-          rowKey="id"
+          rowKey="_id"
           loading={loading}
           onChange={({ current, pageSize }) =>
             pager.onChange(current, pageSize)
@@ -193,9 +189,9 @@ function Index() {
       >
         <Form autoComplete="off">
           <FormItem label="ID">
-            <Text>{editedItem.id}</Text>
+            <Text>{editedItem._id}</Text>
           </FormItem>
-          <FormItem label="课程名称">
+          <FormItem label="用户名称">
             <Input
               value={editedItem.name}
               onChange={(value: string) => onEditedItemChange('name', value)}

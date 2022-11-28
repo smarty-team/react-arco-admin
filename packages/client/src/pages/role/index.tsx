@@ -61,7 +61,7 @@ function Index() {
     } else if (type === 'delete') {
       try {
         // 请求删除
-        await deleteRole(record.id);
+        await deleteRole(record._id);
         // 操作成功
         Message.success('删除用户成功!');
         // 重新获取当前页面，
@@ -99,14 +99,14 @@ function Index() {
   const [drawerVisible, setDrawerVisibleVisible] = useState(false);
   // 抽屉标题
   const drawerTitle = useMemo(
-    () => (editedItem.id ? '编辑' : '新增') + '角色权限',
-    [editedItem.id]
+    () => (editedItem._id ? '编辑' : '新增') + '角色权限',
+    [editedItem._id]
   );
 
   // 提交编辑表单
   const onSubmit = async () => {
     // id存在说明是编辑
-    const isEdit = editedItem.id ? true : false;
+    const isEdit = editedItem._id ? true : false;
     let message: string = isEdit ? '编辑' : '新增';
     try {
       // 根据标识符决定新增或更新
@@ -136,7 +136,7 @@ function Index() {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'id',
+      dataIndex: '_id',
       render: (value: string) => <Text copyable>{value}</Text>,
     },
     {
@@ -214,7 +214,7 @@ function Index() {
           新增
         </Button>
         <Table
-          rowKey="id"
+          rowKey="_id"
           loading={loading}
           onChange={({ current, pageSize }) =>
             pager.onChange(current, pageSize)
@@ -235,7 +235,7 @@ function Index() {
       >
         <Form autoComplete="off">
           <FormItem label="ID">
-            <Text>{editedItem.id}</Text>
+            <Text>{editedItem._id}</Text>
           </FormItem>
           <FormItem label="角色名称">
             <Input

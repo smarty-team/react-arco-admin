@@ -5,9 +5,15 @@ import http from '@/api/http';
 const url = '/api/course';
 
 export interface Course {
-  id: string;
+  _id: string;
   name: string;
 }
+
+// 编辑项初始值
+export const initial = {
+  _id: '',
+  name: '',
+};
 
 export async function getCourseList({ current, pageSize }: PaginationProps) {
   const { data, meta } = await http.get<Result<Course>>(url, {
@@ -24,9 +30,10 @@ export function deleteCourse(id: string) {
 }
 
 export function updateCourse(course: Course) {
-  return http.patch(`/api/course/${course.id}`, course);
+  return http.patch(`/api/course/${course._id}`, course);
 }
 
 export function addCourse(course: Course) {
+  delete course._id;
   return http.post(url, course);
 }

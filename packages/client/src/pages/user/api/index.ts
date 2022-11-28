@@ -5,7 +5,7 @@ import http from '@/api/http';
 const url = '/api/user';
 
 export interface User {
-  id: string;
+  _id: string;
   name: string;
   avatar?: string;
   email?: string;
@@ -16,6 +16,12 @@ export interface User {
   location?: string;
   personalWebsite?: string;
 }
+
+// 编辑项初始值
+export const initial = {
+  _id: '',
+  name: '',
+};
 
 export async function getUserList({ current, pageSize }: PaginationProps) {
   const { data, meta } = await http.get<Result<User>>(url, {
@@ -32,9 +38,10 @@ export function deleteUser(id: string) {
 }
 
 export function updateUser(user: User) {
-  return http.patch(`/api/User/${user.id}`, user);
+  return http.patch(`/api/User/${user._id}`, user);
 }
 
-export function addUser(User: User) {
-  return http.post(url, User);
+export function addUser(user: User) {
+  delete user._id
+  return http.post(url, user);
 }
