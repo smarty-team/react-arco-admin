@@ -1,11 +1,16 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Inject } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { RegisterDTO } from './user/dtos/register.dto';
+
 
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(
+    private readonly appService: AppService,
+
+  ) { }
 
   @Get()
   getHello(): string {
@@ -16,11 +21,15 @@ export class AppController {
     summary: '初始化数据',
   })
   @Post('init')
-  initData(): string {
+  init() {
+    return this.appService.init()
+  }
 
-
-
-    // 初始化数据
-    return '初始化成功';
+  @ApiOperation({
+    summary: '清空数据',
+  })
+  @Delete('del')
+  clear() {
+    return this.appService.clear()
   }
 }

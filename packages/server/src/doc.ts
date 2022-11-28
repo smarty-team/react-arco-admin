@@ -7,7 +7,7 @@ export const generateDocument = (app) => {
         .setTitle(packageConfig.name)
         .setDescription(packageConfig.description)
         .setVersion(packageConfig.version)
-        .addBearerAuth()
+        .addBearerAuth() // 增加鉴权功能
         .build();
 
     const document = SwaggerModule.createDocument(app, options);
