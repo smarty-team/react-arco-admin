@@ -1,50 +1,45 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
+import Layout from "../components/layout";
 
-export default function Home() {
+export async function getStaticProps(context) {
+  return {
+    props: {
+      data: {},
+    },
+  };
+}
+export default function Home({ data }) {
   return (
-    <div className={styles.container}>
+    <Layout>
       <Head>
-        <title>Create Next App</title>
+        <title>Smart Team</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main>
+      <h1>Home Page</h1>
+      <main className="bg-base-200">
         <button className="btn">Button</button>
+        {/* <ul className="menu bg-base-100 p-2 rounded-box">
+        <li className="menu-title">
+          <span>前端框架</span>
+        </li>
+        <li>
+          <a>React</a>
+        </li>
+        <li>
+          <a>Vue</a>
+        </li>
+        <li className="menu-title">
+          <span>基础知识</span>
+        </li>
+        <li>
+          <a className="active">JavaScript</a>
+        </li>
+        <li>
+          <a>CSS</a>
+        </li>
+      </ul> */}
       </main>
-
-      <style jsx>{`
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
+    </Layout>
   );
 }
