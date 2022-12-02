@@ -38,7 +38,7 @@ export class CourseService {
 
   async update(id: string, course: UpdateCourseDto) {
     // 去除时间戳和id
-    ['id', 'createdAt', 'updatedAt'].forEach(
+    ['_id', 'createdAt', 'updatedAt'].forEach(
       k => delete course[k]
     )
 

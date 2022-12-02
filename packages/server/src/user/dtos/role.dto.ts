@@ -4,10 +4,6 @@ import { regMobileCN } from '@/shared/utils/regex.util';
 import { IdDTO } from '@/shared/dtos/id.dto';
 
 export class CreateRoleDto extends IdDTO {
-  @ApiProperty({ example: 'admin' })
-  @IsNotEmpty()
-  name: string;
-
     @ApiProperty({ example: 'admin' })
     @IsNotEmpty()
     name: string;

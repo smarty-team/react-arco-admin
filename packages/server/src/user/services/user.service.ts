@@ -40,7 +40,7 @@ export class UserService {
   async update(id: string, user: CreateUserDto) {
 
     // 去除时间戳和id
-    ['id', 'password', 'createdAt', 'updatedAt'].forEach(
+    ['_id', 'password', 'createdAt', 'updatedAt'].forEach(
       k => delete user[k]
     )
     // 更新时间戳
