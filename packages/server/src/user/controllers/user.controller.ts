@@ -7,6 +7,7 @@ import {
 } from '../../shared/dtos/base-api-response.dto';
 import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from '../guards/roles.guard';
 
 
 @ApiTags('用户')
@@ -44,13 +45,12 @@ export class UserController {
     status: HttpStatus.NOT_FOUND,
     type: BaseApiErrorResponse,
   })
-  // @ApiBearerAuth()
-  // @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Get()
   async findAll(
     @Query() query: PaginationParams2Dto
   ) {
-    // console.log(query)
     const { data, count } = await this.userService.findAll(query);
     return {
       data,
