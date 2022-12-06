@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import Layout from "../components/layout";
+import Layout from "./components/layout";
 
 export async function getStaticProps(context) {
   return {
@@ -19,6 +19,7 @@ export default function Home({ data }) {
       <h1>Home Page</h1>
       <main className="bg-base-200">
         <button className="btn">Button</button>
+        <div className="btn btn-ghost px-2">xxx</div>
         {/* <ul className="menu bg-base-100 p-2 rounded-box">
         <li className="menu-title">
           <span>前端框架</span>

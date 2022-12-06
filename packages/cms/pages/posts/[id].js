@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Layout from "../../components/layout";
+import Layout from "../components/layout";
 import { getMenuIDs } from "../../libs/menus";
 import { getPostData } from "../../libs/posts";
 
