@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+}
+
+.menu {
+  width: 20rem;
+  height: 100vh;
+  flex: none
+}
+
+.main {
+  flex-grow: 1;
+}
