@@ -1,7 +1,7 @@
 // import Link from "next/link";
 import ActiveLink from "./active-link";
 import { useEffect, useState } from "react";
-import { useMenus, flatMenus } from "../libs/menus";
+import { useMenus, flatMenus } from "../../libs/menus";
 
 export function SideMenu() {
   // 请求获取menus

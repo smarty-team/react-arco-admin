@@ -1,22 +1,21 @@
 import { SideMenu } from "./side-menu";
-import layout from "./layout.module.css";
 import { LogoBar } from "./logo-bar";
 
 export default function Layout({ children }) {
   return (
-    <div className={layout.container}>
+    <div className="flex">
       {/* 菜单 */}
-      <aside className={`bg-base-200 ${layout.menu}`}>
+      <aside className="bg-base-200 w-80 h-[100vh] flex-none">
         {/* logo */}
         <LogoBar></LogoBar>
         {/* 菜单项 */}
         <SideMenu></SideMenu>
       </aside>
-      <main className={layout.main}>
+      <main className="flex-1">
         {/* 导航 */}
-        <nav className={layout.nav}>nav</nav>
+        <nav className="w-full max-w-4xl">nav</nav>
         {/* 文章内容 */}
-        <div className={layout.content}>{children}</div>
+        <div className="w-full max-w-4xl">{children}</div>
       </main>
     </div>
   );
