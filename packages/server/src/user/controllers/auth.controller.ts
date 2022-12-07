@@ -1,16 +1,18 @@
-import { Body, Controller, Post, Get, HttpStatus, Req, UseGuards, } from '@nestjs/common';
+import { Body, Controller, Post, Get, HttpStatus, Req, UseGuards, UseInterceptors, UploadedFile, } from '@nestjs/common';
 import { LoginDTO } from '../dtos/login.dto';
 import { RegisterDTO } from '../dtos//register.dto';
 import { UserInfoDto } from '../dtos/user-info'
 import { AuthService } from '../services/auth.service';
 import { TokenVO } from '../dtos/token.vo';
 import { UserInfoSuccessVO } from '../dtos/auth';
-import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import {
   BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
 } from '../../shared/dtos/base-api-response.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from '@/user/services/user.service'
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UploadDTO } from '../dtos/upload.dto';
 
 @ApiTags('认证鉴权')
 @Controller('auth')
@@ -78,4 +80,19 @@ export class AuthController {
     delete data.salt
     return { data }
   }
+
+  @Post('upload')
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor('file'))
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  async upload(
+    @Req() req: any,
+    @Body() uploadDTO: UploadDTO,
+    @UploadedFile() file
+  ): Promise<any> {
+
+    return await this.authService.uploadAvatar(req.user.id, file)
+  }
+
 }
