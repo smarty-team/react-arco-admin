@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev:admin": "cd packages/admin;pnpm dev;",
+    "dev:cms": "cd packages/cms;pnpm dev;",
     "start:server": "cd packages/server;pnpm dev;"
   },
   "keywords": [],

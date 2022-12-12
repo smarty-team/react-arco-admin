@@ -41,8 +41,6 @@ function Index() {
         payload: { userLoading: true },
       });
       getUserInfo().then((userInfo) => {
-        console.log(userInfo);
-        
         store.dispatch({
           type: 'update-userInfo',
           payload: { userInfo, userLoading: false },
