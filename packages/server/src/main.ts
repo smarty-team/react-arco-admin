@@ -5,13 +5,27 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { generateDocument } from './doc'
+import { join } from 'path'
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
   // const app = await NestFactory.create(AppModule);
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    new FastifyAdapter(),
-  );
+
+  const app = await NestFactory.create<NestExpressApplication>(AppModule)
+
+  // const app = await NestFactory.create<NestFastifyApplication>(
+  //   AppModule,
+  //   new FastifyAdapter(),
+  // );
+
+  process.env.UPLOAD_DIR
+
+  const uploadDir = (!!process.env.UPLOAD_DIR && process.env.UPLOAD_DIR !== '') ? process.env.UPLOAD_DIR : join(__dirname, '..', 'static/upload')
+
+  // 静态服务
+  app.useStaticAssets(uploadDir, {
+    prefix: '/static/upload',
+  });
 
 
   // 创建文档

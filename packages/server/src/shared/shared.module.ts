@@ -8,6 +8,7 @@ import { configModuleOptions } from './configs/module-options';
 // import { LoggingInterceptor } from './interceptors/logging.interceptor';
 // import { AppLoggerModule } from './logger/logger.module';
 
+import { UploadService } from './upload/upload.service'
 
 import { DatabaseProviders } from './database/database.providers';
 
@@ -15,10 +16,7 @@ import { DatabaseProviders } from './database/database.providers';
   providers: [...DatabaseProviders],
   exports: [...DatabaseProviders],
 })
-
 export class DatabaseModule { }
-
-
 
 @Module({
   imports: [
@@ -46,16 +44,19 @@ export class DatabaseModule { }
   exports: [
     // AppLoggerModule, 
     ConfigModule,
-    ...DatabaseProviders
+    ...DatabaseProviders,
+    UploadService
   ],
   providers: [
-    ...DatabaseProviders
+    ...DatabaseProviders,
     // { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
 
     // {
     //   provide: APP_FILTER,
     //   useClass: AllExceptionsFilter,
     // },
+
+    UploadService
   ],
 })
 export class SharedModule { }

@@ -8,6 +8,10 @@ import { Role } from '../entities/role.mongo.entity'
 import { TokenVO } from '../dtos/token.vo';
 import { JwtService } from '@nestjs/jwt';
 import { In, Like, Raw, MongoRepository } from 'typeorm';
+import { writeFile } from 'fs/promises';
+import { join } from 'path'
+import { UploadService } from '../../shared/upload/upload.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +24,12 @@ export class AuthService {
     @Inject('ROLE_REPOSITORY')
     private roleRepository: MongoRepository<Role>,
 
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+
+    private readonly uploadService: UploadService,
+
+    private readonly userService: UserService
+
   ) { }
 
 
@@ -119,6 +128,17 @@ export class AuthService {
 
     return data
 
+  }
+
+  /**
+   * 上传
+   */
+  async uploadAvatar(id: string, file) {
+    const url = await this.uploadService.upload(file)
+
+    this.userService.update(id, { avatar: url })
+
+    return { data: url }
   }
 
 }
