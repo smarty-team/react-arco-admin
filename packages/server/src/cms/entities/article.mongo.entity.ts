@@ -5,7 +5,7 @@ import { Common } from '@/shared/entities/common.entity';
 export class Article extends Common {
 
     @Column('text')
-    name: string;
+    title: string;
 
     @Column('text')
     content: string;

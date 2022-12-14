@@ -5,7 +5,7 @@ import { IsNotEmpty } from 'class-validator';
 export class CreateArticleDto {
     @ApiProperty({ example: '文章标题' })
     @IsNotEmpty()
-    name: string;
+    title: string;
 
     @ApiProperty({ example: '# markdown' })
     @IsNotEmpty()

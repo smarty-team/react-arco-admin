@@ -6,6 +6,6 @@ export class Menu extends Common {
 
     // 菜单
     @Column('')
-    menus: object;
+    menus: [];
 
 }
