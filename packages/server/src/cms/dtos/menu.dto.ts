@@ -4,21 +4,21 @@ import { IsNotEmpty } from 'class-validator';
 
 export class CreateMenuDto {
     @ApiProperty({
-        example: {
+        example: [{
+            key: 'xxx',
             title: '一级标题',
-            articles: [
-                '111'
-            ],
+            type: 'category',
             children: [
                 {
-                    name: '二级标题',
-                    articles: ['2222'],
+                    key: 'xxx',
+                    title: '文章一',
+                    type: 'article',
                 }
             ]
-        }
+        }]
     })
     @IsNotEmpty()
-    menus: object;
+    menus: [];
 }
 
 export class UpdateMenuDto extends PartialType(CreateMenuDto) {
