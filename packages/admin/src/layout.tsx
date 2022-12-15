@@ -9,7 +9,8 @@ import {
   IconMenuUnfold,
   IconVideoCamera,
   IconUser,
-  IconUserGroup
+  IconUserGroup,
+  IconPen
 } from '@arco-design/web-react/icon';
 import { useSelector } from 'react-redux';
 import qs from 'query-string';
@@ -38,6 +39,8 @@ function getIconFromKey(key) {
       return <IconTag className={styles.icon} />;
     case 'course':
       return <IconVideoCamera className={styles.icon} />;
+    case 'article':
+      return <IconPen className={styles.icon} />;
     case 'user':
       return <IconUser className={styles.icon} />;
     case 'role':

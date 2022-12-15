@@ -23,6 +23,11 @@ export const routes: IRoute[] = [
     ],
   },
   {
+    name: 'menu.article',
+    key: 'article',
+    // requiredPermissions: [{ resource: 'article' }],
+  },
+  {
     name: 'menu.course',
     key: 'course',
     requiredPermissions: [{ resource: 'course' }],

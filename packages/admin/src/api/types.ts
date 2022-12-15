@@ -4,3 +4,7 @@ export interface Result<T> {
     total: number;
   };
 }
+
+export interface OpResult<T> {
+  data: T;
+}

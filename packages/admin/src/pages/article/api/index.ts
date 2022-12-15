@@ -1,22 +1,24 @@
-import { Result } from '@/api/types';
 import { PaginationProps } from '@arco-design/web-react';
 import http from '@/api/http';
+import { OpResult, Result } from '@/api/types';
 
-const url = '/api/course';
+const url = '/api/article';
 
-export interface Course {
+export interface Article {
   _id: string;
-  name: string;
+  title: string;
+  content: string;
 }
 
 // 编辑项初始值
 export const initial = {
   _id: '',
-  name: '',
+  title: '',
+  content: ''
 };
 
-export async function getCourseList({ current, pageSize }: PaginationProps) {
-  const { data, meta } = await http.get<Result<Course>>(url, {
+export async function getArticleList({ current, pageSize }: PaginationProps) {
+  const { data, meta } = await http.get<Result<Article>>(url, {
     params: {
       page: current,
       pageSize,
@@ -25,15 +27,20 @@ export async function getCourseList({ current, pageSize }: PaginationProps) {
   return { list: data, total: meta.total };
 }
 
-export function deleteCourse(id: string) {
+export async function getArticle(id: string) {
+  return http.get<OpResult<Article>>(`${url}/${id}`);
+}
+
+export function deleteArticle(id: string) {
   return http.delete(`${url}/${id}`);
 }
 
-export function updateCourse(course: Course) {
-  return http.patch(`/api/course/${course._id}`, course);
+export function updateArticle(article: Article) {
+  return http.patch(`${url}/${article._id}`, article);
 }
 
-export function addCourse(course: Course) {
-  delete course._id;
-  return http.post(url, course);
+export function addArticle(article: Article) {
+  delete article._id;
+  return http.post<OpResult<Article>>(url, article);
 }
+
