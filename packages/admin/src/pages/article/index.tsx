@@ -63,6 +63,7 @@ function Index() {
   // modal标题
   const [modalTitle, setModalTitle] = useState(null);
 
+  // 指定如何渲染节点标题
   const renderTitle = (node: TreeNodeProps) => {
     if (editedItem && node.dataRef.key === editedItem.key) {
       return (
@@ -85,6 +86,7 @@ function Index() {
     return <>{node.title}</>;
   };
 
+  // 指定如何渲染节点操作图标
   const renderExtra = (node: TreeNodeProps) => {
     // 根据节点类型生成不同菜单：
     // 1. category的操作有：修改分类名称、删除分类、新增子分类、新增文章
@@ -218,6 +220,7 @@ function Index() {
     }
   };
 
+  // 提交文章更新或创建
   const onArticleSubmit = async () => {
     // 提交文章创建或更新请求
     // 1.如果正在编辑的article不存在id则为新增文章
@@ -268,6 +271,7 @@ function Index() {
     setVisible(false);
   };
 
+  // 添加根分类
   const addRootCategory = () => {
     const newNode = {
       key: '' + (treeData.length + 1),
@@ -281,6 +285,7 @@ function Index() {
     setEditedItem(newNode);
   };
 
+  // 添加根文章
   const addRootArticle = () => {
     // 打开新增弹窗并设置弹窗标题
     setVisible(true);
@@ -294,15 +299,60 @@ function Index() {
     });
   };
 
+  // 处理拖拽
+  const onDrop = ({ dragNode, dropNode, dropPosition }) => {
+    const loop = (data, key, callback) => {
+      data.some((item, index, arr) => {
+        if (item.key === key) {
+          callback(item, index, arr);
+          return true;
+        }
+
+        if (item.children) {
+          return loop(item.children, key, callback);
+        }
+      });
+    };
+
+    const data = [...treeData];
+    let dragItem;
+    loop(data, dragNode.props._key, (item, index, arr) => {
+      arr.splice(index, 1);
+      dragItem = item;
+      dragItem.className = 'tree-node-dropover';
+    });
+
+    if (dropPosition === 0) {
+      loop(data, dropNode.props._key, (item, index, arr) => {
+        item.children = item.children || [];
+        item.children.push(dragItem);
+      });
+    } else {
+      loop(data, dropNode.props._key, (item, index, arr) => {
+        arr.splice(dropPosition < 0 ? index : index + 1, 0, dragItem);
+      });
+    }
+
+    const newData = [...data]
+    mutate(newData);
+    run(newData)
+    setTimeout(() => {
+      dragItem.className = '';
+      mutate([...data]);
+    }, 1000);
+  }
+  
   return (
     <>
       <Card>
         <Title heading={6}>文章管理</Title>
         <Tree
           size="large"
+          draggable
           treeData={treeData}
           renderTitle={renderTitle}
           renderExtra={renderExtra}
+          onDrop={onDrop}
         ></Tree>
         {/* 创建根目录和文章 */}
         <Space>
