@@ -1,11 +1,12 @@
 import Head from "next/head";
 import Layout from "../components/layout";
-import { getMenuIDs } from "../../libs/menus";
-import { getPostData } from "../../libs/posts";
+import ArticleViewer from "components/article-viewer";
+import { useArticle } from "libs/article";
+import { useMenuId } from "libs/menu";
 
 // 生成 `/posts/1` and `/posts/2`
 export async function getStaticPaths() {
-  const paths = await getMenuIDs();
+  const paths = await useMenuId();
   return {
     paths,
     fallback: "blocking",
@@ -15,23 +16,22 @@ export async function getStaticPaths() {
 // `getStaticPaths` requires using `getStaticProps`
 export async function getStaticProps({ params }) {
   // 根据id获取对应文章内容
-  const postData = await getPostData(params.id);
+  const article = await useArticle(params.id);
   return {
     // Passed to the page component as props
-    props: { postData },
+    props: { article },
   };
 }
 
-export default function Home({ postData }) {
+export default function Article({ article }) {
   return (
     <Layout>
       <Head>
-        <title>Create Next App</title>
+        <title>{article.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h2>{postData.title}</h2>
-      <p>{postData.data}</p>
-      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <ArticleViewer article={article}></ArticleViewer>
+      {/* <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} /> */}
     </Layout>
   );
 }
