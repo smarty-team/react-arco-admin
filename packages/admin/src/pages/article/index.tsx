@@ -162,7 +162,7 @@ function Index() {
               setArticle({
                 _id: '',
                 title: '输入文章标题',
-                content: '# 输入文章内容',
+                content: '',
               });
             }}
           />
@@ -295,7 +295,7 @@ function Index() {
     setArticle({
       _id: '',
       title: '输入文章标题',
-      content: '# 输入文章内容',
+      content: '',
     });
   };
 
