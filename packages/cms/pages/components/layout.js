@@ -6,7 +6,7 @@ export default function Layout({ children }) {
   return (
     <div className="bg-base-100 drawer drawer-mobile">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col">
+      <div className="drawer-content">
         {/* 页面内容 */}
         <NavBar></NavBar>
         {/* 内容 */}
