@@ -4,7 +4,7 @@ import fetcher from './fetcher'
 
 // 获取菜单数据
 export function useMenu() {
-  const { error, data } = useSWR("/api/menus", fetcher);
+  const { error, data } = useSWR("/data-api/menus", fetcher);
   const [menu, setMenu] = useState([]);
   useEffect(() => {
     if (data && data.data) {
