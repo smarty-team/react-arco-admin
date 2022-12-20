@@ -7,7 +7,7 @@ import Content from "./components/content/content";
 import Footer from "./components/content/footer";
 function App() {
   return (
-    <div className="App">
+    <div className="App" data-theme="bumblebee">
       <div className="bg-base-100 drawer drawer-mobile">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">

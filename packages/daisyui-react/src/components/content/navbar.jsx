@@ -1,6 +1,6 @@
 export default function NavBar() {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar w-full bg-base-100">
       <div className="flex-none">
         <label
           htmlFor="my-drawer"
@@ -21,10 +21,12 @@ export default function NavBar() {
           </svg>
         </label>
       </div>
-      <div className="flex-1">
+
+      {/* <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl">前端大班车</a>
-      </div>
-      <div className="flex-none">
+      </div> */}
+
+      <div className="flex-1 flex-row-reverse">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle">
             <div className="indicator">
