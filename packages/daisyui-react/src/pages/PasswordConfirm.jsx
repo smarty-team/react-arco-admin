@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import Alert from "../components/alert";
-function App() {
+
+export default function PasswordConfirm() {
   const navigate = useNavigate();
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -18,33 +19,38 @@ function App() {
           <div className="card-body">
             <div className="form-control">
               <label className="label">
-                <span className="text-3xl">登录</span>
+                <span className="text-3xl">修改密码</span>
               </label>
-            </div>
-            <div className="form-control">
-              <input
-                type="text"
-                placeholder="请输入手机号"
-                className="input input-bordered"
-              />
-              <Alert></Alert>
-            </div>
-            <div className="form-control">
-              <input
-                type="text"
-                placeholder="请输入密码"
-                className="input input-bordered"
-              />
-              <Alert></Alert>
               <label className="label">
-                <a
-                  href="#"
-                  className="label-text-alt link link-hover"
-                  onClick={() => navigate("/register")}
-                >
-                  忘记密码?
-                </a>
+                <span className="text text-gray-400">
+                  密码长度 6-24 位，至少包含字母、数字、符号 2 中组合
+                </span>
               </label>
+            </div>
+
+            <div className="form-control">
+              <input
+                type="password"
+                placeholder="输入旧密码"
+                className="input input-bordered"
+              />
+              <Alert></Alert>
+            </div>
+            <div className="form-control">
+              <input
+                type="password"
+                placeholder="输入新密码"
+                className="input input-bordered"
+              />
+              <Alert></Alert>
+            </div>
+            <div className="form-control">
+              <input
+                type="password"
+                placeholder="输入新密码"
+                className="input input-bordered"
+              />
+              <Alert></Alert>
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary" onClick={() => navigate("/")}>
@@ -57,5 +63,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

@@ -16,21 +16,18 @@ export default function UserCenter() {
         >
           <li>
             <a className="justify-between">
-              Profile
+              个人中心
               <span className="badge">New</span>
             </a>
-          </li>
-          <li>
-            <a>Settings</a>
-          </li>
-          <li>
-            <a>登出</a>
           </li>
           <li>
             <a onClick={() => navigate("/register")}>注册</a>
           </li>
           <li>
             <a onClick={() => navigate("/login")}>登录</a>
+          </li>
+          <li>
+            <a onClick={() => navigate("/register")}>退出登录</a>
           </li>
         </ul>
       </div>

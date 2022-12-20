@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
-import Alert from "../components/alert";
 function App() {
   const navigate = useNavigate();
   return (
@@ -18,33 +17,35 @@ function App() {
           <div className="card-body">
             <div className="form-control">
               <label className="label">
-                <span className="text-3xl">登录</span>
+                <span className="text-3xl">输入验证码</span>
               </label>
-            </div>
-            <div className="form-control">
-              <input
-                type="text"
-                placeholder="请输入手机号"
-                className="input input-bordered"
-              />
-              <Alert></Alert>
-            </div>
-            <div className="form-control">
-              <input
-                type="text"
-                placeholder="请输入密码"
-                className="input input-bordered"
-              />
-              <Alert></Alert>
               <label className="label">
-                <a
-                  href="#"
-                  className="label-text-alt link link-hover"
-                  onClick={() => navigate("/register")}
-                >
-                  忘记密码?
-                </a>
+                <span className="text text-gray-400">
+                  验证码已发送至 +86 13611388415
+                </span>
               </label>
+            </div>
+            <div className="form-control">
+              <div className="flex flex-row">
+                <input
+                  type="text"
+                  placeholder=""
+                  className="w-3/6 input input-bordered mr-2"
+                />
+                <button className="w-3/6 btn btn-outline">重新发送</button>
+              </div>
+            </div>
+            <div className="form-control">
+              <div className="flex flex-row">
+                <input
+                  type="text"
+                  placeholder=""
+                  className="w-3/6 input input-bordered mr-2"
+                />
+                <button className="w-3/6 btn btn-outline" disabled="disabled">
+                  重新发送(52s)
+                </button>
+              </div>
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary" onClick={() => navigate("/")}>
