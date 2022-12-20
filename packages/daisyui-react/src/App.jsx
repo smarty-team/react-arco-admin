@@ -1,25 +1,20 @@
 import { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router";
 import "./App.css";
-import Alarm from "./components/alerm";
-import Menu from "./components/menu";
-import NavBar from "./components/content/navbar";
-import Content from "./components/content/content";
-import Footer from "./components/content/footer";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Admin from "./pages/admin";
 function App() {
   return (
     <div className="App" data-theme="bumblebee">
-      <div className="bg-base-100 drawer drawer-mobile">
-        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
-          <NavBar></NavBar>
-          <Content></Content>
-          <Footer></Footer>
-        </div>
-        <div className="drawer-side">
-          <label htmlFor="my-drawer" className="drawer-overlay"></label>
-          <Menu></Menu>
-        </div>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Admin />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
