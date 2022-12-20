@@ -27,16 +27,50 @@ export default function Menu() {
         {/* 菜单 */}
         <li></li>
         <li class="menu-title">
-          <span>导航栏</span>
+          <span>面试宝典</span>
         </li>
         <li>
-          <a class="flex gap-4">Button 按钮</a>
+          <a class="flex gap-4">Javascript</a>
         </li>
         <li>
-          <a class="flex gap-4">Button 按钮</a>
+          <a class="flex gap-4">HTML与浏览器</a>
         </li>
         <li>
-          <a>Item 3</a>
+          <a class="flex gap-4">CSS与布局</a>
+        </li>
+        <li>
+          <a class="flex gap-4">服务器端常识</a>
+        </li>
+        <li>
+          <a class="flex gap-4">MVVM框架</a>
+        </li>
+        <li>
+          <a class="flex gap-4">工程化与Webpack</a>
+        </li>
+        <li>
+          <a class="flex gap-4">性能与安全</a>
+        </li>
+        <li>
+          <a class="flex gap-4">数据结构与算法</a>
+        </li>
+        <li></li>
+        <li class="menu-title">
+          <span>精品实战课</span>
+        </li>
+        <li>
+          <a class="flex gap-4">Vue源码实战</a>
+        </li>
+        <li>
+          <a class="flex gap-4">Vue组件库实现</a>
+        </li>
+        <li>
+          <a class="flex gap-4">前端工程化实战</a>
+        </li>
+        <li>
+          <a class="flex gap-4">NodeJS实战</a>
+        </li>
+        <li>
+          <a class="flex gap-4">Nest实战</a>
         </li>
         <li></li>
         <li class="menu-title">
@@ -65,83 +99,6 @@ export default function Menu() {
           <a>Item 3</a>
         </li>
         <li></li>
-        <li class="menu-title">
-          <span>导航栏</span>
-        </li>
-        <li>
-          <a class="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a class="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a>Item 3</a>
-        </li>
-        <li></li>
-        <li class="menu-title">
-          <span>导航栏</span>
-        </li>
-        <li>
-          <a class="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a class="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a>Item 3</a>
-        </li>
-        <li></li>
-        <li class="menu-title">
-          <span>导航栏</span>
-        </li>
-        <li>
-          <a class="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a class="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a>Item 3</a>
-        </li>
-        <li></li>
-        <li class="menu-title">
-          <span>导航栏</span>
-        </li>
-        <li>
-          <a class="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a class="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a>Item 3</a>
-        </li>
-        <li></li>
-        <li class="menu-title">
-          <span>导航栏</span>
-        </li>
-        <li>
-          <a class="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a class="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a>Item 3</a>
-        </li>
-        <li></li>
-        <li class="menu-title">
-          <span>导航栏</span>
-        </li>
-        <li>
-          <a class="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a class="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a>Item 3</a>
-        </li>
       </ul>
     </aside>
   );
