@@ -45,6 +45,7 @@ const i18n = {
     'menu.user.switchRoles': '切换角色',
     'menu.user.role.admin': '管理员',
     'menu.user.role.user': '普通用户',
+    'menu.article': '文章管理',
     'menu.course': '课程管理',
     'menu.user': '用户管理',
     'menu.role': '角色管理',

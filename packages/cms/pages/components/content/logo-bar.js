@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-export function LogoBar() {
+export default function LogoBar() {
   return (
-    <div>
+    <div className="h-[30px]">
       <Link href="/" className="btn btn-ghost px-2">
         <span className="pr-1">Smarty</span>
         <span>Team</span>

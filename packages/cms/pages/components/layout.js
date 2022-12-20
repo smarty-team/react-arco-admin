@@ -1,22 +1,23 @@
-import { SideMenu } from "./side-menu";
-import { LogoBar } from "./logo-bar";
+import SideMenu from "./content/sidemenu";
+import NavBar from "./content/navbar/index";
+import Footer from "./content/footer";
 
 export default function Layout({ children }) {
   return (
-    <div className="flex">
-      {/* 菜单 */}
-      <aside className="bg-base-200 w-80 h-[100vh] flex-none">
-        {/* logo */}
-        <LogoBar></LogoBar>
-        {/* 菜单项 */}
+    <div className="bg-base-100 drawer drawer-mobile">
+      <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content">
+        {/* 页面内容 */}
+        <NavBar></NavBar>
+        {/* 内容 */}
+        {children}
+        <Footer></Footer>
+      </div>
+      <div className="drawer-side">
+        <label htmlFor="my-drawer" className="drawer-overlay"></label>
+        {/* 侧边栏 */}
         <SideMenu></SideMenu>
-      </aside>
-      <main className="flex-1">
-        {/* 导航 */}
-        <nav className="w-full max-w-4xl">nav</nav>
-        {/* 文章内容 */}
-        <div className="w-full max-w-4xl">{children}</div>
-      </main>
+      </div>
     </div>
   );
 }

@@ -1,14 +1,24 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 3001"
   },
   "dependencies": {
+    "@bytemd/plugin-frontmatter": "^1.17.2",
+    "@bytemd/plugin-gfm": "^1.17.4",
+    "@bytemd/plugin-highlight-ssr": "^1.17.2",
+    "@bytemd/react": "^1.17.2",
     "autoprefixer": "^10.4.13",
+    "bytemd": "^1.17.4",
     "daisyui": "^2.42.1",
+    "express": "^4.18.2",
+    "github-markdown-css": "^5.1.0",
     "gray-matter": "^4.0.3",
+    "highlight.js": "^11.7.0",
+    "http-proxy-middleware": "^2.0.6",
+    "juejin-markdown-themes": "^1.29.5",
     "next": "latest",
     "postcss": "^8.4.19",
     "react": "18.2.0",
