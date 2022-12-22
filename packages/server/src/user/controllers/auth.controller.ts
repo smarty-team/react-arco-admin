@@ -2,7 +2,7 @@ import { Body, Controller, Post, Get, HttpStatus, Req, UseGuards, UseInterceptor
 import { LoginDTO } from '../dtos/login.dto';
 import { AuthService } from '../services/auth.service';
 import { TokenVO } from '../dtos/token.vo';
-import { UserInfoSuccessVO, UserInfoDto, RegisterDTO, RegisterCodeDTO } from '../dtos/auth.dto';
+import { UserInfoSuccessVO, UserInfoDto, RegisterDTO, RegisterCodeDTO, RegisterSMSDTO } from '../dtos/auth.dto';
 import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import {
   BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
@@ -108,39 +108,29 @@ export class AuthController {
   async registerCode(@Body() registerCodeDto: RegisterCodeDTO,): Promise<any> {
 
     const { phoneNumber } = registerCodeDto
-    try {
-
-      await this.authService.registerCode(phoneNumber)
-    } catch (error) {
-      return {
-        code: -1,
-        msg: error
-      }
-    }
+    await this.authService.registerCode(phoneNumber)
 
     return {
-      code: 0,
       msg: '验证码已生成'
     }
   }
 
   @ApiOperation({
-    summary: '手机号用户注册',
+    summary: '短信用户注册/登录',
   })
   @ApiResponse({
     status: HttpStatus.OK,
-    type: SwaggerBaseApiResponse(RegisterDTO),
+    type: SwaggerBaseApiResponse(RegisterSMSDTO),
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     type: BaseApiErrorResponse,
   })
-  @Post('registerByMobile')
-  async registerByMobile(
-    @Body() registerDTO: RegisterDTO
+  @Post('registerBySMS')
+  async registerBySMS(
+    @Body() registerDTO: RegisterSMSDTO
   ): Promise<UserInfoSuccessVO> {
-    return this.authService.register(registerDTO)
+    return this.authService.registerBySMS(registerDTO)
   }
-
 
 }

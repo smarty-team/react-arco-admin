@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { encryptPassword, makeSalt } from '@/shared/utils/cryptogram.util';
 import { LoginDTO } from '../dtos/login.dto';
-import { UserInfoDto, RegisterDTO } from '../dtos/auth.dto'
+import { UserInfoDto, RegisterDTO, RegisterSMSDTO } from '../dtos/auth.dto';
 import { User } from '../entities/user.mongo.entity';
 import { Role } from '../entities/role.mongo.entity'
 import { TokenVO } from '../dtos/token.vo';
@@ -35,8 +35,10 @@ export class AuthService {
   ) { }
 
 
-
-  // 校验注册信息
+  /**
+   * 校验注册信息
+   * @param registerDTO 
+   */
   async checkRegisterForm(
     registerDTO: RegisterDTO,
   ): Promise<any> {
@@ -52,7 +54,11 @@ export class AuthService {
     }
   }
 
-  // 注册
+  /**
+   * 注册
+   * @param registerDTO 
+   * @returns 
+   */
   async register(
     registerDTO: RegisterDTO
   ): Promise<any> {
@@ -76,7 +82,52 @@ export class AuthService {
     }
   }
 
+  /**
+   * 短信注册
+   * @param registerDTO 
+   * @returns 
+   */
+  async registerBySMS(
+    registerDTO: RegisterSMSDTO
+  ): Promise<any> {
+
+
+    const { phoneNumber, smsCode } = registerDTO;
+
+    // 短信验证码校验
+    const code = await this.getMobileVerifyCode(phoneNumber)
+    if (smsCode !== code) {
+      throw new NotFoundException('验证码不一致，或已过期')
+    }
+
+    let user = await this.userRepository
+      .findOneBy({ phoneNumber })
+    if (!user) {
+      // 用户不存在匿名注册
+      const password = makeSalt() + makeSalt()
+      user = await this.register({
+        phoneNumber,
+        name: `手机用户${makeSalt() + makeSalt()}`,
+        password,
+        passwordRepeat: password
+      })
+    }
+
+    const token = await this.certificate(user)
+    return {
+      data: {
+        token
+      }
+    }
+
+  }
+
   // 登陆校验用户信息
+  /**
+   * 
+   * @param loginDTO 
+   * @returns 
+   */
   async checkLoginForm(
     loginDTO: LoginDTO
   ): Promise<any> {
@@ -109,7 +160,7 @@ export class AuthService {
   async login(
     loginDTO: LoginDTO
   ): Promise<TokenVO> {
-    const user = await this.checkLoginForm(loginDTO)
+    const { user } = await this.checkLoginForm(loginDTO)
     const token = await this.certificate(user)
     return {
       data: {
@@ -143,24 +194,31 @@ export class AuthService {
     return { data: url }
   }
 
-  getCode() {
-    // return [0, 0, 0, 0, 0, 0].map(() => (parseInt(Math.random() * 10 + ''))).join('')
-    return '000000'
+  /**
+   * 获取验证码（四位随机数字）
+   * @returns 
+   */
+  generateCode() {
+    return [0, 0, 0, 0].map(() => (parseInt(Math.random() * 10 + ''))).join('')
   }
 
+  async getMobileVerifyCode(mobile) {
+    return await this.redis.get('verifyCode' + mobile);
+  }
 
   async registerCode(mobile) {
 
-
-    const redisData = await this.redis.get('verifyCode' + mobile);
+    const redisData = await this.getMobileVerifyCode(mobile);
 
     if (redisData !== null) {
       // 验证码未过期
       // 重复发送
-      throw '验证码未过期,无需再次发送'
+      throw new NotFoundException('验证码未过期,无需再次发送')
     }
 
-    const code = this.getCode()
+    // TODO 测试状态
+    // const code = this.getCode()
+    const code = '0000'
     console.log('生成验证码：', code)
     await this.redis.set('verifyCode' + mobile, code, "EX", 60);
 
