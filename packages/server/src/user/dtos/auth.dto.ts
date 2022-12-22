@@ -41,6 +41,14 @@ export class RegisterCodeDTO {
   @ApiProperty({ example: '13611177420' })
   readonly phoneNumber: string;
 
+  @IsNotEmpty({ message: '请输入验证码ID' })
+  @ApiProperty({ example: 'GaBUGhJzESU=' })
+  readonly captchaId: string;
+
+  @IsNotEmpty({ message: '请输入手机号' })
+  @ApiProperty({ example: '0000' })
+  readonly captchaCode: string;
+
 }
 
 export class RegisterDTO {

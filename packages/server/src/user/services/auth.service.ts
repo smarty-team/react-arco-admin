@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { encryptPassword, makeSalt } from '@/shared/utils/cryptogram.util';
 import { LoginDTO } from '../dtos/login.dto';
-import { UserInfoDto, RegisterDTO, RegisterSMSDTO } from '../dtos/auth.dto';
+import { UserInfoDto, RegisterDTO, RegisterSMSDTO, RegisterCodeDTO } from '../dtos/auth.dto';
 import { User } from '../entities/user.mongo.entity';
 import { Role } from '../entities/role.mongo.entity'
 import { TokenVO } from '../dtos/token.vo';
@@ -12,6 +12,7 @@ import { join } from 'path'
 import { UploadService } from '../../shared/upload/upload.service';
 import { UserService } from './user.service';
 import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
+import { CaptchaService } from '../../shared/captcha/captcha.service';
 
 @Injectable()
 export class AuthService {
@@ -31,6 +32,8 @@ export class AuthService {
     private readonly userService: UserService,
 
     @InjectRedis() private readonly redis: Redis,
+
+    private readonly captchaService: CaptchaService,
 
   ) { }
 
@@ -104,10 +107,10 @@ export class AuthService {
       .findOneBy({ phoneNumber })
     if (!user) {
       // 用户不存在匿名注册
-      const password = makeSalt() + makeSalt()
+      const password = makeSalt(8)
       user = await this.register({
         phoneNumber,
-        name: `手机用户${makeSalt() + makeSalt()}`,
+        name: `手机用户${makeSalt(8)}`,
         password,
         passwordRepeat: password
       })
@@ -122,9 +125,8 @@ export class AuthService {
 
   }
 
-  // 登陆校验用户信息
   /**
-   * 
+   * 登陆校验用户信息
    * @param loginDTO 
    * @returns 
    */
@@ -206,10 +208,19 @@ export class AuthService {
     return await this.redis.get('verifyCode' + mobile);
   }
 
-  async registerCode(mobile) {
+  /**
+   * 获取短信验证码
+   * @param mobile 
+   */
+  async registerCode(dto: RegisterCodeDTO) {
 
-    const redisData = await this.getMobileVerifyCode(mobile);
+    // 验证图形验证码
+    const captcha = await this.redis.get('captcha' + dto.captchaId);
+    if (!captcha || captcha !== dto.captchaCode) {
+      throw new NotFoundException('图形验证码错误')
+    }
 
+    const redisData = await this.getMobileVerifyCode(dto.phoneNumber);
     if (redisData !== null) {
       // 验证码未过期
       // 重复发送
@@ -220,7 +231,7 @@ export class AuthService {
     // const code = this.getCode()
     const code = '0000'
     console.log('生成验证码：', code)
-    await this.redis.set('verifyCode' + mobile, code, "EX", 60);
+    await this.redis.set('verifyCode' + dto.phoneNumber, code, "EX", 60);
 
     // phoneCodeList[phone] = code;
 
@@ -253,6 +264,22 @@ export class AuthService {
     //   };
     // }
 
+  }
+
+  /**
+   * 获取图形验证码
+   */
+  async getCaptcha() {
+    const { data, text } = await this.captchaService.captche()
+    const id = makeSalt(8)
+
+    console.log('图形验证码:', text)
+
+    // 验证码存入将Redis
+    this.redis.set('captcha' + id, text, "EX", 120);
+
+    const image = `data:image/svg+xml;base64,${Buffer.from(data).toString('base64')}`
+    return { id, image }
   }
 
 }

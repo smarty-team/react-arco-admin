@@ -11,6 +11,7 @@ import { configModuleOptions } from './configs/module-options';
 import { UploadService } from './upload/upload.service'
 
 import { DatabaseProviders } from './database/database.providers';
+import { CaptchaService } from './captcha/captcha.service';
 
 @Module({
   providers: [...DatabaseProviders],
@@ -45,7 +46,8 @@ export class DatabaseModule { }
     // AppLoggerModule, 
     ConfigModule,
     ...DatabaseProviders,
-    UploadService
+    UploadService,
+    CaptchaService
   ],
   providers: [
     ...DatabaseProviders,
@@ -55,7 +57,7 @@ export class DatabaseModule { }
     //   provide: APP_FILTER,
     //   useClass: AllExceptionsFilter,
     // },
-
+    CaptchaService,
     UploadService
   ],
 })

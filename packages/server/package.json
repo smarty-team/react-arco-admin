@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@fastify/static": "^6.5.0",
+    "@nestjs-modules/ioredis": "^1.0.1",
     "@nestjs/common": "^9.1.6",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
@@ -52,6 +53,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "svg-captcha": "^1.4.0",
     "tsconfig-paths-jest": "^0.0.1",
     "tsconfig-paths-jest-mapper": "^1.4.0",
     "typeorm": "^0.3.10",

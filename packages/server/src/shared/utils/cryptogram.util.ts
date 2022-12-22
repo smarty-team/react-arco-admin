@@ -4,10 +4,15 @@
 
 import * as crypto from 'crypto';
 
-// 随机盐
-export function makeSalt(): string {
-  return crypto.randomBytes(3).toString('base64');
+/**
+ * 随机盐
+ * @param len 长度
+ * @returns 
+ */
+export function makeSalt(len = 3): string {
+  return crypto.randomBytes(len).toString('base64');
 }
+
 
 /**
  * 使用盐加密明文密码
