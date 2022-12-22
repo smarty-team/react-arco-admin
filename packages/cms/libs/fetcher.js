@@ -4,15 +4,7 @@ export const fetcherWithToken = (url, token) =>
   fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        const error = new Error(res.statusText);
-        error.response = { status: res.status, statusText: res.statusText };
-        throw error;
-      }
-    })
+    .then(responseHandler)
     .then((json) => json.data);
 
 export const post = (url, data) =>
@@ -23,5 +15,16 @@ export const post = (url, data) =>
     },
     body: JSON.stringify(data),
   })
-    .then((res) => res.json())
+    .then(responseHandler)
     .then((json) => json.data);
+
+function responseHandler(res) {
+  if (res.ok) {
+    return res.json();
+  } else {
+    console.log(res);
+    const error = new Error(res.statusText);
+    error.response = { status: res.status, statusText: res.statusText };
+    throw error;
+  }
+}

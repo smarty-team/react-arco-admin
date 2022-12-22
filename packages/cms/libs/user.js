@@ -54,3 +54,15 @@ export async function useLogin(loginData) {
   const { token } = await post(baseUrl + "/auth/login", loginData);
   return token;
 }
+
+export async function useSms(phoneNumber) {
+  // 请求登录接口
+  const msg = await post(baseUrl + "/auth/registerCode", { phoneNumber });
+  return msg;
+}
+
+export async function useSmsLogin(registerData) {
+  // 请求登录接口
+  const { token } = await post(baseUrl + "/auth/registerBySMS", registerData);
+  return token;
+}

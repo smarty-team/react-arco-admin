@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@fastify/static": "^6.5.0",
+    "@nestjs-modules/ioredis": "^1.0.1",
     "@nestjs/common": "^9.1.6",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
@@ -41,6 +42,7 @@
     "class-validator": "^0.13.2",
     "cross-env": "^7.0.3",
     "fs-extra": "^11.1.0",
+    "ioredis": "^5.2.4",
     "jest-resolver-tsconfig-paths": "^0.14.4",
     "joi": "link:@types/@hapi/joi",
     "mongodb": "^3.6.0",

@@ -1,4 +1,4 @@
-export default function Alert() {
+export default function Alert({message}) {
   return (
     <div className="flex-row alert bg-transparent text-red-600 ">
       <div>
@@ -16,7 +16,7 @@ export default function Alert() {
           ></path>
         </svg>
         <div>
-          <div className="text-xs">请输入正确的手机号 !!</div>
+          <div className="text-xs">{message}</div>
         </div>
       </div>
     </div>
