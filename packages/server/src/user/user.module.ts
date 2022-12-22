@@ -10,26 +10,29 @@ import { UserProviders } from './user.providers';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
-
+import { RedisModule } from '@nestjs-modules/ioredis';
 // import { TypeOrmModule } from '@nestjs/typeorm';
 
 // import { User } from '../'
+import { ConfigService } from '@nestjs/config';
 
 
 @Module({
   imports: [
     SharedModule,
     JwtModule.registerAsync({
-      // inject: [ConfigService],  // 注入 ConfigService
-      useFactory: () => ({
-        // secret: process.env.JWT_SECRET, // 密钥
-        secret: 'ranshu666',
-        signOptions: {
-          // expiresIn: process.env.JWT_EXPIRES_IN, // token 过期时效
-          expiresIn: '24h'
-        },
-      }), // 获取配置信息
+      inject: [ConfigService],  // 注入 ConfigService
+      imports: [SharedModule],
+      useFactory: (configService: ConfigService) => (configService.get('jwt'))
     }),
+    RedisModule.forRootAsync({
+      imports: [SharedModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        config: configService.get('redis')
+      })
+    }),
+
   ],
   controllers: [
     AuthController, UserController, RoleController

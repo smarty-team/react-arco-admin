@@ -13,6 +13,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { UserService } from '@/user/services/user.service'
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadDTO } from '../dtos/upload.dto';
+import { RegisterCodeDTO } from '../dtos/registerCode.dto';
 
 @ApiTags('认证鉴权')
 @Controller('auth')
@@ -93,6 +94,38 @@ export class AuthController {
   ): Promise<any> {
 
     return await this.authService.uploadAvatar(req.user.id, file)
+  }
+
+
+  @ApiOperation({
+    summary: '短信验证码',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: SwaggerBaseApiResponse(UserInfoDto),
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    type: BaseApiErrorResponse,
+  })
+  @Post('registerCode')
+  async registerCode(@Body() registerCodeDto: RegisterCodeDTO,): Promise<any> {
+
+    const { phoneNumber } = registerCodeDto
+    try {
+
+      await this.authService.registerCode(phoneNumber)
+    } catch (error) {
+      return {
+        code: -1,
+        msg: error
+      }
+    }
+
+    return {
+      code: 0,
+      msg: '验证码已生成'
+    }
   }
 
 }

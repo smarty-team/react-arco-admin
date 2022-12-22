@@ -1,5 +1,12 @@
 import { SuccessVO } from "@/shared/dtos/success.dto";
 
+export class RegisterCodeItem {
+  /**
+ * 手机号
+ */
+  mobile: string;
+}
+
 export class UserInfoItem {
   /**
    * 用户id

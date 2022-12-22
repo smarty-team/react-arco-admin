@@ -12,6 +12,7 @@ import { writeFile } from 'fs/promises';
 import { join } from 'path'
 import { UploadService } from '../../shared/upload/upload.service';
 import { UserService } from './user.service';
+import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
 
 @Injectable()
 export class AuthService {
@@ -28,7 +29,9 @@ export class AuthService {
 
     private readonly uploadService: UploadService,
 
-    private readonly userService: UserService
+    private readonly userService: UserService,
+
+    @InjectRedis() private readonly redis: Redis,
 
   ) { }
 
@@ -139,6 +142,60 @@ export class AuthService {
     this.userService.update(id, { avatar: url })
 
     return { data: url }
+  }
+
+  getCode() {
+    // return [0, 0, 0, 0, 0, 0].map(() => (parseInt(Math.random() * 10 + ''))).join('')
+    return '000000'
+  }
+
+
+  async registerCode(mobile) {
+
+
+    const redisData = await this.redis.get('verifyCode' + mobile);
+
+    if (redisData !== null) {
+      // 验证码未过期
+      // 重复发送
+      throw '验证码未过期,无需再次发送'
+    }
+
+    const code = this.getCode()
+    console.log('生成验证码：', code)
+    await this.redis.set('verifyCode' + mobile, code, "EX", 60);
+
+    // phoneCodeList[phone] = code;
+
+    // const smsParams = {
+    //   "PhoneNumberSet": [
+    //     `+86${phone}`
+    //   ],
+    //   "SmsSdkAppId": "xxxxx",
+    //   "TemplateId": "12*****",
+    //   "SignName": "dooring服务",
+    //   "TemplateParamSet": [code]
+    // };
+    // try {
+    //   const result = await client.SendSms(smsParams);
+    //   if(result?.SendStatusSet.Code === 'Ok') {
+    //     return {
+    //       code: 200,
+    //       msg: 'Success',
+    //     };
+    //   }else {
+    //     return {
+    //       code: 500,
+    //       msg: `Service error: ${result?.SendStatusSet.Message}`,
+    //     };
+    //   }
+    // }catch(err) {
+    //   return {
+    //     code: 500,
+    //     msg: `Service error: ${err}`
+    //   };
+    // }
+
   }
 
 }
