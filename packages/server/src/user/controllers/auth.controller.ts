@@ -1,10 +1,8 @@
 import { Body, Controller, Post, Get, HttpStatus, Req, UseGuards, UseInterceptors, UploadedFile, } from '@nestjs/common';
 import { LoginDTO } from '../dtos/login.dto';
-import { RegisterDTO } from '../dtos//register.dto';
-import { UserInfoDto } from '../dtos/user-info'
 import { AuthService } from '../services/auth.service';
 import { TokenVO } from '../dtos/token.vo';
-import { UserInfoSuccessVO } from '../dtos/auth';
+import { UserInfoSuccessVO, UserInfoDto, RegisterDTO, RegisterCodeDTO } from '../dtos/auth.dto';
 import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import {
   BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
@@ -13,7 +11,6 @@ import { AuthGuard } from '@nestjs/passport';
 import { UserService } from '@/user/services/user.service'
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadDTO } from '../dtos/upload.dto';
-import { RegisterCodeDTO } from '../dtos/registerCode.dto';
 
 @ApiTags('认证鉴权')
 @Controller('auth')
@@ -96,7 +93,6 @@ export class AuthController {
     return await this.authService.uploadAvatar(req.user.id, file)
   }
 
-
   @ApiOperation({
     summary: '短信验证码',
   })
@@ -127,5 +123,24 @@ export class AuthController {
       msg: '验证码已生成'
     }
   }
+
+  @ApiOperation({
+    summary: '手机号用户注册',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: SwaggerBaseApiResponse(RegisterDTO),
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    type: BaseApiErrorResponse,
+  })
+  @Post('registerByMobile')
+  async registerByMobile(
+    @Body() registerDTO: RegisterDTO
+  ): Promise<UserInfoSuccessVO> {
+    return this.authService.register(registerDTO)
+  }
+
 
 }

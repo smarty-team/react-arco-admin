@@ -1,7 +1,7 @@
 import { Controller, Delete, Get, Post, Inject } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
-import { RegisterDTO } from './user/dtos/register.dto';
+import { RegisterDTO } from './user/dtos/auth.dto';
 
 
 
