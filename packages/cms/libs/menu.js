@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import fetcher from './fetcher'
+import { fetcher } from "./fetcher";
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const server = process.env.SERVER
 
 // 获取菜单数据
 export function useMenu() {
-  const { error, data } = useSWR("/data-api/menus", fetcher);
+  // 客户端发送请求到数据服务器，利用代理实现
+  const { error, data } = useSWR(baseUrl + "/menus", fetcher);
   const [menu, setMenu] = useState([]);
   useEffect(() => {
     if (data && data.data) {
@@ -23,7 +27,8 @@ export function useMenu() {
 
 // 获取菜单中文章的id数据用于动态路由和预渲染
 export function useMenuId() {
-  return fetch("http://localhost:3000/menus")
+  // 直接在服务端发送请求到数据服务器
+  return fetch(server + "/menus")
     .then((res) => res.json())
     .then((json) => {
       // 拍平

@@ -3,8 +3,8 @@ module.exports = {
     return [
       {
         source: '/data-api/:path*',
-        destination: 'http://localhost:3000/:path*',
-      },
+        destination: 'http://localhost:3000/:path*'
+      }
     ]
   },
 }
