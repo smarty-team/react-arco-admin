@@ -58,6 +58,7 @@
     "tsconfig-paths-jest": "^0.0.1",
     "tsconfig-paths-jest-mapper": "^1.4.0",
     "typeorm": "^0.3.10",
+    "winston": "^3.8.2",
     "yaml": "^2.1.3"
   },
   "devDependencies": {

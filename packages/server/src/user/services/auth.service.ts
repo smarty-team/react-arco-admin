@@ -13,14 +13,16 @@ import { UploadService } from '../../shared/upload/upload.service';
 import { UserService } from './user.service';
 import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
 import { CaptchaService } from '../../shared/captcha/captcha.service';
+import { AppLogger } from '../../shared/logger/logger.service';
 
 @Injectable()
 export class AuthService {
 
   constructor(
+    private readonly logger: AppLogger,
+
     @Inject('USER_REPOSITORY')
     private userRepository: MongoRepository<User>,
-
 
     @Inject('ROLE_REPOSITORY')
     private roleRepository: MongoRepository<Role>,
@@ -35,7 +37,9 @@ export class AuthService {
 
     private readonly captchaService: CaptchaService,
 
-  ) { }
+  ) {
+    this.logger.setContext(AuthService.name);
+  }
 
 
   async init() {
@@ -307,7 +311,7 @@ export class AuthService {
     // TODO 测试状态
     // const code = this.getCode()
     const code = '0000'
-    console.log('生成验证码：', code)
+    this.logger.log(null, '生成验证码：' + code)
     await this.redis.set('verifyCode' + dto.phoneNumber, code, "EX", 60);
 
     // phoneCodeList[phone] = code;
@@ -350,7 +354,7 @@ export class AuthService {
     const { data, text } = await this.captchaService.captche()
     const id = makeSalt(8)
 
-    console.log('图形验证码:', text)
+    this.logger.log(null, '图形验证码:' + text)
 
     // 验证码存入将Redis
     this.redis.set('captcha' + id, text, "EX", 600);

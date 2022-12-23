@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { configModuleOptions } from './configs/module-options';
 // import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 // import { LoggingInterceptor } from './interceptors/logging.interceptor';
-// import { AppLoggerModule } from './logger/logger.module';
+import { AppLoggerModule } from './logger/logger.module';
 
 import { UploadService } from './upload/upload.service'
 
@@ -40,10 +40,10 @@ export class DatabaseModule { }
     //     debug: configService.get<string>('env') === 'development',
     //   }),
     // }),
-    // AppLoggerModule,
+    AppLoggerModule,
   ],
   exports: [
-    // AppLoggerModule, 
+    AppLoggerModule,
     ConfigModule,
     ...DatabaseProviders,
     UploadService,
