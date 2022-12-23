@@ -297,7 +297,7 @@ export class AuthService {
 
     // 验证图形验证码
     const captcha = await this.redis.get('captcha' + dto.captchaId);
-    if (!captcha || captcha !== dto.captchaCode) {
+    if (!captcha || captcha.toLocaleLowerCase() !== dto.captchaCode.toLocaleLowerCase()) {
       throw new NotFoundException('图形验证码错误')
     }
 
