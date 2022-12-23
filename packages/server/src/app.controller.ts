@@ -2,6 +2,7 @@ import { Controller, Delete, Get, Post, Inject } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { RegisterDTO } from './user/dtos/auth.dto';
+import { AuthService } from './user/services/auth.service';
 
 
 
@@ -9,6 +10,7 @@ import { RegisterDTO } from './user/dtos/auth.dto';
 export class AppController {
   constructor(
     private readonly appService: AppService,
+    private readonly authService: AuthService,
 
   ) { }
 
@@ -21,15 +23,15 @@ export class AppController {
     summary: '初始化数据',
   })
   @Post('init')
-  init() {
-    return this.appService.init()
+  async init() {
+    return await this.authService.init()
   }
 
   @ApiOperation({
     summary: '清空数据',
   })
   @Delete('del')
-  clear() {
-    return this.appService.clear()
+  async clear() {
+    return await this.authService.clear()
   }
 }
