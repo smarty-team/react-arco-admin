@@ -276,7 +276,7 @@ export class AuthService {
     console.log('图形验证码:', text)
 
     // 验证码存入将Redis
-    this.redis.set('captcha' + id, text, "EX", 120);
+    this.redis.set('captcha' + id, text, "EX", 600);
 
     const image = `data:image/svg+xml;base64,${Buffer.from(data).toString('base64')}`
     return { id, image }
