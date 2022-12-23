@@ -111,7 +111,7 @@ export class AuthController {
     await this.authService.registerCode(registerCodeDto)
 
     return {
-      msg: '验证码已生成'
+      data: '验证码已生成'
     }
   }
 

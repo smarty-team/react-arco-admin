@@ -1,36 +1,30 @@
 import Head from "next/head";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useLogin } from "@/libs/user";
-import Layout from "./components/layout";
 import Alert from "./components/alert";
-import { useState } from "react";
 
 export default function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { phoneNumber: "13611177421", password: "888888" },
+  });
 
-  const [phoneNumber, setPhoneNumber] = useState('13611177421')
-  const [password, setPassword] = useState('888888')
-  
-  function onChange(val, key) {
-    if (key === 'phoneNumber') {
-      setPhoneNumber(val)
-    } else {
-      setPassword(val)
-    }
-  }
-  
   const router = useRouter();
-  const onLogin = async () => {
+  const onLogin = async (data) => {
     try {
-      const token = await useLogin({
-        phoneNumber,
-        password,
-      });
+      const token = await useLogin(data);
       // 存储token
       localStorage.setItem("token", token);
       // 回跳到登录前页面
       router.push(router.query.callback);
     } catch (error) {
       // 显示错误信息
+      console.error(error);
     }
   };
 
@@ -50,48 +44,54 @@ export default function Login() {
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <div className="card-body">
-              <div className="form-control">
-                <label className="label">
-                  <span className="text-3xl">登录</span>
-                </label>
-              </div>
-              <div className="form-control">
-                <input
-                  type="text"
-                  placeholder="请输入手机号"
-                  className="input input-bordered"
-                  value={phoneNumber}
-                  onChange={(e) => onChange(e.target.value, 'phoneNumber')}
-                />
-                <Alert></Alert>
-              </div>
-              <div className="form-control">
-                <input
-                  type="password"
-                  placeholder="请输入密码"
-                  className="input input-bordered"
-                  value={password}
-                  onChange={(e) => onChange(e.target.value, 'password')}
-                />
-                <Alert></Alert>
-                <label className="label">
-                  <a
-                    href="#"
-                    className="label-text-alt link link-hover"
-                    onClick={() => navigate("/register")}
-                  >
-                    忘记密码?
-                  </a>
-                </label>
-              </div>
-              <div className="form-control mt-6">
-                <button
-                  className="btn btn-primary"
-                  onClick={onLogin}
-                >
-                  登录
-                </button>
-              </div>
+              <form onSubmit={handleSubmit(onLogin)}>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="text-3xl">登录</span>
+                  </label>
+                </div>
+                <div className="form-control">
+                  <input
+                    type="text"
+                    placeholder="请输入手机号"
+                    className="input input-bordered"
+                    {...register("phoneNumber", {
+                      required: true,
+                      pattern: /^1[3456789]\d{9}$/,
+                    })}
+                  />
+                  {errors.phoneNumber &&
+                    errors.phoneNumber.type === "required" && (
+                      <Alert message="请输入手机号"></Alert>
+                    )}
+                  {errors.phoneNumber &&
+                    errors.phoneNumber.type === "pattern" && (
+                      <Alert message="手机号输入有误"></Alert>
+                    )}
+                </div>
+                <div className="form-control">
+                  <input
+                    type="password"
+                    placeholder="请输入密码"
+                    className="input input-bordered"
+                    {...register("password", { required: true })}
+                  />
+                  {errors.password && errors.password.type === "required" && (
+                    <Alert message="请输入密码"></Alert>
+                  )}
+                  <label className="label">
+                    <Link
+                      href="/register"
+                      className="label-text-alt link link-hover"
+                    >
+                      注册账号
+                    </Link>
+                  </label>
+                </div>
+                <div className="form-control mt-6">
+                  <input className="btn btn-primary" type="submit"></input>
+                </div>
+              </form>
             </div>
           </div>
         </div>
