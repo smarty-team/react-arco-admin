@@ -133,10 +133,10 @@ export class AuthService {
   async checkLoginForm(
     loginDTO: LoginDTO
   ): Promise<any> {
+
     const { phoneNumber, password } = loginDTO
     const user = await this.userRepository
       .findOneBy({ phoneNumber })
-
     if (!user) {
       throw new NotFoundException('用户不存在')
     }
@@ -162,7 +162,7 @@ export class AuthService {
   async login(
     loginDTO: LoginDTO
   ): Promise<TokenVO> {
-    const { user } = await this.checkLoginForm(loginDTO)
+    const user = await this.checkLoginForm(loginDTO)
     const token = await this.certificate(user)
     return {
       data: {
