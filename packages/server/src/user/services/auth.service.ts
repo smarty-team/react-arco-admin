@@ -38,6 +38,83 @@ export class AuthService {
   ) { }
 
 
+  async init() {
+    // 清空数据
+    this.clear()
+
+    // 创建管理员角色
+    let { _id: role } = await this.roleRepository.save({
+      "name": "admin",
+      "permissions": {
+        "dashboard/workplace": [
+          "write",
+          "read"
+        ],
+        "user": [
+          "read",
+          "write"
+        ],
+        "course": [
+          "write",
+          "read"
+        ],
+        "role": [
+          "read",
+          "write"
+        ]
+      }
+    })
+
+
+    const admin = await this.register({
+      "phoneNumber": "13611177421",
+      "name": "管理员1",
+      "password": "888888",
+      "passwordRepeat": "888888",
+    })
+
+    // 添加角色权限
+    admin.data.role = role
+    this.userService.update(admin.data._id, admin.data)
+
+    let { _id: role2 } = await this.roleRepository.save({
+      "name": "user",
+      "permissions": {
+        "dashboard/workplace": [
+          "write",
+          "read"
+        ],
+        "course": [
+          "write",
+          "read"
+        ],
+      }
+    })
+
+
+    const user = await this.register({
+      "phoneNumber": "13611177422",
+      "name": "普通用户1",
+      "password": "888888",
+      "passwordRepeat": "888888"
+    })
+
+    // 添加角色权限
+    user.data.role = role2
+    this.userService.update(user.data._id, user.data)
+
+  }
+
+
+  clear() {
+    this.userRepository.deleteMany({})
+    this.roleRepository.deleteMany({})
+
+    return { ok: 1 }
+  }
+
+
+
   /**
    * 校验注册信息
    * @param registerDTO 
