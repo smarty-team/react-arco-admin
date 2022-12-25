@@ -21,6 +21,14 @@ export interface User {
 export const initial = {
   _id: '',
   name: '',
+  avatar: '',
+  email: '',
+  phoneNumber: '',
+  job: '',
+  jobName: '',
+  organization: '',
+  location: '',
+  personalWebsite: '',
 };
 
 export async function getUserList({ current, pageSize }: PaginationProps) {
@@ -43,5 +51,5 @@ export function updateUser(user: User) {
 
 export function addUser(user: User) {
   delete user._id
-  return http.post(url, user);
+  return http.post<User>(url, user);
 }

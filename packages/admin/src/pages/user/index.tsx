@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Typography,
   Card,
@@ -9,7 +9,7 @@ import {
   Form,
   Input,
   Message,
-  Popconfirm
+  Popconfirm,
 } from '@arco-design/web-react';
 import { usePagination } from 'ahooks';
 import {
@@ -20,6 +20,7 @@ import {
   updateUser,
   User,
 } from './api';
+import AvatarUploader from './components/avatar-uploader';
 
 const Text = Typography.Text;
 const Title = Typography.Title;
@@ -28,7 +29,7 @@ const FormItem = Form.Item;
 // 用户页面组件
 function Index() {
   // 获取列表数据
-  const { data, loading, pagination, refresh } = usePagination(getUserList, {
+  const { data, loading, pagination, mutate, refresh } = usePagination(getUserList, {
     defaultPageSize: 10,
     defaultCurrent: 1,
     loadingDelay: 300,
@@ -43,7 +44,9 @@ function Index() {
     }),
     [pagination]
   );
-
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   // 用户操作的回调函数
   const tableCallback = async (record: User, type: 'edit' | 'delete') => {
     if (type === 'edit') {
@@ -56,14 +59,10 @@ function Index() {
         await deleteUser(record._id);
         // 操作成功
         Message.success('删除用户成功!');
-        // 重新获取当前页面，
-        // 如果恰好当前页面只有一条数据，回到上一页
-        const { current, total, changeCurrent } = pagination;
-        if (total > 0 && data.list.length === 1 && current > 1) {
-          changeCurrent(current - 1);
-        } else {
-          refresh();
-        }
+        mutate({
+          list: data.list.filter((item) => item._id !== record._id),
+          total: data.total - 1,
+        });
       } catch (error) {
         // 操作失败
         Message.success('删除用户失败，请重试!');
@@ -79,7 +78,7 @@ function Index() {
   };
 
   // 编辑项
-  const [editedItem, setEditedItem] = useState(initial);
+  const [editedItem, setEditedItem] = useState<User>(initial);
   // 用户修改编辑项
   const onEditedItemChange = (key: string, value: string) => {
     setEditedItem({ ...editedItem, [key]: value });
@@ -95,28 +94,24 @@ function Index() {
 
   // 提交编辑表单
   const onSubmit = async () => {
-    // id存在说明是编辑
-    const isEdit = editedItem._id ? true : false;
-    let message: string = isEdit ? '编辑' : '新增';
+    let message: string = editedItem._id ? '编辑' : '新增';
     try {
       // 根据标识符决定新增或更新
-      if (isEdit) {
+      if (editedItem._id) {
         await updateUser(editedItem);
+        refresh()
       } else {
-        await addUser(editedItem);
+        const newUser = await addUser(editedItem);  
+        mutate({
+          list: [...data.list, newUser],
+          total: data.total + 1,
+        });
       }
-      // 操作成功
+      // 显示提示信息
       message += '用户成功!';
       Message.success(message);
       // 关闭抽屉
       setDrawerVisibleVisible(false);
-      // 新增项会在首页出现，回到首页
-      if (!isEdit && pager.current > 1) {
-        pagination.changeCurrent(1)
-      } else {
-        // 重新获取列表
-        refresh();
-      }
     } catch (error) {
       message += '用户失败，请重试!';
       Message.error(message);
@@ -132,6 +127,13 @@ function Index() {
     {
       title: '用户名称',
       dataIndex: 'name',
+    },
+    {
+      title: '用户头像',
+      dataIndex: 'avatar',
+      render(value: string) {
+        return <img src={value} width="50" />;
+      },
     },
     {
       title: '操作',
@@ -196,6 +198,14 @@ function Index() {
               value={editedItem.name}
               onChange={(value: string) => onEditedItemChange('name', value)}
             />
+          </FormItem>
+          <FormItem label="头像">
+            <AvatarUploader
+              value={editedItem.avatar}
+              onComplete={(value: string) =>
+                onEditedItemChange('avatar', value)
+              }
+            ></AvatarUploader>
           </FormItem>
         </Form>
       </Drawer>
