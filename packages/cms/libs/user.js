@@ -1,7 +1,7 @@
 import Router from "next/router";
 import { useEffect } from "react";
 import useSWR from "swr";
-import { fetcherWithToken, post } from "./fetcher";
+import { fetcher, fetcherWithToken, post } from "./fetcher";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -34,15 +34,12 @@ export function useUser({
 
   // 如果error存在，状态码为401，说明token过期，需要重新登录
   useEffect(() => {
-    if (error) {
-      const status = error.response?.status;
-      if (status == 401) {
-        const route = {
-          pathname: redirectTo || "/login",
-          query: { callback },
-        };
-        Router.push(route);
-      }
+    if (error && error.status === 401) {
+      const route = {
+        pathname: redirectTo || "/login",
+        query: { callback },
+      };
+      Router.push(route);
     }
   }, [error]);
 
@@ -52,17 +49,30 @@ export function useUser({
 export async function useLogin(loginData) {
   // 请求登录接口
   const { token } = await post(baseUrl + "/auth/login", loginData);
+  // 存储token
+  localStorage.setItem("token", token);
   return token;
 }
 
-export async function useSms(phoneNumber) {
+// 获取验证码
+export function useCapcha() {
+  const { data, error, mutate } = useSWR(baseUrl + "/auth/captcha", fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+  return { data, error, isLoading: !data && !error, mutate };
+}
+
+export async function useSms(data) {
   // 请求登录接口
-  const msg = await post(baseUrl + "/auth/registerCode", { phoneNumber });
+  const msg = await post(baseUrl + "/auth/registerCode", data);
   return msg;
 }
 
 export async function useSmsLogin(registerData) {
   // 请求登录接口
   const { token } = await post(baseUrl + "/auth/registerBySMS", registerData);
+  // 存储token
+  localStorage.setItem("token", token);
   return token;
 }

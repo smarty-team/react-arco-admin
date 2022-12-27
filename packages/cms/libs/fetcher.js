@@ -1,4 +1,7 @@
-export const fetcher = (...args) => fetch(...args).then((res) => res.json());
+export const fetcher = (...args) =>
+  fetch(...args)
+    .then(responseHandler)
+    .then((json) => json.data);
 
 export const fetcherWithToken = (url, token) =>
   fetch(url, {
@@ -18,13 +21,23 @@ export const post = (url, data) =>
     .then(responseHandler)
     .then((json) => json.data);
 
-function responseHandler(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    console.log(res);
-    const error = new Error(res.statusText);
-    error.response = { status: res.status, statusText: res.statusText };
-    throw error;
+async function responseHandler(res) {
+    // 如果状态码不在 200-299 的范围内，
+  // 我们仍然尝试解析并抛出它。
+  if (!res.ok) {
+    const error = new Error('获取数据时发生了错误')
+    // 将额外的信息附加到错误对象上。
+    error.info = await res.json()
+    error.status = res.status
+    throw error
   }
+
+  return res.json()
+  // if (res.ok) {
+  //   return res.json();
+  // } else {
+  //   const error = new Error(res.statusText);
+  //   error.response = { status: res.status, statusText: res.statusText };
+  //   throw error;
+  // }
 }

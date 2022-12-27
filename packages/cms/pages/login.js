@@ -17,9 +17,8 @@ export default function Login() {
   const router = useRouter();
   const onLogin = async (data) => {
     try {
-      const token = await useLogin(data);
-      // 存储token
-      localStorage.setItem("token", token);
+      await useLogin(data);
+      
       // 回跳到登录前页面
       router.push(router.query.callback);
     } catch (error) {

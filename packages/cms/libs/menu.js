@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { fetcher } from "./fetcher";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-const server = process.env.SERVER
+const server = process.env.SERVER;
 
 // 获取菜单数据
 export function useMenu() {
@@ -11,14 +11,12 @@ export function useMenu() {
   const { error, data } = useSWR(baseUrl + "/menus", fetcher);
   const [menu, setMenu] = useState([]);
   useEffect(() => {
-    if (data && data.data) {
-      const menuOrigin = data.data.menus;
-      const result = flatMenus(menuOrigin);
+    if (data) {
+      const result = flatMenus(data.menus);
       setMenu(result);
     }
   }, [data]);
   return {
-    data,
     menu,
     isLoading: !error && !data,
     isError: error,

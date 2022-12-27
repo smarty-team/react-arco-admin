@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import Alert from "./components/alert";
-import { useSms } from "@/libs/user";
+import { useCapcha, useSms } from "@/libs/user";
+import ReactLoading from "react-loading";
+import { useEffect } from "react";
 
 export default function Register() {
   const {
@@ -12,15 +14,24 @@ export default function Register() {
 
   const router = useRouter();
 
-  async function onSubmit({ phoneNumber }) {
+  async function onSubmit(formData) {
     // 发送验证码请求
-    const msg = await useSms(phoneNumber);
-    if (msg) {
-      router.push({ pathname: "/verifyCode", query: { phoneNumber } });
-    } else {
-      alert("服务器错误，请重试");
+    try {
+      await useSms({ captchaId: data.id, ...formData });
+      router.push({
+        pathname: "/verifyCode",
+        query: { phoneNumber: formData.phoneNumber },
+      });
+    } catch (error) {
+      // 报错信息
     }
   }
+
+  // 验证码
+  const { data, isLoading, mutate, error } = useCapcha();
+  useEffect(() => {
+    // 有错误发生，dosomething
+  }, [error]);
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -42,10 +53,10 @@ export default function Register() {
               </div>
               <div className="form-control">
                 <div className="flex flex-row">
-                  <select class="select select-bordered w-2/6 max-w-xs mr-2">
-                    <option disabled selected>
-                      +86
-                    </option>
+                  <select
+                    defaultValue="+86"
+                    className="select select-bordered w-2/6 max-w-xs mr-2"
+                  >
                     <option>+86</option>
                     <option>+852</option>
                     <option>+1</option>
@@ -69,6 +80,30 @@ export default function Register() {
                   errors.phoneNumber.type === "pattern" && (
                     <Alert message="手机号输入有误"></Alert>
                   )}
+              </div>
+              <div className="form-control">
+                <div className="flex flex-row">
+                  <input
+                    type="text"
+                    placeholder="请输入4位验证码"
+                    className="w-4/6 input input-bordered"
+                    {...register("captchaCode", {
+                      required: true,
+                      pattern: /^[1-9a-zA-Z]{4}$/,
+                    })}
+                  />
+                  {isLoading ? (
+                    <ReactLoading type="spin" color="#fff" />
+                  ) : (
+                    <img src={data.image} onClick={mutate} />
+                  )}
+                </div>
+                {errors.captchaCode && errors.captchaCode.type === "required" && (
+                  <Alert message="请输入验证码"></Alert>
+                )}
+                {errors.captchaCode && errors.captchaCode.type === "pattern" && (
+                  <Alert message="验证码输入有误"></Alert>
+                )}
               </div>
               <div className="form-control mt-6">
                 <input
