@@ -5,12 +5,12 @@ services:
       context: ./packages/server/
       args:
         - APP_ENV
-    command: npm run start:dev
+    # command: npm run start
     ports:
       - 3000:3000
-    volumes:
-      - ./packages/server:/usr/src/app
-      - ./packages/server/node_modules:/usr/src/app/node_modules/
+    # volumes:
+    #   - ./packages/server:/usr/src/app
+    #   - ./packages/server/node_modules:/usr/src/app/node_modules/
     environment:
       APP_ENV: ${APP_ENV}
       APP_PORT: ${APP_PORT}
@@ -26,6 +26,8 @@ services:
       JWT_PUBLIC_KEY_BASE64: ${JWT_PUBLIC_KEY_BASE64}
       JWT_PRIVATE_KEY_BASE64: ${JWT_PRIVATE_KEY_BASE64}
       DEFAULT_ADMIN_USER_PASSWORD: ${DEFAULT_ADMIN_USER_PASSWORD}
+      UPLOAD_DIR: ${UPLOAD_DIR}
+      REDIS_URL: ${REDIS_URL}
     depends_on:
       - mongo
   mongo:

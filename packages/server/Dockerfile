@@ -3,10 +3,10 @@
 FROM node:lts-gallium as builder
 
 WORKDIR /usr/src/app
-RUN npm config set registry http://registry.npmmirror.com/
+RUN npm config set registry https://registry.npm.taobao.org/
 RUN npm i pnpm -g
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm config set registry http://registry.npmmirror.com/
+RUN pnpm config set registry https://registry.npm.taobao.org/
 RUN pnpm install
 # RUN npm ci
 
@@ -17,7 +17,7 @@ ENV NODE_ENV=${APP_ENV}
 
 RUN pnpm build
 
-RUN pnpm prune
+# RUN pnpm prune
 
 FROM node:lts-gallium
 
