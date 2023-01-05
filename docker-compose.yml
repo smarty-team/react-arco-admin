@@ -33,6 +33,10 @@ services:
   mongo:
     image: mongo
     restart: always
+    volumes:
+      - ./mogodb/data:/data/db
+      - ./packages/server:/usr/src/app
+      - ./packages/server/node_modules:/usr/src/app/node_modules/
     ports:
       - 27017:27017
   mongo-express:
@@ -46,3 +50,12 @@ services:
     image: redis
     ports:
       - "6379:6379"
+  admin:
+    build:
+      context: ./packages/admin/
+      args:
+        - APP_ENV
+    ports:
+      - 3002:3002
+    depends_on:
+      - server
