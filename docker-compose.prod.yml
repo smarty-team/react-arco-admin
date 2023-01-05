@@ -1,16 +1,29 @@
 version: '3.3'
 services:
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ./mongodb/data:/data/db
+    ports:
+      - 27017:27017
+  # mongo-express:
+  #   image: mongo-express
+  #   restart: always
+  #   ports:
+  #     - 8081:8081
+  #   depends_on:
+  #     - mongo
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
   server:
-    build:
-      context: ./packages/server/
-      args:
-        - APP_ENV
-    # command: npm run start
+    platform: linux/amd64
+    image: react-arco-admin_server:latest
+    restart: always
     ports:
       - 3000:3000
-    # volumes:
-    #   - ./packages/server:/usr/src/app
-    #   - ./packages/server/node_modules:/usr/src/app/node_modules/
     environment:
       APP_ENV: ${APP_ENV}
       APP_PORT: ${APP_PORT}
@@ -31,31 +44,10 @@ services:
     depends_on:
       - mongo
       - redis
-    restart: always
-  mongo:
-    image: mongo
-    restart: always
-    volumes:
-      - ./mongodb/data:/data/db
-    ports:
-      - 27017:27017
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    depends_on:
-      - mongo
-  redis:
-    image: redis
-    ports:
-      - "6379:6379"
   admin:
+    platform: linux/amd64
+    image: react-arco-admin_admin:latest
     restart: always
-    build:
-      context: ./packages/admin/
-      args:
-        - APP_ENV
     ports:
       - 3002:3002
     depends_on:
