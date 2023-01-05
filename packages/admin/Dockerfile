@@ -7,9 +7,8 @@ RUN npm config set registry https://registry.npm.taobao.org/
 RUN npm i pnpm -g
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm config set registry https://registry.npm.taobao.org/
-# RUN pnpm install
-# 产生扁平目录
-RUN pnpm install --shamefully-hoist 
+RUN pnpm install
+# RUN npm ci
 
 COPY . .
 
@@ -20,20 +19,17 @@ RUN pnpm build
 
 # RUN pnpm prune
 
-FROM node:lts-gallium
+FROM nginx:latest
 
 ARG APP_ENV=development
 ENV NODE_ENV=${APP_ENV}
 
 WORKDIR /usr/src/app
-RUN npm config set registry http://registry.npmmirror.com/
-RUN npm i pnpm -g
-COPY --from=builder /usr/src/app/node_modules ./node_modules
-COPY --from=builder /usr/src/app/package*.json ./
-COPY --from=builder /usr/src/app/dist ./dist
+COPY --from=builder /usr/src/app/dist /usr/src/app/dist
+# COPY ./dist /usr/src/app/dist
+COPY ./nginx/conf.d /etc/nginx/conf.d
+EXPOSE 3002
 
-EXPOSE 3000
-
-USER node
-CMD [ "pnpm", "run", "start:prod" ]
-# CMD [ "pnpm", "run", "start" ]
+# USER node
+# CMD [ "pnpm", "run", "start:prod" ]
+# # CMD [ "pnpm", "run", "start" ]

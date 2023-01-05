@@ -24,7 +24,7 @@ import {
     BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
 } from '../../shared/dtos/base-api-response.dto';
 import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
-import { CreateMenuDto, UpdateMenuDto } from '../dtos/Menu.dto';
+import { CreateMenuDto, UpdateMenuDto } from '../dtos/menu.dto';
 @ApiTags('菜单')
 @Controller('menus')
 export class MenuController {
