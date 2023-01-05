@@ -17,10 +17,10 @@ pnpm dev
 # 访问 http://localhost:3000/api/doc#/
 
 # 启动DB
-docker compose up redis mongo
+docker compose up redis mongo mongo-express
 
 # 启动服务器端
-docker compose up redis mongo server --force-recreate --build
+docker compose up redis mongo server mongo-express --force-recreate --build
 
 # 启动后台管理
 docker compose up redis mongo server admin --force-recreate --build

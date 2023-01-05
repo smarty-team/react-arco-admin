@@ -5,6 +5,7 @@ services:
     restart: always
     volumes:
       - ./mongodb/data:/data/db
+      - ./mongodb/dump:/dump
     ports:
       - 27017:27017
   # mongo-express:
@@ -19,7 +20,6 @@ services:
     ports:
       - "6379:6379"
   server:
-    platform: linux/amd64
     image: react-arco-admin_server:latest
     restart: always
     ports:
@@ -45,7 +45,6 @@ services:
       - mongo
       - redis
   admin:
-    platform: linux/amd64
     image: react-arco-admin_admin:latest
     restart: always
     ports:
