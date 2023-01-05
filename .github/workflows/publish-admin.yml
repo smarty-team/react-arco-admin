@@ -18,7 +18,7 @@ jobs:
         with:
           version: 7.2.1
       - name: Install modules
-        run: pnpm install
+        run: cd packages/admin && pnpm install
       - name: Build
         run: cd packages/admin && pnpm run build
       # - name: 'Publish to the npm registry'
