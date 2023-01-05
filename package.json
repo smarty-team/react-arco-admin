@@ -6,7 +6,7 @@
   "scripts": {
     "dev:admin": "cd packages/admin;pnpm dev;",
     "dev:cms": "cd packages/cms;pnpm dev;",
-    "serve": "docker compose up redis mongo server mongo-express;"
+    "serve": "docker-compose up redis mongo server mongo-express;"
   },
   "keywords": [],
   "author": "",
