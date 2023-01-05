@@ -29,4 +29,4 @@ jobs:
           SOURCE: "packages/admin/dist"
           REMOTE_HOST: "47.98.252.43"
           REMOTE_USER: "root"
-          TARGET: "/root/react-arco-admin/packages/admin"
+          TARGET: "/root/source/react-arco-admin/packages/admin"
