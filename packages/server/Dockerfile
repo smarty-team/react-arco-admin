@@ -1,6 +1,6 @@
 # lts-gallium refers to v16
 # Using this instead of node:16 to avoid dependabot updates
-FROM node:lastest as builder
+FROM node:18 as builder
 
 WORKDIR /usr/src/app
 RUN npm config set registry https://registry.npm.taobao.org/
