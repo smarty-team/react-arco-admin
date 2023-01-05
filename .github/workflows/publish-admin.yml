@@ -21,11 +21,12 @@ jobs:
         run: cd packages/admin && pnpm install
       - name: Build
         run: cd packages/admin && pnpm run build
-      # - name: 'Publish to the npm registry'
-      #   uses: primer/publish@3.0.0
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # 跟前面步骤中的 NPM_AUTH_TOKEN 保持一致
-      #   with:
-      #     default_branch: 'publish'
-      #     dir: "packages/ui/dist"
+      - name: Deploy to Aliyun
+        uses: easingthemes/ssh-deploy@v2.1.1
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
+          ARGS: "-avzr --delete"
+          SOURCE: "dist"
+          REMOTE_HOST: "47.98.252.43"
+          REMOTE_USER: "root"
+          TARGET: "/root/react-arco-admin/packages/admin"
