@@ -1,14 +1,15 @@
 # lts-gallium refers to v16
 # Using this instead of node:16 to avoid dependabot updates
-FROM node:lts-gallium as builder
+FROM node:lastest as builder
 
 WORKDIR /usr/src/app
 RUN npm config set registry https://registry.npm.taobao.org/
 RUN npm i pnpm -g
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm config set registry https://registry.npm.taobao.org/
-RUN pnpm install
-# RUN npm ci
+# RUN pnpm install
+# 产生扁平目录
+RUN pnpm install --shamefully-hoist 
 
 COPY . .
 

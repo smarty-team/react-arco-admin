@@ -18,7 +18,6 @@ specifiers:
   '@nestjs/testing': ^9.0.0
   '@nestjs/typeorm': ^9.0.1
   '@types/express': ^4.17.13
-  '@types/hapi': ^18.0.7
   '@types/jest': 28.1.8
   '@types/joi': ^17.2.3
   '@types/multer': ^1.4.7
@@ -74,7 +73,6 @@ dependencies:
   '@nestjs/platform-fastify': 9.1.6_frdr3xk4e6zl6uz67hsjykt7si
   '@nestjs/swagger': 6.1.3_tqdhayurpyu2ctyxryvrqn3rla
   '@nestjs/typeorm': 9.0.1_v5sk3sol6y4pjqg44yrie3mozm
-  '@types/hapi': 18.0.7
   '@types/joi': 17.2.3
   '@types/multer': registry.npmmirror.com/@types/multer/1.4.7
   class-transformer: 0.5.1
@@ -1351,14 +1349,6 @@ packages:
       '@types/node': 16.18.3
     dev: true
 
-  /@types/boom/7.3.2:
-    resolution: {integrity: sha512-W8+6CANZz/BmgzATboKXvEDtO3SHSj86omcU/2pMCkUQhqhgucB8sgcmdRadXDEvXFRiRhME0rcyj1GIj3LC9w==}
-    dev: false
-
-  /@types/catbox/10.0.7:
-    resolution: {integrity: sha512-8vjnM1eyHKwWfcbq7qb2NN4ltUgm4nVsT9QIM6IW4KqxbQbfQLbRApNTN+B3hvHvuFTHyvhJjZrBY3wNPp4tjA==}
-    dev: false
-
   /@types/connect/3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
@@ -1391,25 +1381,6 @@ packages:
     dependencies:
       '@types/node': 16.18.3
     dev: true
-
-  /@types/hapi/18.0.7:
-    resolution: {integrity: sha512-rhOtvarF2ka4NAjEURRWEwx98oDtOiaQYLkPdmsA0yXe5U6a9/YJjAI/JtE4SnWQ+vTrCKSDhVGcQngZqHrU7A==}
-    dependencies:
-      '@types/boom': 7.3.2
-      '@types/catbox': 10.0.7
-      '@types/iron': 5.0.2
-      '@types/mimos': 3.0.3
-      '@types/node': 16.18.3
-      '@types/podium': 1.0.1
-      '@types/shot': 4.0.1
-      joi: 17.7.0
-    dev: false
-
-  /@types/iron/5.0.2:
-    resolution: {integrity: sha512-u1l5xO5BtLlPfeiy60vrC9Y30cR8gM7chD5npIAETZaOlGoT8KHqtQQpmlU5dZejhJSfIBSX0zBHnKW+0fw5qA==}
-    dependencies:
-      '@types/node': 16.18.3
-    dev: false
 
   /@types/istanbul-lib-coverage/2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
@@ -1451,19 +1422,9 @@ packages:
       '@types/node': 16.18.3
     dev: false
 
-  /@types/mime-db/1.43.1:
-    resolution: {integrity: sha512-kGZJY+R+WnR5Rk+RPHUMERtb2qBRViIHCBdtUrY+NmwuGb8pQdfTqQiCKPrxpdoycl8KWm2DLdkpoSdt479XoQ==}
-    dev: false
-
   /@types/mime/3.0.1:
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
     dev: true
-
-  /@types/mimos/3.0.3:
-    resolution: {integrity: sha512-jtStUPuHpJ+LVK+e1K9SbD2V00IOAqAKgVVkBRmCdHG20VQaE3KOt7FincknY1uyyZNq7MKF44Gs0fon2v9oig==}
-    dependencies:
-      '@types/mime-db': 1.43.1
-    dev: false
 
   /@types/node/16.18.3:
     resolution: {integrity: sha512-jh6m0QUhIRcZpNv7Z/rpN+ZWXOicUUQbSoWks7Htkbb9IjFQj4kzcX/xFCkjstCj5flMsN8FiSvt+q+Tcs4Llg==}
@@ -1471,10 +1432,6 @@ packages:
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
     dev: true
-
-  /@types/podium/1.0.1:
-    resolution: {integrity: sha512-dcg8V5wKgrvNIBk2hzgK3gHobZ0u7pXW36NigfJq+lBA+/fqI6GAI0bdjLAEkZC67EsaVErtePkqipJPsszN7Q==}
-    dev: false
 
   /@types/prettier/2.7.1:
     resolution: {integrity: sha512-ri0UmynRRvZiiUJdiz38MmIblKK+oH30MztdBVR95dv/Ubw6neWSb8u1XpRb72L4qsZOhz+L+z9JD40SJmfWow==}
@@ -1498,12 +1455,6 @@ packages:
       '@types/mime': 3.0.1
       '@types/node': 16.18.3
     dev: true
-
-  /@types/shot/4.0.1:
-    resolution: {integrity: sha512-LUJWxDKYWmmUpVXDWZ78hFIrqb/ho9RoKqBAFRJw4OHOS3qCKCoXCyzrfmf24lbO4COYfqL0iEWNArOfKEYW9g==}
-    dependencies:
-      '@types/node': 16.18.3
-    dev: false
 
   /@types/stack-utils/2.0.1:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}

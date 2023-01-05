@@ -34,7 +34,7 @@ services:
     image: mongo
     restart: always
     volumes:
-      - ./mogodb/data:/data/db
+      - ./mongodb/data:/data/db
       - ./packages/server:/usr/src/app
       - ./packages/server/node_modules:/usr/src/app/node_modules/
     ports:
