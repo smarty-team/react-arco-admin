@@ -8,46 +8,46 @@ services:
       - ./mongodb/dump:/dump
     ports:
       - 27017:27017
-  # mongo-express:
-  #   image: mongo-express
-  #   restart: always
-  #   ports:
-  #     - 8081:8081
-  #   depends_on:
-  #     - mongo
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
   redis:
     image: redis
     ports:
       - "6379:6379"
-  server:
-    image: react-arco-admin_server:latest
-    restart: always
-    ports:
-      - 3000:3000
-    environment:
-      APP_ENV: ${APP_ENV}
-      APP_PORT: ${APP_PORT}
-      DB_URL: ${DB_URL}
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASS: ${DB_PASS}
-      DB_ENTITY_NAME: ${DB_ENTITY_NAME}
-      DB_SYNCHRONIZE: ${DB_SYNCHRONIZE}
-      DB_LOGGING: ${DB_LOGGING}
-      JWT_ACCESS_TOKEN_EXP_IN_SEC: ${JWT_ACCESS_TOKEN_EXP_IN_SEC}
-      JWT_REFRESH_TOKEN_EXP_IN_SEC: ${JWT_REFRESH_TOKEN_EXP_IN_SEC}
-      JWT_PUBLIC_KEY_BASE64: ${JWT_PUBLIC_KEY_BASE64}
-      JWT_PRIVATE_KEY_BASE64: ${JWT_PRIVATE_KEY_BASE64}
-      DEFAULT_ADMIN_USER_PASSWORD: ${DEFAULT_ADMIN_USER_PASSWORD}
-      UPLOAD_DIR: ${UPLOAD_DIR}
-      REDIS_URL: ${REDIS_URL}
-    depends_on:
-      - mongo
-      - redis
-  admin:
-    image: react-arco-admin_admin:latest
-    restart: always
-    ports:
-      - 3002:3002
-    depends_on:
-      - server
+  # server:
+  #   image: react-arco-admin_server:latest
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+  #   environment:
+  #     APP_ENV: ${APP_ENV}
+  #     APP_PORT: ${APP_PORT}
+  #     DB_URL: ${DB_URL}
+  #     DB_NAME: ${DB_NAME}
+  #     DB_USER: ${DB_USER}
+  #     DB_PASS: ${DB_PASS}
+  #     DB_ENTITY_NAME: ${DB_ENTITY_NAME}
+  #     DB_SYNCHRONIZE: ${DB_SYNCHRONIZE}
+  #     DB_LOGGING: ${DB_LOGGING}
+  #     JWT_ACCESS_TOKEN_EXP_IN_SEC: ${JWT_ACCESS_TOKEN_EXP_IN_SEC}
+  #     JWT_REFRESH_TOKEN_EXP_IN_SEC: ${JWT_REFRESH_TOKEN_EXP_IN_SEC}
+  #     JWT_PUBLIC_KEY_BASE64: ${JWT_PUBLIC_KEY_BASE64}
+  #     JWT_PRIVATE_KEY_BASE64: ${JWT_PRIVATE_KEY_BASE64}
+  #     DEFAULT_ADMIN_USER_PASSWORD: ${DEFAULT_ADMIN_USER_PASSWORD}
+  #     UPLOAD_DIR: ${UPLOAD_DIR}
+  #     REDIS_URL: ${REDIS_URL}
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  # admin:
+  #   image: react-arco-admin_admin:latest
+  #   restart: always
+  #   ports:
+  #     - 3002:3002
+  #   depends_on:
+  #     - server
