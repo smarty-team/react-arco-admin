@@ -1,6 +1,6 @@
 apps:
   - script: pnpm
-    args: start
+    args: start:prod
     name: cms
     instances: 1
     watch: true
