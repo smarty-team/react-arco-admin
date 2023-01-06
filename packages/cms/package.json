@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start -p 3001"
+    "start": "next start -p 3001;",
+    "start:prod": "next build;next start -p 3001;"
   },
   "dependencies": {
     "@bytemd/plugin-frontmatter": "^1.17.2",

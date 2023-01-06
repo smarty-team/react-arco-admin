@@ -37,6 +37,7 @@ services:
     restart: always
     volumes:
       - ./mongodb/data:/data/db
+      - ./mongodb/dump:/dump
     ports:
       - 27017:27017
   mongo-express:
@@ -58,5 +59,15 @@ services:
         - APP_ENV
     ports:
       - 3002:3002
+    depends_on:
+      - server
+  cms:
+    restart: always
+    build:
+      context: ./packages/cms/
+      args:
+        - APP_ENV
+    ports:
+      - 3001:3001
     depends_on:
       - server
