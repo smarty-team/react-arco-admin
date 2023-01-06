@@ -15,6 +15,7 @@ jobs:
         with:
           version: 7.2.1
       - name: Install modules
+        run: pnpm config set registry https://registry.npm.taobao.org/
         run: cd packages/server && pnpm install
       - name: Build
         run: cd packages/server && pnpm run build
