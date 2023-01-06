@@ -46,7 +46,7 @@ export function deleteUser(id: string) {
 }
 
 export function updateUser(user: User) {
-  return http.patch(`/api/User/${user._id}`, user);
+  return http.patch(`/api/user/${user._id}`, user);
 }
 
 export function addUser(user: User) {
