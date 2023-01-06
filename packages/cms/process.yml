@@ -1,5 +1,6 @@
 apps:
-  - script: dist/src/main.js
+  - script: pnpm
+    args: start
     name: cms
     instances: 1
     watch: true
