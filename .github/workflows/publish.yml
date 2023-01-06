@@ -52,14 +52,12 @@ jobs:
           REMOTE_HOST: "47.98.252.43"
           REMOTE_USER: "root"
           TARGET: "/root/source/react-arco-admin/packages/admin"
-  Pull:
-    steps:
-      - name: pull source
-      uses: appleboy/ssh-action@v0.1.6
-      with:
-        host: "47.98.252.43"
-        username: root
-        key: ${{ secrets.ACCESS_TOKEN }}
-        script: |
-          /root/source/react-arco-admin
-          git pull
+      - name: Pull source
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: "47.98.252.43"
+          username: root
+          key: ${{ secrets.ACCESS_TOKEN }}
+          script: |
+            /root/source/react-arco-admin
+            git pull
