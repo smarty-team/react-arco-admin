@@ -7,7 +7,10 @@
     "dev:admin": "cd packages/admin;pnpm dev;",
     "dev:cms": "cd packages/cms;pnpm dev;",
     "serve": "docker-compose up redis mongo mongo-express server;",
-    "db": "docker-compose up -d redis mongo mongo-express"
+    "db:start": "docker-compose up -d redis mongo mongo-express",
+    "db:stop": "docker-compose down",
+    "db:dump": "docker-compose exec mongo mongodump --db nest-server --out mongodb/dump",
+    "db:restore": "docker-compose exec mongo mongorestore --db nest-server mongodb/dump/nest-server"
   },
   "keywords": [],
   "author": "",
