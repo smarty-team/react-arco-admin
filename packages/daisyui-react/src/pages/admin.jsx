@@ -9,7 +9,6 @@ export default function Admin() {
 
   setTimeout(() => {
     setDispllay(false);
-    console.log("GGG", display);
   }, 1000);
   return (
     <div className="bg-base-100 drawer drawer-mobile">
@@ -27,7 +26,7 @@ export default function Admin() {
       <Loading display={display}></Loading>
 
       {/* Put this part before </body> tag */}
-      <input type="checkbox" id="my-modal" className="modal-toggle" />
+      {/* <input type="checkbox" id="my-modal" className="modal-toggle" /> */}
     </div>
   );
 }

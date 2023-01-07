@@ -12,6 +12,7 @@ export default function Loading(props) {
         id="my-modal"
         className="modal-toggle"
         checked={props.display}
+        readOnly
       />
       <div className="modal">
         <div className="modal-box">
