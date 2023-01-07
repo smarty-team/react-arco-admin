@@ -18,8 +18,6 @@ async function bootstrap() {
   //   new FastifyAdapter(),
   // );
 
-  process.env.UPLOAD_DIR
-
   const uploadDir = (!!process.env.UPLOAD_DIR && process.env.UPLOAD_DIR !== '') ? process.env.UPLOAD_DIR : join(__dirname, '..', 'static/upload')
 
   // 静态服务
@@ -30,6 +28,8 @@ async function bootstrap() {
 
   // 创建文档
   generateDocument(app)
-  await app.listen(3000, '0.0.0.0');
+  // await app.listen(3000, '0.0.0.0');
+
+  await app.listen(3000);
 }
 bootstrap();

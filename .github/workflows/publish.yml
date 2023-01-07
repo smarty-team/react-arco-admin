@@ -3,8 +3,25 @@ name: Public Admin
 on:
   push:
     branches: [main]
-
-jobs:
+  PullSource:
+    runs-on: ubuntu-latest
+    name: "PullSource"
+    steps:
+      jobs:
+        - name: Pull source
+          uses: appleboy/ssh-action@v0.1.6
+          with:
+            host: "47.98.252.43"
+            username: root
+            key: ${{ secrets.ACCESS_TOKEN }}
+            script: |
+              cd /root/source/react-arco-admin
+              git pull
+              pnpm i
+              cd /root/source/react-arco-admin/server
+              pnpm i
+              cd /root/source/react-arco-admin/admin
+              pnpm i
   Server:
     runs-on: ubuntu-latest
     name: "publish Server"
@@ -52,12 +69,3 @@ jobs:
           REMOTE_HOST: "47.98.252.43"
           REMOTE_USER: "root"
           TARGET: "/root/source/react-arco-admin/packages/admin"
-      - name: Pull source
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: "47.98.252.43"
-          username: root
-          key: ${{ secrets.ACCESS_TOKEN }}
-          script: |
-            cd /root/source/react-arco-admin
-            git pull
