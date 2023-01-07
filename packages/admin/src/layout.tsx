@@ -252,7 +252,7 @@ function PageLayout() {
                   </Breadcrumb>
                 </div>
               )}
-              <Content>
+              <Content style={{ minHeight: "100vh" }} >
                 <Switch>
                   {flattenRoutes.map((route, index) => {
                     return (
@@ -275,9 +275,10 @@ function PageLayout() {
             </div>
             {showFooter && <Footer />}
           </Layout>
-        </Layout>
-      )}
-    </Layout>
+        </Layout >
+      )
+      }
+    </Layout >
   );
 }
 
