@@ -3,6 +3,7 @@ name: Public Admin
 on:
   push:
     branches: [main]
+jobs:
   PullSource:
     runs-on: ubuntu-latest
     name: "PullSource"
