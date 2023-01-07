@@ -18,10 +18,6 @@ jobs:
             cd /root/source/react-arco-admin
             git pull
             pnpm i
-            cd /root/source/react-arco-admin/packages/server
-            pnpm i
-            cd /root/source/react-arco-admin/packages/admin
-            pnpm i
   Server:
     runs-on: ubuntu-latest
     name: "publish Server"
