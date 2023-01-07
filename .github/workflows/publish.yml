@@ -7,21 +7,20 @@ on:
     runs-on: ubuntu-latest
     name: "PullSource"
     steps:
-      jobs:
-        - name: Pull source
-          uses: appleboy/ssh-action@v0.1.6
-          with:
-            host: "47.98.252.43"
-            username: root
-            key: ${{ secrets.ACCESS_TOKEN }}
-            script: |
-              cd /root/source/react-arco-admin
-              git pull
-              pnpm i
-              cd /root/source/react-arco-admin/server
-              pnpm i
-              cd /root/source/react-arco-admin/admin
-              pnpm i
+      - name: Pull source
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: "47.98.252.43"
+          username: root
+          key: ${{ secrets.ACCESS_TOKEN }}
+          script: |
+            cd /root/source/react-arco-admin
+            git pull
+            pnpm i
+            cd /root/source/react-arco-admin/server
+            pnpm i
+            cd /root/source/react-arco-admin/admin
+            pnpm i
   Server:
     runs-on: ubuntu-latest
     name: "publish Server"
@@ -50,7 +49,6 @@ on:
     runs-on: ubuntu-latest
     name: "publish Admin"
     environment: npm
-
     steps:
       - uses: actions/checkout@master
       - uses: pnpm/action-setup@v2.1.0
