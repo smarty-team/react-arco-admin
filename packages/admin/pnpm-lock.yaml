@@ -49,6 +49,7 @@ specifiers:
   react: ^17.0.2
   react-color: ^2.18.1
   react-dom: ^17.0.2
+  react-hook-form: ^7.41.5
   react-redux: ^7.2.6
   react-router: ^5.2.0
   react-router-dom: ^5.2.0
@@ -88,6 +89,7 @@ dependencies:
   react: 17.0.2
   react-color: 2.19.3_react@17.0.2
   react-dom: 17.0.2_react@17.0.2
+  react-hook-form: 7.41.5_react@17.0.2
   react-redux: 7.2.9_sfoxds7t5ydpegc3knd667wn6m
   react-router: 5.3.4_react@17.0.2
   react-router-dom: 5.3.4_react@17.0.2
@@ -6936,6 +6938,15 @@ packages:
       react-clientside-effect: 1.2.6_react@17.0.2
       use-callback-ref: 1.3.0_q5o373oqrklnndq2vhekyuzhxi
       use-sidecar: 1.1.2_q5o373oqrklnndq2vhekyuzhxi
+    dev: false
+
+  /react-hook-form/7.41.5_react@17.0.2:
+    resolution: {integrity: sha512-DAKjSJ7X9f16oQrP3TW2/eD9N6HOgrmIahP4LOdFphEWVfGZ2LulFd6f6AQ/YS/0cx/5oc4j8a1PXxuaurWp/Q==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 17.0.2
     dev: false
 
   /react-is/16.13.1:

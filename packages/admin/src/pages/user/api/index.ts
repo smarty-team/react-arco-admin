@@ -6,10 +6,11 @@ const url = '/api/user';
 
 export interface User {
   _id: string;
-  name: string;
+  phoneNumber: string;
+  password: string;
+  name?: string;
   avatar?: string;
   email?: string;
-  phoneNumber?: string;
   job?: string;
   jobName?: string;
   organization?: string;
@@ -20,10 +21,11 @@ export interface User {
 // 编辑项初始值
 export const initial = {
   _id: '',
+  phoneNumber: '',
+  password: '',
   name: '',
   avatar: '',
   email: '',
-  phoneNumber: '',
   job: '',
   jobName: '',
   organization: '',
@@ -45,11 +47,10 @@ export function deleteUser(id: string) {
   return http.delete(`${url}/${id}`);
 }
 
-export function updateUser(user: User) {
-  return http.patch(`/api/User/${user._id}`, user);
+export function updateUser(id: string, data: Partial<User>) {
+  return http.patch(`/api/User/${id}`, data);
 }
 
-export function addUser(user: User) {
-  delete user._id
-  return http.post<User>(url, user);
+export function addUser(data: Partial<User>) {
+  return http.post<User>(url, data);
 }

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Upload, Progress, Image } from '@arco-design/web-react';
+import { Upload, Progress, Image, Form } from '@arco-design/web-react';
 import { IconPlus, IconEdit } from '@arco-design/web-react/icon';
 import { UploadItem } from '@arco-design/web-react/es/Upload';
 import { OpResult } from '@/api/types';
 
-export default function ({ value = '', onComplete }) {
+export default function () {
+  const { form, disabled } = Form.useFormContext();
   const [file, setFile] = React.useState<UploadItem>();
   const cs = `arco-upload-list-item${
     file && file.status === 'error' ? ' is-error' : ''
@@ -12,6 +13,7 @@ export default function ({ value = '', onComplete }) {
   return (
     <div>
       <Upload
+        disabled={disabled}
         headers={{ Authorization: 'Bearer ' + localStorage.getItem('token') }}
         action="/api/auth/upload"
         fileList={file ? [file] : []}
@@ -25,7 +27,9 @@ export default function ({ value = '', onComplete }) {
           // 上传成功，获取文件名
           if (currentFile.status === 'done') {
             const { data } = currentFile.response as OpResult<string>;
-            onComplete(data);
+            console.log(data);
+            
+            form.setFieldValue('avatar', data);
           }
         }}
         onProgress={(currentFile) => {
@@ -56,8 +60,13 @@ export default function ({ value = '', onComplete }) {
           ) : (
             <div className="arco-upload-trigger-picture">
               {/* 如果存在头像显示头像，否则显示plus图标 */}
-              {value ? (
-                <Image width={100} src={value} alt="avatar" preview={false} />
+              {form.getFieldValue('avatar') ? (
+                <Image
+                  width={100}
+                  src={form.getFieldValue('avatar')}
+                  alt="用户头像"
+                  preview={false}
+                />
               ) : (
                 <div className="arco-upload-trigger-picture-text">
                   <IconPlus />

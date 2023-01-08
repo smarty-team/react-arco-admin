@@ -71,7 +71,7 @@ export class AuthService {
 
 
     const admin = await this.register({
-      "phoneNumber": "13611177421",
+      "phoneNumber": "18888888888",
       "name": "管理员1",
       "password": "888888",
       "passwordRepeat": "888888",

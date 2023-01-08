@@ -15,22 +15,12 @@ export const routes: IRoute[] = [
   {
     name: 'menu.dashboard',
     key: 'dashboard',
-    children: [
-      {
-        name: 'menu.dashboard.workplace',
-        key: 'dashboard/workplace',
-      },
-    ],
-  },
-  {
-    name: 'menu.article',
-    key: 'article',
-    // requiredPermissions: [{ resource: 'article' }],
-  },
-  {
-    name: 'menu.course',
-    key: 'course',
-    requiredPermissions: [{ resource: 'course' }],
+    // children: [
+    //   {
+    //     name: 'menu.dashboard.workplace',
+    //     key: 'dashboard/workplace',
+    //   },
+    // ],
   },
   {
     name: 'menu.user',
@@ -41,6 +31,16 @@ export const routes: IRoute[] = [
     name: 'menu.role',
     key: 'role',
     requiredPermissions: [{ resource: 'role' }],
+  },
+  {
+    name: 'menu.article',
+    key: 'article',
+    // requiredPermissions: [{ resource: 'article' }],
+  },
+  {
+    name: 'menu.course',
+    key: 'course',
+    requiredPermissions: [{ resource: 'course' }],
   },
 ];
 

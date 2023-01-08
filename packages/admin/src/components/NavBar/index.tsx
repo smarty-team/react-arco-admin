@@ -92,7 +92,7 @@ function Navbar({ show }: { show: boolean }) {
 
   const droplist = (
     <Menu onClickMenuItem={onMenuItemClick}>
-      <Menu.SubMenu
+      {/* <Menu.SubMenu
         key="role"
         title={
           <>
@@ -109,12 +109,12 @@ function Navbar({ show }: { show: boolean }) {
           <IconTag className={styles['dropdown-icon']} />
           {t['menu.user.switchRoles']}
         </Menu.Item>
-      </Menu.SubMenu>
+      </Menu.SubMenu> */}
       <Menu.Item key="setting">
         <IconSettings className={styles['dropdown-icon']} />
         {t['menu.user.setting']}
       </Menu.Item>
-      <Menu.SubMenu
+      {/* <Menu.SubMenu
         key="more"
         title={
           <div style={{ width: 80 }}>
@@ -127,7 +127,7 @@ function Navbar({ show }: { show: boolean }) {
           <IconDashboard className={styles['dropdown-icon']} />
           {t['menu.dashboard.workplace']}
         </Menu.Item>
-      </Menu.SubMenu>
+      </Menu.SubMenu> */}
 
       <Divider style={{ margin: '4px 0' }} />
       <Menu.Item key="logout">
@@ -142,7 +142,7 @@ function Navbar({ show }: { show: boolean }) {
       <div className={styles.left}>
         <div className={styles.logo}>
           <Logo />
-          <div className={styles['logo-name']}>Arco Pro</div>
+          <div className={styles['logo-name']}>前端大班车</div>
         </div>
       </div>
       <ul className={styles.right}>

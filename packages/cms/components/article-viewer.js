@@ -35,6 +35,6 @@ const plugins = [
   },
 ];
 
-export default function ArticleViewer({ article }) {
-  return <Viewer value={article.content} plugins={plugins} />;
+export default function ArticleViewer({ article, ...props }) {
+  return <Viewer value={article.content} plugins={plugins} {...props} />;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Typography,
   Card,
@@ -22,18 +22,20 @@ import {
 } from './api';
 import AvatarUploader from './components/avatar-uploader';
 
-const Text = Typography.Text;
 const Title = Typography.Title;
 const FormItem = Form.Item;
 
 // 用户页面组件
 function Index() {
   // 获取列表数据
-  const { data, loading, pagination, mutate, refresh } = usePagination(getUserList, {
-    defaultPageSize: 10,
-    defaultCurrent: 1,
-    loadingDelay: 300,
-  });
+  const { data, loading, pagination, mutate, refresh } = usePagination(
+    getUserList,
+    {
+      defaultPageSize: 10,
+      defaultCurrent: 1,
+      loadingDelay: 300,
+    }
+  );
   // 分页
   const pager = useMemo<PaginationProps>(
     () => ({
@@ -44,9 +46,7 @@ function Index() {
     }),
     [pagination]
   );
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+
   // 用户操作的回调函数
   const tableCallback = async (record: User, type: 'edit' | 'delete') => {
     if (type === 'edit') {
@@ -77,13 +77,10 @@ function Index() {
     setDrawerVisibleVisible(true);
   };
 
-  // 编辑项
+  // 当前编辑项
   const [editedItem, setEditedItem] = useState<User>(initial);
-  // 用户修改编辑项
-  const onEditedItemChange = (key: string, value: string) => {
-    setEditedItem({ ...editedItem, [key]: value });
-  };
-
+  // 表单实例
+  const [form] = Form.useForm<User>();
   // 抽屉显示状态
   const [drawerVisible, setDrawerVisibleVisible] = useState(false);
   // 抽屉标题
@@ -92,37 +89,53 @@ function Index() {
     [editedItem._id]
   );
 
+  const fillForm = () => {
+    form.setFieldsValue(editedItem);
+  }
+  const resetForm = () => {
+    form.resetFields();
+  }
+
   // 提交编辑表单
-  const onSubmit = async () => {
+  const onSubmit = () => {
     let message: string = editedItem._id ? '编辑' : '新增';
-    try {
-      // 根据标识符决定新增或更新
-      if (editedItem._id) {
-        await updateUser(editedItem);
-        refresh()
-      } else {
-        const newUser = await addUser(editedItem);  
-        mutate({
-          list: [...data.list, newUser],
-          total: data.total + 1,
-        });
+
+    form.validate(async (errors) => {
+      if (!errors) {
+        try {
+          // 根据标识符决定新增或更新
+          if (editedItem._id) {
+            await updateUser(editedItem._id, form.getFieldsValue());
+            refresh();
+          } else {
+            const user = form.getFieldsValue()
+            const newUser = await addUser(user);
+            console.log(user);
+            
+            mutate({
+              list: [...data.list, newUser],
+              total: data.total + 1,
+            });
+          }
+
+          // 显示提示信息
+          message += '用户成功!';
+          Message.success(message);
+          // 关闭抽屉
+          setDrawerVisibleVisible(false);
+        } catch (error) {
+          // 操作失败
+          message += '用户失败，请重试!';
+          Message.error(message);
+        }
       }
-      // 显示提示信息
-      message += '用户成功!';
-      Message.success(message);
-      // 关闭抽屉
-      setDrawerVisibleVisible(false);
-    } catch (error) {
-      message += '用户失败，请重试!';
-      Message.error(message);
-    }
+    });
   };
 
   const columns = [
     {
-      title: '用户ID',
-      dataIndex: '_id',
-      render: (value: string) => <Text copyable>{value}</Text>,
+      title: '手机号',
+      dataIndex: 'phoneNumber',
     },
     {
       title: '用户名称',
@@ -133,6 +146,16 @@ function Index() {
       dataIndex: 'avatar',
       render(value: string) {
         return <img src={value} width="50" />;
+      },
+    },
+    {
+      title: '邮箱',
+      dataIndex: 'email',
+      render(value: string) {
+        if (!value) {
+          return '-';
+        }
+        return value;
       },
     },
     {
@@ -181,31 +204,54 @@ function Index() {
         />
       </Card>
       <Drawer
-        width={400}
+        width={500}
         title={drawerTitle}
         visible={drawerVisible}
         onOk={onSubmit}
         okText="提交"
         onCancel={() => setDrawerVisibleVisible(false)}
         cancelText="取消"
+        afterOpen={fillForm}
+        afterClose={resetForm}
       >
-        <Form autoComplete="off">
-          <FormItem label="ID">
-            <Text>{editedItem._id}</Text>
+        <Form form={form} autoComplete="off" initialValues={initial}>
+          <FormItem
+            label="手机号"
+            field="phoneNumber"
+            rules={[
+              { required: true, message: '手机号是必填项' },
+              { match: /^1[3456789]\d{9}$/, message: '请输入正确的手机号' },
+            ]}
+          >
+            <Input placeholder="请输入手机号" />
           </FormItem>
-          <FormItem label="用户名称">
-            <Input
-              value={editedItem.name}
-              onChange={(value: string) => onEditedItemChange('name', value)}
-            />
+          <FormItem
+            label="密码"
+            field="password"
+            rules={[
+              { required: true, message: '密码是必填项' },
+              { minLength: 6, message: '密码长度至少6位' },
+            ]}
+          >
+            <Input type="password" placeholder="请输入密码" />
+          </FormItem>
+          <FormItem label="用户名称" field="name">
+            <Input placeholder="请输入用户名" />
           </FormItem>
           <FormItem label="头像">
-            <AvatarUploader
-              value={editedItem.avatar}
-              onComplete={(value: string) =>
-                onEditedItemChange('avatar', value)
-              }
-            ></AvatarUploader>
+            <AvatarUploader />
+          </FormItem>
+          <FormItem label="邮箱" field="email">
+            <Input placeholder="请输入邮箱" />
+          </FormItem>
+          <FormItem label="组织" field="organization">
+            <Input placeholder="请输入组织名称" />
+          </FormItem>
+          <FormItem label="职位" field="job">
+            <Input placeholder="请输入职位" />
+          </FormItem>
+          <FormItem label="个人站点" field="personalWebsite">
+            <Input placeholder="请输入个人站点URL" />
           </FormItem>
         </Form>
       </Drawer>

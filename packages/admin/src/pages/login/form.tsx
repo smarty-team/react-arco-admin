@@ -7,7 +7,7 @@ import {
   Space,
 } from '@arco-design/web-react';
 import { FormInstance } from '@arco-design/web-react/es/Form';
-import { IconLock, IconUser, IconPhone } from '@arco-design/web-react/icon';
+import { IconLock, IconPhone } from '@arco-design/web-react/icon';
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import useStorage from '@/utils/useStorage';
@@ -78,15 +78,15 @@ export default function LoginForm() {
   return (
     <div className={styles['login-form-wrapper']}>
       <div className={styles['login-form-title']}>{t['login.form.title']}</div>
-      <div className={styles['login-form-sub-title']}>
+      {/* <div className={styles['login-form-sub-title']}>
         {t['login.form.title']}
-      </div>
+      </div> */}
       <div className={styles['login-form-error-msg']}>{errorMessage}</div>
       <Form
         className={styles['login-form']}
         layout="vertical"
         ref={formRef}
-        initialValues={{ phoneNumber: '13611177421', password: '888888' }}
+        initialValues={{ phoneNumber: '18888888888', password: '888888' }}
       >
         <Form.Item
           field="phoneNumber"

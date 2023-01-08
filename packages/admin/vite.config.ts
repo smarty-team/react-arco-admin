@@ -11,15 +11,17 @@ export default defineConfig({
     alias: [{ find: '@', replacement: '/src' }],
   },
   server: {
-    port: 8080,
+    port: 3002,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        // target: 'http://bus.josephxia.com:3000/',
+        target: 'http://0.0.0.0:3000/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       },
       '/static': {
-        target: 'http://localhost:3000',
+        // target: 'http://bus.josephxia.com:3000/',
+        target: 'http://0.0.0.0:3000/',
         changeOrigin: true
       },
     }
