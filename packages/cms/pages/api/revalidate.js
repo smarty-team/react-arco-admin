@@ -1,4 +1,5 @@
 // for ISR：重新生成指定path的页面
+// localhost:3001/api/revalidate?secret=abc&id=postid
 export default async function handler(req, res) {
   // 检查secret确认这是一个合法请求
   if (req.query.secret !== process.env.VALIDATE_TOKEN) {

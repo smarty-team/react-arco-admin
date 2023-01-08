@@ -3,6 +3,8 @@ import { In, Like, Raw, MongoRepository, ObjectID } from 'typeorm';
 import { Article } from '../entities/article.mongo.entity'
 import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 import { CreateArticleDto, UpdateArticleDto } from '../dtos/article.dto';
+import axios from 'axios'
+
 @Injectable()
 export class ArticleService {
   constructor(
@@ -12,7 +14,9 @@ export class ArticleService {
 
 
   async create(course: CreateArticleDto) {
-    return await this.articleRepository.save(course)
+    const ret = await this.articleRepository.save(course)
+    await this.sync('' + ret._id)
+    return ret
   }
 
   async findAll({ pageSize, page }: PaginationParams2Dto): Promise<{ data: Article[], count: number }> {
@@ -32,7 +36,6 @@ export class ArticleService {
     console.log('id', id)
     return await this.articleRepository.findOneBy(id)
 
-
   }
 
   async update(id: string, course: UpdateArticleDto) {
@@ -40,13 +43,35 @@ export class ArticleService {
     ['_id', 'createdAt', 'updatedAt'].forEach(
       k => delete course[k]
     )
+    const ret = await this.articleRepository.update(id, course)
 
-    return await this.articleRepository.update(id, course)
+    await this.sync(id)
+    return ret
+  }
+  /**
+   * 同步文章
+   * @param id 
+   */
+  async sync(id: string) {
+
+    const secret = process.env.NEST_VALIDATE_TOKEN
+    // const host = 'http://localhost:3001'
+    const host = process.env.NEXT_HOST
+    const url = `api/revalidate?secret=${secret}&id=${id}`
+    console.log('sync nest validate url:', host + '/' + url)
+    try {
+      await axios.get(host + '/' + url)
+    } catch (error) {
+      // console.log(error)
+      console.log('同步失败')
+    }
+    console.log('同步成功')
+
+    return
   }
 
+
   async remove(id: string): Promise<any> {
-    // const r = await this.courseRepository.findOneBy(_id)
-    // return await this.courseRepository.remove(r)
     return await this.articleRepository.delete(id)
   }
 }

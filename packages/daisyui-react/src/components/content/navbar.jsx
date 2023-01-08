@@ -1,3 +1,4 @@
+import Theme from "./theme";
 import UserCenter from "./userCenter";
 export default function NavBar() {
   return (
@@ -26,6 +27,7 @@ export default function NavBar() {
       {/* <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl">前端大班车</a>
       </div> */}
+      <Theme></Theme>
       <UserCenter></UserCenter>
     </div>
   );

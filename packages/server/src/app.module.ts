@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { CourseModule } from './course/course.module';
 import { SharedModule } from './shared/shared.module';
 import { CMSModule } from './cms/cms.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 
 @Module({
@@ -12,7 +13,8 @@ import { CMSModule } from './cms/cms.module';
     SharedModule,
     UserModule,
     CourseModule,
-    CMSModule
+    CMSModule,
+    AnalyticsModule
   ],
   controllers: [AppController,],
   providers: [AppService],

@@ -48,7 +48,7 @@ export function deleteUser(id: string) {
 }
 
 export function updateUser(id: string, data: Partial<User>) {
-  return http.patch(`/api/User/${id}`, data);
+  return http.patch(`/api/user/${id}`, data);
 }
 
 export function addUser(data: Partial<User>) {

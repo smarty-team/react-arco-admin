@@ -5,22 +5,23 @@
 ### 开发环境
 
 ```bash
-# 启动MongoDB
-# 需要Docker及 Docker-compose环境
-# 后台启动可以加 -d
-docker-compose up
+# 启动DB
+pnpm db:start
+
+# 停止DB
+pnpm db:stop
 
 # 启动服务端
-cd packages/server
-pnpm dev
+pnpm dev:server
 
 # 访问 http://localhost:3000/api/doc#/
 
-# 启动DB
-docker compose up redis mongo mongo-express
 
-# 启动服务器端
-docker compose up redis mongo server mongo-express --force-recreate --build
+# 启动admin
+pnpm dev:admin
+
+# 启动cms Nest SSR
+pnpm dev:cms
 
 # 启动后台管理
 docker compose up redis mongo server admin --force-recreate --build
