@@ -1,4 +1,4 @@
-import { Result } from '@/api/types';
+import { OpResult, Result } from '@/api/types';
 import { PaginationProps } from '@arco-design/web-react';
 import http from '@/api/http';
 
@@ -36,5 +36,5 @@ export function updateRole(role: Role) {
 
 export function addRole(role: Role) {
   delete role._id
-  return http.post(url, role);
+  return http.post<OpResult<Role>>(url, role);
 }

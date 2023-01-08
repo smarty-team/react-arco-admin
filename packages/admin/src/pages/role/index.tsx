@@ -32,6 +32,22 @@ const Text = Typography.Text;
 const Title = Typography.Title;
 const FormItem = Form.Item;
 
+function generateMenus(routes: IRoute[], t: Record<string, string>) {
+  return routes.map((route) => {
+    const item: TreeDataType = {
+      title: t[route.name],
+      key: route.key,
+    };
+    if (route.children) {
+      item.children = generateMenus(route.children, t);
+    }
+    return item;
+  });
+}
+
+// 权限选择结果
+let authSelectResult: { [key: string]: string[] } = {};
+
 // 用户页面组件
 function Index() {
   // 获取列表数据
@@ -109,24 +125,25 @@ function Index() {
     const isEdit = editedItem._id ? true : false;
     let message: string = isEdit ? '编辑' : '新增';
     try {
+      // 设置权限选择结果
+      editedItem.permissions = authSelectResult;
+
       // 根据标识符决定新增或更新
       if (isEdit) {
         await updateRole(editedItem);
       } else {
         await addRole(editedItem);
       }
+
       // 操作成功
       message += '角色成功!';
       Message.success(message);
+
       // 关闭抽屉
       setDrawerVisibleVisible(false);
-      // 新增项会在首页出现，回到首页
-      if (!isEdit && pager.current > 1) {
-        pagination.changeCurrent(1);
-      } else {
-        // 重新获取列表
-        refresh();
-      }
+
+      // 数据刷新
+      refresh()
     } catch (error) {
       message += '角色失败，请重试!';
       Message.error(message);
@@ -171,37 +188,45 @@ function Index() {
     },
   ];
 
+  // 每次打开drawer，重置权限选择结果对象
+  const afterDrawerClose = () => {
+    authSelectResult = {};
+  };
+
   const t = useLocale();
-  const menus = generateMenus(routes);
-
-  function generateMenus(routes: IRoute[]) {
-    return routes.map((route) => {
-      const item: TreeDataType = {
-        title: t[route.name],
-        key: route.key,
-      };
-      if (route.children) {
-        item.children = generateMenus(route.children);
-      }
-      return item;
-    });
-  }
-
-  const RenderExtra = (node: TreeNodeProps) => {
+  const menus = generateMenus(routes, t);
+  const renderAuthTree = (node: TreeNodeProps) => {
     const options = ['read', 'write'];
     const { selected, setSelected } = Checkbox.useCheckbox(options);
     useEffect(() => {
-      setSelected(editedItem.permissions[node.dataRef.key]);
-      console.log(editedItem.permissions[node.dataRef.key]);
+      if (editedItem.permissions) {
+        // 根据正在编辑的选项的permissions信息设置选中状态
+        setSelected(editedItem.permissions[node.dataRef.key]);
+        if (editedItem.permissions[node.dataRef.key]) {
+          // 如果key在permissions中则保存到选择结果中
+          authSelectResult[node.dataRef.key] =
+            editedItem.permissions[node.dataRef.key];
+          console.log('authSelectResult初始化', authSelectResult);
+        }
+      }
     }, [editedItem.permissions]);
+
     return (
       <Checkbox.Group
         value={selected}
         options={options}
         onChange={(value) => {
+          // 如果用户选择某页面至少一个权限，则写入权限选择结果对象
+          // 否则，用户取消选择某页面所有权限，则删除之前已存在的选择记录
+          if (value.length) {
+            authSelectResult[node._key] = value;
+          } else {
+            delete authSelectResult[node._key];
+          }
+          console.log('authSelectResult变化', authSelectResult);
           setSelected(value);
-          editedItem.permissions[node.dataRef.key] = value;
-          onEditedItemChange('permissions', editedItem.permissions);
+          // editedItem.permissions[node.dataRef.key] = value;
+          // onEditedItemChange('permissions', editedItem.permissions);
         }}
       />
     );
@@ -232,6 +257,7 @@ function Index() {
         okText="提交"
         onCancel={() => setDrawerVisibleVisible(false)}
         cancelText="取消"
+        afterClose={afterDrawerClose}
       >
         <Form autoComplete="off">
           <FormItem label="ID">
@@ -244,7 +270,11 @@ function Index() {
             />
           </FormItem>
           <FormItem label="权限设置">
-            <Tree treeData={menus} blockNode renderExtra={RenderExtra}></Tree>
+            <Tree
+              treeData={menus}
+              blockNode
+              renderExtra={renderAuthTree}
+            ></Tree>
           </FormItem>
         </Form>
       </Drawer>
