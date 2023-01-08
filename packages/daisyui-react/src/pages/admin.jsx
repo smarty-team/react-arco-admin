@@ -9,7 +9,7 @@ export default function Admin() {
 
   setTimeout(() => {
     setDispllay(false);
-  }, 1000);
+  }, 500);
   return (
     <div className="bg-base-100 drawer drawer-mobile">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />

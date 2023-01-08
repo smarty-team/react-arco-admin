@@ -26,6 +26,9 @@ pnpm dev:cms
 # 启动后台管理
 docker compose up redis mongo server admin --force-recreate --build
 
+# 强制刷新Server镜像
+docker compose up redis mongo server --force-recreate --build
+
 
 # 强制重新创建容器
 docker compose up --force-recreate --build
