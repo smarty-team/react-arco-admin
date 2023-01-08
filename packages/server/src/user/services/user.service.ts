@@ -4,6 +4,7 @@ import { User } from '../entities/user.mongo.entity';
 import { Role } from '../entities/role.mongo.entity'
 import { CreateUserDto } from '../dtos/user.dto'
 import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
+import { UploadService } from '../../shared/upload/upload.service';
 
 @Injectable()
 export class UserService {
@@ -12,7 +13,10 @@ export class UserService {
     private userRepository: MongoRepository<User>,
 
     @Inject('ROLE_REPOSITORY')
-    private roleRepository: MongoRepository<Role>
+    private roleRepository: MongoRepository<Role>,
+
+    private uploadService: UploadService
+
   ) { }
 
   async create(user) {
@@ -50,5 +54,13 @@ export class UserService {
 
   async remove(id: string): Promise<any> {
     return await this.userRepository.delete(id)
+  }
+
+  /**
+ * 上传头像
+ */
+  async uploadAvatar(file) {
+    const url = await this.uploadService.upload(file)
+    return { data: url }
   }
 }

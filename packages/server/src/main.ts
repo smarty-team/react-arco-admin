@@ -19,7 +19,7 @@ async function bootstrap() {
   // );
 
   const uploadDir = (!!process.env.UPLOAD_DIR && process.env.UPLOAD_DIR !== '') ? process.env.UPLOAD_DIR : join(__dirname, '..', 'static/upload')
-
+  console.log('uploadDir:', uploadDir)
   // 静态服务
   app.useStaticAssets(uploadDir, {
     prefix: '/static/upload',

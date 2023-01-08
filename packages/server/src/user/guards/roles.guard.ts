@@ -30,7 +30,7 @@ export class RolesGuard implements CanActivate {
     //   return true;
     // }
 
-    console.log('context:', context.switchToHttp())
+    // console.log('context:', context.switchToHttp())
 
     const { user } = context.switchToHttp().getRequest();
     console.log('访问控制: ', user)
