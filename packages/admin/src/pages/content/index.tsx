@@ -11,7 +11,7 @@ import {
   Space,
 } from '@arco-design/web-react';
 import {
-  IconPlusCircle as IconPlus,
+  IconPlusCircle,
   IconPen,
   IconDelete,
   IconEdit,
@@ -19,9 +19,10 @@ import {
   IconFolderDelete,
 } from '@arco-design/web-react/icon';
 
+import { useRequest } from 'ahooks';
+import { v4 as uuid } from 'uuid';
 import { addArticle, getArticle, initial, updateArticle } from './api';
 import { ArticleEditor } from './components/ArticleEditor';
-import { useRequest } from 'ahooks';
 import { getMenu, MenuItem, updateMenu } from './api/menu';
 
 const Title = Typography.Title;
@@ -39,6 +40,21 @@ function getParent(treeData, pathParentKeys) {
   return null;
 }
 
+function removeFromParent(treeData: MenuItem[], node: TreeNodeProps, callback) {
+  const { parentKey, pathParentKeys, dataRef } = node;
+  if (parentKey) {
+    const parentNode = getParent(treeData, pathParentKeys);
+    parentNode.children = parentNode.children.filter(
+      (item) => item.key !== dataRef.key
+    );
+    callback(treeData);
+  } else {
+    // 没有父节点，说明是根节点，从treeData中删除
+    const newData = treeData.filter((item) => item.key !== dataRef.key);
+    callback(newData);
+  }
+}
+
 const iconStyle: CSSProperties = {
   fontSize: 22,
   color: '#3370ff',
@@ -49,6 +65,7 @@ const iconStyle: CSSProperties = {
 function Index() {
   // 获取菜单数据
   const { data: treeData, mutate } = useRequest<MenuItem[], null>(getMenu);
+
   // 更新菜单数据
   const { run } = useRequest(updateMenu, { manual: true });
 
@@ -69,6 +86,7 @@ function Index() {
       return (
         <Input
           value={editedItem.title}
+          placeholder="请输入分类名称"
           autoFocus
           onChange={(value) => setEditedItem({ ...editedItem, title: value })}
           onBlur={() => setEditedItem(null)}
@@ -79,6 +97,16 @@ function Index() {
             run(treeData);
             // 退出编辑模式
             setEditedItem(null);
+          }}
+          onKeyDown={(e) => {
+            if (e.code === 'Escape') {
+              // 移除当前项
+              removeFromParent(treeData, node, (data) => {
+                mutate(data);
+                // 退出编辑模式
+                setEditedItem(null);
+              });
+            }
           }}
         ></Input>
       );
@@ -107,25 +135,12 @@ function Index() {
             cancelText="取消"
             onOk={() => {
               // 找到父节点，从其children中删除当前节点
-              if (node.parentKey) {
-                const parentNode = getParent(treeData, node.pathParentKeys);
-                parentNode.children = parentNode.children.filter(
-                  (item) => item.key !== node.dataRef.key
-                );
+              removeFromParent(treeData, node, (data) => {
                 // 执行更新菜单
-                run(treeData);
+                run(data);
                 // 修改本地数据
-                mutate(treeData);
-              } else {
-                // 没有父节点，说明是根节点，从treeData中删除
-                const newData = treeData.filter(
-                  (item) => item.key !== node.dataRef.key
-                );
-                // 执行更新菜单
-                run(newData);
-                // 修改本地数据
-                mutate(newData);
-              }
+                mutate(data);
+              });
             }}
           >
             <IconFolderDelete style={iconStyle} />
@@ -138,7 +153,7 @@ function Index() {
               const dataChildren = node.dataRef.children || [];
               const newNode = {
                 title: '输入分类名称',
-                key: node._key + '-' + (dataChildren.length + 1),
+                key: uuid(),
                 type: 'category',
               };
               dataChildren.push(newNode);
@@ -150,7 +165,7 @@ function Index() {
             }}
           />
           {/* 新增文章 */}
-          <IconPlus
+          <IconPlusCircle
             style={iconStyle}
             onClick={() => {
               // 打开新增弹窗并设置弹窗标题
@@ -161,7 +176,7 @@ function Index() {
               // 设置文章数据对象
               setArticle({
                 _id: '',
-                title: '输入文章标题',
+                title: '',
                 content: '',
               });
             }}
@@ -273,13 +288,20 @@ function Index() {
 
   // 添加根分类
   const addRootCategory = () => {
+    // 创建新节点
     const newNode = {
-      key: '' + (treeData.length + 1),
-      title: '输入分类名称',
+      key: uuid(),
+      title: '',
       type: 'category',
       children: [],
     } as MenuItem;
-    treeData.push(newNode);
+
+    // 如果数据为空，则初始化一个
+    if (treeData && JSON.stringify(treeData) === '{}') {
+      mutate([newNode]);
+    } else {
+      treeData.push(newNode);
+    }
 
     // 进入编辑模式
     setEditedItem(newNode);
@@ -294,7 +316,7 @@ function Index() {
     // 设置文章数据对象
     setArticle({
       _id: '',
-      title: '输入文章标题',
+      title: '',
       content: '',
     });
   };
@@ -333,32 +355,39 @@ function Index() {
       });
     }
 
-    const newData = [...data]
+    const newData = [...data];
     mutate(newData);
-    run(newData)
+    run(newData);
     setTimeout(() => {
       dragItem.className = '';
       mutate([...data]);
     }, 1000);
-  }
-  
+  };
+
   return (
     <>
       <Card>
         <Title heading={6}>文章管理</Title>
-        <Tree
-          size="large"
-          draggable
-          treeData={treeData}
-          renderTitle={renderTitle}
-          renderExtra={renderExtra}
-          onDrop={onDrop}
-        ></Tree>
+
+        {/* 菜单、内容管理 */}
+        {treeData && JSON.stringify(treeData) !== '{}' && (
+          <Tree
+            size="large"
+            draggable
+            treeData={treeData}
+            renderTitle={renderTitle}
+            renderExtra={renderExtra}
+            onDrop={onDrop}
+          ></Tree>
+        )}
+
         {/* 创建根目录和文章 */}
         <Space>
           <Button onClick={addRootCategory}>添加分类</Button>
           <Button onClick={addRootArticle}>添加文章</Button>
         </Space>
+
+        {/* 文章编辑器 */}
         <Modal
           title={modalTitle}
           visible={visible}

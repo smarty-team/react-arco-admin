@@ -10,7 +10,7 @@ import {
   IconVideoCamera,
   IconUser,
   IconUserGroup,
-  IconPen
+  IconFile
 } from '@arco-design/web-react/icon';
 import { useSelector } from 'react-redux';
 import qs from 'query-string';
@@ -39,8 +39,8 @@ function getIconFromKey(key) {
       return <IconTag className={styles.icon} />;
     case 'course':
       return <IconVideoCamera className={styles.icon} />;
-    case 'article':
-      return <IconPen className={styles.icon} />;
+    case 'content':
+      return <IconFile className={styles.icon} />;
     case 'user':
       return <IconUser className={styles.icon} />;
     case 'role':

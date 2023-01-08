@@ -33,9 +33,9 @@ export const routes: IRoute[] = [
     requiredPermissions: [{ resource: 'role' }],
   },
   {
-    name: 'menu.article',
-    key: 'article',
-    // requiredPermissions: [{ resource: 'article' }],
+    name: 'menu.content',
+    key: 'content',
+    // requiredPermissions: [{ resource: 'content' }],
   },
   {
     name: 'menu.course',
