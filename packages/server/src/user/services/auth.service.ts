@@ -150,8 +150,10 @@ export class AuthService {
     await this.checkRegisterForm(registerDTO)
 
     const { name, password, phoneNumber } = registerDTO;
-    const salt = makeSalt(); // 制作密码盐
-    const hashPassword = encryptPassword(password, salt);  // 加密密码
+    // const salt = makeSalt(); // 制作密码盐
+    // const hashPassword = encryptPassword(password, salt);  // 加密密码
+
+    const { salt, hashPassword } = this.getPassword(password)
 
     const newUser: User = new User()
     newUser.name = name
@@ -164,6 +166,12 @@ export class AuthService {
     return {
       data
     }
+  }
+
+  getPassword(password) {
+    const salt = makeSalt(); // 制作密码盐
+    const hashPassword = encryptPassword(password, salt);  // 加密密码
+    return { salt, hashPassword }
   }
 
   /**

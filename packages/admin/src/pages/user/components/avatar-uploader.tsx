@@ -7,15 +7,14 @@ import { OpResult } from '@/api/types';
 export default function () {
   const { form, disabled } = Form.useFormContext();
   const [file, setFile] = React.useState<UploadItem>();
-  const cs = `arco-upload-list-item${
-    file && file.status === 'error' ? ' is-error' : ''
-  }`;
+  const cs = `arco-upload-list-item${file && file.status === 'error' ? ' is-error' : ''
+    }`;
   return (
     <div>
       <Upload
         disabled={disabled}
         headers={{ Authorization: 'Bearer ' + localStorage.getItem('token') }}
-        action="/api/auth/upload"
+        action="/api/user/upload"
         fileList={file ? [file] : []}
         showUploadList={false}
         onChange={(_, currentFile) => {

@@ -5,27 +5,36 @@
 ### 开发环境
 
 ```bash
-# 启动DB
+
+# 数据库管理
+## 启动DB
 pnpm db:start
 
-# 停止DB
+## 停止DB
 pnpm db:stop
 
+## 从dump中恢复数据
+pnpm db:restore
+
+## 备份数据到dump文件
+数据会存储到mongodb/dump中
+pnpm db:dump
+
 # 启动服务端
+API地址： http://localhost:3000/api/doc#/
 pnpm dev:server
 
-# 访问 http://localhost:3000/api/doc#/
-
-
-# 启动admin
+# 启动前端admin项目
 pnpm dev:admin
 
-# 启动cms Nest SSR
+# 启动前端cms项目 Nest SSR
 pnpm dev:cms
 
 # 启动后台管理
-docker compose up redis mongo server admin --force-recreate --build
+docker compose up redis mongo server admin
 
+# 启动后台管理强制刷新
+docker compose up redis mongo server admin --force-recreate --build
 
 # 强制重新创建容器
 docker compose up --force-recreate --build

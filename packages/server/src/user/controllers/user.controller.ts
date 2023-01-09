@@ -1,13 +1,15 @@
-import { Controller, UseGuards, HttpStatus, Post, Body, Query, Get, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, UseGuards, HttpStatus, Post, Body, Query, Get, Patch, Param, Delete, UseInterceptors, Req, UploadedFile } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { CreateUserDto } from '../dtos/user.dto';
-import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth, ApiConsumes } from '@nestjs/swagger';
 import {
   BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
 } from '../../shared/dtos/base-api-response.dto';
 import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../guards/roles.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UploadDTO } from '../dtos/upload.dto';
 
 
 @ApiTags('用户')
@@ -107,6 +109,19 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
+  }
+
+  @Post('upload')
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor('file'))
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  async upload(
+    @Req() req: any,
+    @Body() uploadDTO: UploadDTO,
+    @UploadedFile() file
+  ): Promise<any> {
+    return await this.userService.uploadAvatar(file)
   }
 
 }

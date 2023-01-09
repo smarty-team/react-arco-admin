@@ -3,9 +3,7 @@ export default function Loading(props) {
   return (
     <div>
       {/* The button to open modal */}
-      <label htmlFor="my-modal" className="btn">
-        open modal
-      </label>
+      <label htmlFor="my-modal"></label>
       {/* Put this part before </body> tag */}
       <input
         type="checkbox"

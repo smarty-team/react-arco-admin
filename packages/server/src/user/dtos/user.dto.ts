@@ -20,6 +20,8 @@ export class CreateUserDto {
     @IsNotEmpty()
     password?: string;
 
+    salt?: string;
+
     @ApiProperty({ example: '15906475@qq.com' })
     @IsNotEmpty()
     email?: string;
