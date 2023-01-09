@@ -1,10 +1,12 @@
 import { In, Like, Raw, MongoRepository } from 'typeorm';
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { User } from '../entities/user.mongo.entity';
 import { Role } from '../entities/role.mongo.entity'
 import { CreateUserDto } from '../dtos/user.dto'
 import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 import { UploadService } from '../../shared/upload/upload.service';
+import { AuthService } from './auth.service';
+import { makeSalt, encryptPassword } from '../../shared/utils/cryptogram.util';
 
 @Injectable()
 export class UserService {
@@ -15,7 +17,8 @@ export class UserService {
     @Inject('ROLE_REPOSITORY')
     private roleRepository: MongoRepository<Role>,
 
-    private uploadService: UploadService
+    private uploadService: UploadService,
+
 
   ) { }
 
@@ -32,23 +35,43 @@ export class UserService {
       take: (pageSize * 1),
       cache: true
     })
+
+    data.map(v => {
+      Reflect.deleteProperty(v, 'password')
+      Reflect.deleteProperty(v, 'salt')
+    })
+
     return {
       data, count
     }
   }
 
   async findOne(id: string) {
-    return await this.userRepository.findOneBy(id)
+    const ret = await this.userRepository.findOneBy(id)
+    console.log('ret', ret)
+    if (ret) {
+      Reflect.deleteProperty(ret, 'password')
+      Reflect.deleteProperty(ret, 'salt')
+      return ret
+    }
   }
 
   async update(id: string, user: CreateUserDto) {
 
     // 去除时间戳和id
-    ['_id', 'password', 'createdAt', 'updatedAt'].forEach(
-      k => delete user[k]
+    ['_id', 'createdAt', 'updatedAt'].forEach(
+      k => Reflect.deleteProperty(user, k)
     )
-    // 更新时间戳
-    // course.updatedAt = new Date()
+    console.log('user', user)
+    /// 如果更新密码
+    if (user.password) {
+
+      const { salt, hashPassword } = this.getPassword(user.password)
+
+      user.salt = salt
+      user.password = hashPassword
+    }
+
     return await this.userRepository.update(id, user)
   }
 
@@ -63,4 +86,11 @@ export class UserService {
     const url = await this.uploadService.upload(file)
     return { data: url }
   }
+
+  getPassword(password) {
+    const salt = makeSalt(); // 制作密码盐
+    const hashPassword = encryptPassword(password, salt);  // 加密密码
+    return { salt, hashPassword }
+  }
+
 }
