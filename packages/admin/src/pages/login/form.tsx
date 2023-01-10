@@ -14,6 +14,8 @@ import useStorage from '@/utils/useStorage';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import styles from './style/index.module.less';
+import http from '@/api/http';
+import { OpResult } from '@/api/types';
 
 export default function LoginForm() {
   const formRef = useRef<FormInstance>();
@@ -36,7 +38,7 @@ export default function LoginForm() {
     // 记录登录状态
     localStorage.setItem('userStatus', 'login');
     // 存储令牌
-    localStorage.setItem('token', token)
+    localStorage.setItem('token', token);
     // 跳转首页
     window.location.href = '/';
   }
@@ -44,10 +46,10 @@ export default function LoginForm() {
   function login(params) {
     setErrorMessage('');
     setLoading(true);
-    axios
-      .post('/api/auth/login', params)
+    http
+      .post<OpResult<{ token: string }>>('/api/auth/login', params)
       .then((res) => {
-        const { token } = res.data.data;
+        const { token } = res.data;
         if (token) {
           afterLoginSuccess(params, token);
         } else {

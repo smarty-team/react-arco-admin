@@ -10,8 +10,9 @@ import {
   Input,
   Message,
   Popconfirm,
+  Select,
 } from '@arco-design/web-react';
-import { usePagination } from 'ahooks';
+import { usePagination, useRequest } from 'ahooks';
 import {
   addUser,
   deleteUser,
@@ -21,6 +22,7 @@ import {
   User,
 } from './api';
 import AvatarUploader from './components/avatar-uploader';
+import { getAllRoles } from '../role/api';
 
 const Title = Typography.Title;
 const FormItem = Form.Item;
@@ -89,12 +91,36 @@ function Index() {
     [editedItem._id]
   );
 
-  const fillForm = () => {
+  // 获取可用角色
+  const { data: roles, run } = useRequest(getAllRoles, {
+    manual: true,
+  });
+
+  const rolesOptions = useMemo(() => {
+    if (roles) {
+      return roles.map((role) => ({
+        label: role.name,
+        value: role._id,
+      }));
+    }
+    return [];
+  }, [roles]);
+
+  // drawer打开、关闭相关操作
+  const afterOpen = () => {
+    // 填充表单数据项
     form.setFieldsValue(editedItem);
-  }
-  const resetForm = () => {
+
+    // 获取用户可用角色
+    if (!roles) {
+      console.log('获取roles');
+      run();
+    }
+  };
+  const afterClose = () => {
+    // 重置表单项
     form.resetFields();
-  }
+  };
 
   // 提交编辑表单
   const onSubmit = () => {
@@ -108,10 +134,10 @@ function Index() {
             await updateUser(editedItem._id, form.getFieldsValue());
             refresh();
           } else {
-            const user = form.getFieldsValue()
+            const user = form.getFieldsValue();
             const newUser = await addUser(user);
             console.log(user);
-            
+
             mutate({
               list: [...data.list, newUser],
               total: data.total + 1,
@@ -211,8 +237,8 @@ function Index() {
         okText="提交"
         onCancel={() => setDrawerVisibleVisible(false)}
         cancelText="取消"
-        afterOpen={fillForm}
-        afterClose={resetForm}
+        afterOpen={afterOpen}
+        afterClose={afterClose}
       >
         <Form form={form} autoComplete="off" initialValues={initial}>
           <FormItem
@@ -234,6 +260,9 @@ function Index() {
             ]}
           >
             <Input type="password" placeholder="请输入密码" />
+          </FormItem>
+          <FormItem label="用户角色" field="role" rules={[{ required: true }]}>
+            <Select placeholder="请选择一个用户角色" options={rolesOptions} />
           </FormItem>
           <FormItem label="用户名称" field="name">
             <Input placeholder="请输入用户名" />

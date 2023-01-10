@@ -14,9 +14,8 @@ import {
   IconPlusCircle,
   IconPen,
   IconDelete,
-  IconEdit,
-  IconFolderAdd,
-  IconFolderDelete,
+  IconFile,
+  IconFolderAdd
 } from '@arco-design/web-react/icon';
 
 import { useRequest } from 'ahooks';
@@ -143,7 +142,7 @@ function Index() {
               });
             }}
           >
-            <IconFolderDelete style={iconStyle} />
+            <IconDelete style={iconStyle} />
           </Popconfirm>
           {/* 新增子目录 */}
           <IconFolderAdd
@@ -165,7 +164,7 @@ function Index() {
             }}
           />
           {/* 新增文章 */}
-          <IconPlusCircle
+          <IconFile
             style={iconStyle}
             onClick={() => {
               // 打开新增弹窗并设置弹窗标题
@@ -186,7 +185,7 @@ function Index() {
     } else {
       return (
         <>
-          <IconEdit
+          <IconPen
             style={iconStyle}
             onClick={async () => {
               // 编辑文章：

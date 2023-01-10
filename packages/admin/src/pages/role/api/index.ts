@@ -13,8 +13,13 @@ export interface Role {
 export const initial = {
   _id: '',
   name: '',
-  permissions: {}
+  permissions: {},
 };
+
+export async function getAllRoles() {
+  const { data } = await http.get<Result<Role>>(url);
+  return data;
+}
 
 export async function getRoleList({ current, pageSize }: PaginationProps) {
   const { data, meta } = await http.get<Result<Role>>(url, {
@@ -35,6 +40,6 @@ export function updateRole(role: Role) {
 }
 
 export function addRole(role: Role) {
-  delete role._id
+  delete role._id;
   return http.post<OpResult<Role>>(url, role);
 }

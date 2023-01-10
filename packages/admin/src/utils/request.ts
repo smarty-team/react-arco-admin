@@ -54,11 +54,11 @@ service.interceptors.response.use(
     const status = error.response?.status;
     switch (status) {
       case 401:
-        message = 'token失效，请重新登录';
+        message = error.response?.data?.message || 'token失效，请重新登录';
         // 这里可以触发退出的 action
         Modal.confirm({
           title: 'token失效',
-          content: 'token失效，请重新登录',
+          content: message,
           okText: '去登录',
           cancelText: '取消',
           onOk: () => {
@@ -72,16 +72,16 @@ service.interceptors.response.use(
         });
         break;
       case 403:
-        message = '拒绝访问';
+        message = error.response?.data?.message || '拒绝访问';
         break;
       case 404:
-        message = '请求地址错误';
+        message = error.response?.data?.message || '请求地址错误';
         break;
       case 500:
-        message = '服务器故障';
+        message = error.response?.data?.message || '服务器故障';
         break;
       default:
-        message = '网络连接故障';
+        message = error.response?.data?.message || '网络连接故障';
     }
     Message.error(message);
     return Promise.reject(error);
