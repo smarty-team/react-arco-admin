@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Tooltip,
   Input,
@@ -12,29 +12,25 @@ import {
 } from '@arco-design/web-react';
 import {
   IconLanguage,
-  IconNotification,
   IconSunFill,
   IconMoonFill,
-  IconUser,
   IconSettings,
   IconPoweroff,
-  IconExperiment,
-  IconDashboard,
-  IconInteraction,
-  IconTag,
+  IconLock,
 } from '@arco-design/web-react/icon';
 import { useSelector, useDispatch } from 'react-redux';
 import { GlobalState } from '@/store';
 import { GlobalContext } from '@/context';
 import useLocale from '@/utils/useLocale';
 import Logo from '@/assets/logo.svg';
-import MessageBox from '@/components/MessageBox';
 import IconButton from './IconButton';
 import Settings from '../Settings';
 import styles from './style/index.module.less';
 import defaultLocale from '@/locale';
 import useStorage from '@/utils/useStorage';
 import { generatePermission } from '@/routes';
+import { FormChangePWD } from '@/pages/user/components/form-change-pwd';
+import { FormUser } from '@/pages/user/components/form-user';
 
 function Navbar({ show }: { show: boolean }) {
   const t = useLocale();
@@ -49,13 +45,20 @@ function Navbar({ show }: { show: boolean }) {
 
   function logout() {
     setUserStatus('logout');
-    setToken('')
+    setToken('');
     window.location.href = '/login';
   }
+
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   function onMenuItemClick(key) {
     if (key === 'logout') {
       logout();
+    } else if (key === 'changepwd') {
+      setVisible(true)
+    } else if (key === 'setting') {
+      setDrawerVisible(true)
     } else {
       Message.info(`You clicked ${key}`);
     }
@@ -85,10 +88,10 @@ function Navbar({ show }: { show: boolean }) {
     );
   }
 
-  const handleChangeRole = () => {
-    const newRole = role === 'admin' ? 'user' : 'admin';
-    setRole(newRole);
-  };
+  // const handleChangeRole = () => {
+  //   const newRole = role === 'admin' ? 'user' : 'admin';
+  //   setRole(newRole);
+  // };
 
   const droplist = (
     <Menu onClickMenuItem={onMenuItemClick}>
@@ -113,6 +116,10 @@ function Navbar({ show }: { show: boolean }) {
       <Menu.Item key="setting">
         <IconSettings className={styles['dropdown-icon']} />
         {t['menu.user.setting']}
+      </Menu.Item>
+      <Menu.Item key="changepwd">
+        <IconLock className={styles['dropdown-icon']} />
+        {t['menu.user.changepwd']}
       </Menu.Item>
       {/* <Menu.SubMenu
         key="more"
@@ -139,19 +146,23 @@ function Navbar({ show }: { show: boolean }) {
 
   return (
     <div className={styles.navbar}>
+      {/* logo */}
       <div className={styles.left}>
         <div className={styles.logo}>
           <Logo />
           <div className={styles['logo-name']}>前端大班车</div>
         </div>
       </div>
+
       <ul className={styles.right}>
+        {/* 搜索栏 */}
         <li>
           <Input.Search
             className={styles.round}
             placeholder={t['navbar.search.placeholder']}
           />
         </li>
+        {/* 切换语言 */}
         <li>
           <Select
             triggerElement={<IconButton icon={<IconLanguage />} />}
@@ -173,11 +184,12 @@ function Navbar({ show }: { show: boolean }) {
             }}
           />
         </li>
-        <li>
+        {/* <li>
           <MessageBox>
             <IconButton icon={<IconNotification />} />
           </MessageBox>
-        </li>
+        </li> */}
+        {/* 切换暗黑模式 */}
         <li>
           <Tooltip
             content={
@@ -192,7 +204,9 @@ function Navbar({ show }: { show: boolean }) {
             />
           </Tooltip>
         </li>
+        {/* 选项设置 */}
         <Settings />
+        {/* 当前用户信息 */}
         {userInfo && (
           <li>
             <Dropdown droplist={droplist} position="br">
@@ -203,6 +217,20 @@ function Navbar({ show }: { show: boolean }) {
           </li>
         )}
       </ul>
+
+      {/* 修改用户信息 */}
+      <FormUser
+        user={userInfo}
+        visible={drawerVisible}
+        setVisible={setDrawerVisible}
+      ></FormUser>
+
+      {/* 修改用户密码 */}
+      <FormChangePWD
+        visible={visible}
+        setVisible={setVisible}
+        user={userInfo}
+      ></FormChangePWD>
     </div>
   );
 }

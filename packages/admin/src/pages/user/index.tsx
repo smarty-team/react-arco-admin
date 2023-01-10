@@ -5,27 +5,21 @@ import {
   Table,
   PaginationProps,
   Button,
-  Drawer,
   Form,
-  Input,
   Message,
   Popconfirm,
-  Select,
 } from '@arco-design/web-react';
-import { usePagination, useRequest } from 'ahooks';
+import { usePagination } from 'ahooks';
 import {
-  addUser,
   deleteUser,
   getUserList,
   initial,
-  updateUser,
   User,
 } from './api';
-import AvatarUploader from './components/avatar-uploader';
-import { getAllRoles } from '../role/api';
+import { FormChangePWD } from './components/form-change-pwd';
+import { FormUser } from './components/form-user';
 
 const Title = Typography.Title;
-const FormItem = Form.Item;
 
 // 用户页面组件
 function Index() {
@@ -50,11 +44,18 @@ function Index() {
   );
 
   // 用户操作的回调函数
-  const tableCallback = async (record: User, type: 'edit' | 'delete') => {
+  const tableCallback = async (
+    record: User,
+    type: 'edit' | 'delete' | 'changePWD'
+  ) => {
     if (type === 'edit') {
-      // 进入编辑模式
-      setDrawerVisibleVisible(true);
+      // 弹出用户编辑表单
       setEditedItem(record);
+      setDrawerVisible(true);
+    } else if (type === 'changePWD') {
+      // 弹出修改密码表单
+      setEditedItem(record);
+      setDrawerChangePWDVisible(true);
     } else if (type === 'delete') {
       try {
         // 请求删除
@@ -76,87 +77,28 @@ function Index() {
     // 还原表单数据
     setEditedItem(initial);
     // 弹出抽屉
-    setDrawerVisibleVisible(true);
+    setDrawerVisible(true);
   };
 
   // 当前编辑项
   const [editedItem, setEditedItem] = useState<User>(initial);
-  // 表单实例
-  const [form] = Form.useForm<User>();
-  // 抽屉显示状态
-  const [drawerVisible, setDrawerVisibleVisible] = useState(false);
-  // 抽屉标题
-  const drawerTitle = useMemo(
-    () => (editedItem._id ? '更新' : '新增') + '用户',
-    [editedItem._id]
-  );
 
-  // 获取可用角色
-  const { data: roles, run } = useRequest(getAllRoles, {
-    manual: true,
-  });
-
-  const rolesOptions = useMemo(() => {
-    if (roles) {
-      return roles.map((role) => ({
-        label: role.name,
-        value: role._id,
-      }));
-    }
-    return [];
-  }, [roles]);
-
-  // drawer打开、关闭相关操作
-  const afterOpen = () => {
-    // 填充表单数据项
-    form.setFieldsValue(editedItem);
-
-    // 获取用户可用角色
-    if (!roles) {
-      console.log('获取roles');
-      run();
+  // 编辑用户弹窗显示状态
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const editCallback = (newUser: User) => {
+    // 如果有newUser，加入到本地数据中；否则刷新即可；
+    if (!newUser) {
+      refresh();
+    } else {
+      mutate({
+        list: [...data.list, newUser],
+        total: data.total + 1,
+      });
     }
   };
-  const afterClose = () => {
-    // 重置表单项
-    form.resetFields();
-  };
 
-  // 提交编辑表单
-  const onSubmit = () => {
-    let message: string = editedItem._id ? '编辑' : '新增';
-
-    form.validate(async (errors) => {
-      if (!errors) {
-        try {
-          // 根据标识符决定新增或更新
-          if (editedItem._id) {
-            await updateUser(editedItem._id, form.getFieldsValue());
-            refresh();
-          } else {
-            const user = form.getFieldsValue();
-            const newUser = await addUser(user);
-            console.log(user);
-
-            mutate({
-              list: [...data.list, newUser],
-              total: data.total + 1,
-            });
-          }
-
-          // 显示提示信息
-          message += '用户成功!';
-          Message.success(message);
-          // 关闭抽屉
-          setDrawerVisibleVisible(false);
-        } catch (error) {
-          // 操作失败
-          message += '用户失败，请重试!';
-          Message.error(message);
-        }
-      }
-    });
-  };
+  // 修改密码弹窗显示状态
+  const [drawerChangePWDVisible, setDrawerChangePWDVisible] = useState(false);
 
   const columns = [
     {
@@ -196,6 +138,13 @@ function Index() {
           >
             编辑
           </Button>
+          <Button
+            type="text"
+            size="small"
+            onClick={() => tableCallback(record, 'changePWD')}
+          >
+            修改密码
+          </Button>
           <Popconfirm
             focusLock
             title="确认删除吗?"
@@ -211,6 +160,7 @@ function Index() {
       ),
     },
   ];
+
   return (
     <>
       <Card>
@@ -229,61 +179,21 @@ function Index() {
           data={data?.list}
         />
       </Card>
-      <Drawer
-        width={500}
-        title={drawerTitle}
+
+      {/* 修改用户信息 */}
+      <FormUser
+        user={editedItem}
         visible={drawerVisible}
-        onOk={onSubmit}
-        okText="提交"
-        onCancel={() => setDrawerVisibleVisible(false)}
-        cancelText="取消"
-        afterOpen={afterOpen}
-        afterClose={afterClose}
-      >
-        <Form form={form} autoComplete="off" initialValues={initial}>
-          <FormItem
-            label="手机号"
-            field="phoneNumber"
-            rules={[
-              { required: true, message: '手机号是必填项' },
-              { match: /^1[3456789]\d{9}$/, message: '请输入正确的手机号' },
-            ]}
-          >
-            <Input placeholder="请输入手机号" />
-          </FormItem>
-          <FormItem
-            label="密码"
-            field="password"
-            rules={[
-              { required: true, message: '密码是必填项' },
-              { minLength: 6, message: '密码长度至少6位' },
-            ]}
-          >
-            <Input type="password" placeholder="请输入密码" />
-          </FormItem>
-          <FormItem label="用户角色" field="role" rules={[{ required: true }]}>
-            <Select placeholder="请选择一个用户角色" options={rolesOptions} />
-          </FormItem>
-          <FormItem label="用户名称" field="name">
-            <Input placeholder="请输入用户名" />
-          </FormItem>
-          <FormItem label="头像">
-            <AvatarUploader />
-          </FormItem>
-          <FormItem label="邮箱" field="email">
-            <Input placeholder="请输入邮箱" />
-          </FormItem>
-          <FormItem label="组织" field="organization">
-            <Input placeholder="请输入组织名称" />
-          </FormItem>
-          <FormItem label="职位" field="job">
-            <Input placeholder="请输入职位" />
-          </FormItem>
-          <FormItem label="个人站点" field="personalWebsite">
-            <Input placeholder="请输入个人站点URL" />
-          </FormItem>
-        </Form>
-      </Drawer>
+        setVisible={setDrawerVisible}
+        callback={editCallback}
+      ></FormUser>
+
+      {/* 修改密码表单 */}
+      <FormChangePWD
+        user={editedItem}
+        visible={drawerChangePWDVisible}
+        setVisible={setDrawerChangePWDVisible}
+      ></FormChangePWD>
     </>
   );
 }
