@@ -57,7 +57,7 @@ service.interceptors.response.use(
         message = error.response?.data?.message || 'token失效，请重新登录';
         // 这里可以触发退出的 action
         Modal.confirm({
-          title: 'token失效',
+          title: '没有权限',
           content: message,
           okText: '去登录',
           cancelText: '取消',

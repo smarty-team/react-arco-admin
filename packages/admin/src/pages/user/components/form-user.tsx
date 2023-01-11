@@ -1,3 +1,4 @@
+import React from 'react'
 import { getAllRoles } from '@/pages/role/api';
 import { Drawer, Form, Input, Message, Select } from '@arco-design/web-react';
 import { useRequest } from 'ahooks';
@@ -11,7 +12,7 @@ type Props = {
   user: User;
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  callback?: (user?: User) => void;
+  callback?: (user?: Partial<User>) => void;
 };
 
 export function FormUser({ user, visible, setVisible, callback }: Props) {
@@ -64,7 +65,7 @@ export function FormUser({ user, visible, setVisible, callback }: Props) {
           // 根据标识符决定新增或更新
           if (user._id) {
             await updateUser(user._id, form.getFieldsValue());
-            callback && callback();
+            callback && callback(form.getFieldsValue());
           } else {
             const user = form.getFieldsValue();
             const newUser = await addUser(user);
@@ -114,7 +115,7 @@ export function FormUser({ user, visible, setVisible, callback }: Props) {
         <FormItem label="用户名称" field="name">
           <Input placeholder="请输入用户名" />
         </FormItem>
-        <FormItem label="头像">
+        <FormItem label="头像" field="avatar">
           <AvatarUploader />
         </FormItem>
         <FormItem label="邮箱" field="email">

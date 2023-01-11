@@ -10,14 +10,10 @@ import {
   Popconfirm,
 } from '@arco-design/web-react';
 import { usePagination } from 'ahooks';
-import {
-  deleteUser,
-  getUserList,
-  initial,
-  User,
-} from './api';
+import { deleteUser, getUserList, initial, User } from './api';
 import { FormChangePWD } from './components/form-change-pwd';
 import { FormUser } from './components/form-user';
+import PermissionWrapper from '@/components/PermissionWrapper';
 
 const Title = Typography.Title;
 
@@ -85,13 +81,13 @@ function Index() {
 
   // 编辑用户弹窗显示状态
   const [drawerVisible, setDrawerVisible] = useState(false);
-  const editCallback = (newUser: User) => {
+  const editCallback = (userInfo: Partial<User>) => {
     // 如果有newUser，加入到本地数据中；否则刷新即可；
-    if (!newUser) {
+    if (!userInfo._id) {
       refresh();
     } else {
       mutate({
-        list: [...data.list, newUser],
+        list: [...data.list, userInfo as User],
         total: data.total + 1,
       });
     }
@@ -130,7 +126,11 @@ function Index() {
       title: '操作',
       dataIndex: 'operations',
       render: (_: unknown, record: User) => (
-        <>
+        <PermissionWrapper
+          requiredPermissions={[
+            { resource: 'user', actions: ['read', 'write'] },
+          ]}
+        >
           <Button
             type="text"
             size="small"
@@ -156,7 +156,7 @@ function Index() {
               删除
             </Button>
           </Popconfirm>
-        </>
+        </PermissionWrapper>
       ),
     },
   ];
@@ -165,9 +165,15 @@ function Index() {
     <>
       <Card>
         <Title heading={6}>用户管理</Title>
-        <Button onClick={onAdd} type="primary" style={{ marginBottom: 10 }}>
-          新增
-        </Button>
+        <PermissionWrapper
+          requiredPermissions={[
+            { resource: 'user', actions: ['read', 'write'] },
+          ]}
+        >
+          <Button onClick={onAdd} type="primary" style={{ marginBottom: 10 }}>
+            新增
+          </Button>
+        </PermissionWrapper>
         <Table
           rowKey="_id"
           loading={loading}

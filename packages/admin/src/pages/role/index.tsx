@@ -27,6 +27,7 @@ import {
 import { IRoute, routes } from '@/routes';
 import useLocale from '@/utils/useLocale';
 import { TreeDataType } from '@arco-design/web-react/es/Tree/interface';
+import PermissionWrapper from '@/components/PermissionWrapper';
 
 const Text = Typography.Text;
 const Title = Typography.Title;
@@ -143,7 +144,7 @@ function Index() {
       setDrawerVisibleVisible(false);
 
       // 数据刷新
-      refresh()
+      refresh();
     } catch (error) {
       message += '角色失败，请重试!';
       Message.error(message);
@@ -164,7 +165,11 @@ function Index() {
       title: '操作',
       dataIndex: 'operations',
       render: (_: unknown, record: Role) => (
-        <>
+        <PermissionWrapper
+          requiredPermissions={[
+            { resource: 'role', actions: ['read', 'write'] },
+          ]}
+        >
           <Button
             type="text"
             size="small"
@@ -183,7 +188,7 @@ function Index() {
               删除
             </Button>
           </Popconfirm>
-        </>
+        </PermissionWrapper>
       ),
     },
   ];
@@ -195,7 +200,7 @@ function Index() {
 
   const t = useLocale();
   const menus = generateMenus(routes, t);
-  const renderAuthTree = (node: TreeNodeProps) => {
+  const RenderAuthTree = (node: TreeNodeProps) => {
     const options = ['read', 'write'];
     const { selected, setSelected } = Checkbox.useCheckbox(options);
     useEffect(() => {
@@ -235,9 +240,15 @@ function Index() {
     <>
       <Card>
         <Title heading={6}>用户管理</Title>
-        <Button onClick={onAdd} type="primary" style={{ marginBottom: 10 }}>
-          新增
-        </Button>
+        <PermissionWrapper
+          requiredPermissions={[
+            { resource: 'role', actions: ['read', 'write'] },
+          ]}
+        >
+          <Button onClick={onAdd} type="primary" style={{ marginBottom: 10 }}>
+            新增
+          </Button>
+        </PermissionWrapper>
         <Table
           rowKey="_id"
           loading={loading}
@@ -273,7 +284,7 @@ function Index() {
             <Tree
               treeData={menus}
               blockNode
-              renderExtra={renderAuthTree}
+              renderExtra={RenderAuthTree}
             ></Tree>
           </FormItem>
         </Form>

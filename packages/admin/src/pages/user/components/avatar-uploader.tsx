@@ -26,8 +26,6 @@ export default function () {
           // 上传成功，获取文件名
           if (currentFile.status === 'done') {
             const { data } = currentFile.response as OpResult<string>;
-            console.log(data);
-            
             form.setFieldValue('avatar', data);
           }
         }}

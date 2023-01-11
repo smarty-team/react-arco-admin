@@ -31,6 +31,7 @@ import useStorage from '@/utils/useStorage';
 import { generatePermission } from '@/routes';
 import { FormChangePWD } from '@/pages/user/components/form-change-pwd';
 import { FormUser } from '@/pages/user/components/form-user';
+import { User } from '@/pages/user/api';
 
 function Navbar({ show }: { show: boolean }) {
   const t = useLocale();
@@ -76,6 +77,18 @@ function Navbar({ show }: { show: boolean }) {
     });
   }, [role]);
 
+  const updateUserInfo = (info: Partial<User>) => {
+    dispatch({
+      type: 'update-userInfo',
+      payload: {
+        userInfo: {
+          ...userInfo,
+          ...info
+        },
+      },
+    });
+  }
+  
   if (!show) {
     return (
       <div className={styles['fixed-settings']}>
@@ -223,6 +236,7 @@ function Navbar({ show }: { show: boolean }) {
         user={userInfo}
         visible={drawerVisible}
         setVisible={setDrawerVisible}
+        callback={updateUserInfo}
       ></FormUser>
 
       {/* 修改用户密码 */}
