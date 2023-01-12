@@ -12,6 +12,7 @@ import { UploadService } from './upload/upload.service'
 
 import { DatabaseProviders } from './database/database.providers';
 import { CaptchaService } from './captcha/captcha.service';
+import { SystemController } from './controllers/system.controller';
 
 @Module({
   providers: [...DatabaseProviders],
@@ -20,6 +21,10 @@ import { CaptchaService } from './captcha/captcha.service';
 export class DatabaseModule { }
 
 @Module({
+  controllers: [
+    SystemController
+  ],
+
   imports: [
     ConfigModule.forRoot(configModuleOptions),
     // TypeOrmModule.forRootAsync({
