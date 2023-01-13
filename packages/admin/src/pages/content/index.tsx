@@ -15,7 +15,7 @@ import {
   IconPen,
   IconDelete,
   IconFile,
-  IconFolderAdd
+  IconFolderAdd,
 } from '@arco-design/web-react/icon';
 
 import { useRequest } from 'ahooks';
@@ -368,6 +368,12 @@ function Index() {
       <Card>
         <Title heading={6}>文章管理</Title>
 
+        {/* 创建根目录和文章 */}
+        <Space>
+          <Button type="primary" onClick={addRootCategory}>添加分类</Button>
+          <Button type="primary" onClick={addRootArticle}>添加文章</Button>
+        </Space>
+
         {/* 菜单、内容管理 */}
         {treeData && JSON.stringify(treeData) !== '{}' && (
           <Tree
@@ -379,12 +385,6 @@ function Index() {
             onDrop={onDrop}
           ></Tree>
         )}
-
-        {/* 创建根目录和文章 */}
-        <Space>
-          <Button onClick={addRootCategory}>添加分类</Button>
-          <Button onClick={addRootArticle}>添加文章</Button>
-        </Space>
 
         {/* 文章编辑器 */}
         <Modal

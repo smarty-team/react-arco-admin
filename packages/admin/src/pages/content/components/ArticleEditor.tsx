@@ -20,7 +20,7 @@ const plugins = [
 
 export function ArticleEditor({ article, setArticle }) {
   return (
-    <>
+    <div>
       <Input
         value={article.title}
         onChange={(title) => {
@@ -36,6 +36,6 @@ export function ArticleEditor({ article, setArticle }) {
           setArticle({ ...article, content });
         }}
       />
-    </>
+    </div>
   );
 }
