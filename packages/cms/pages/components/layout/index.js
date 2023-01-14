@@ -1,8 +1,8 @@
-import SideMenu from "./content/sidemenu";
-import NavBar from "./content/navbar/index";
-import Footer from "./content/footer";
+import SideMenu from "./sidemenu";
+import NavBar from "./navbar/index";
+import Footer from "./footer";
 
-export default function Layout({ children }) {
+export default function Layout({ menu, children }) {
   return (
     <div className="bg-base-100 drawer drawer-mobile">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -16,7 +16,7 @@ export default function Layout({ children }) {
       <div className="drawer-side">
         <label htmlFor="my-drawer" className="drawer-overlay"></label>
         {/* 侧边栏 */}
-        <SideMenu></SideMenu>
+        <SideMenu menu={menu}></SideMenu>
       </div>
     </div>
   );
