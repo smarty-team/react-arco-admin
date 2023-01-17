@@ -17,6 +17,14 @@ export default function Menu() {
       <div className="h-4"></div>
       <ul className="menu menu-compact flex flex-col p-0 px-4">
         {/* 菜单 */}
+        <li>
+          <a href="/" id="" class="flex gap-4   ">
+            <span class="flex-none">
+              <span className="icon-[mdi--map-marker-multiple]"></span>
+            </span>{" "}
+            <span class="flex-1">路线图</span>{" "}
+          </a>
+        </li>
         <li></li>
         <li className="menu-title">
           <span>基础八股文</span>
