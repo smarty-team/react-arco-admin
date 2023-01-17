@@ -19,76 +19,75 @@ export default function Menu() {
         {/* 菜单 */}
         <li></li>
         <li className="menu-title">
-          <span>面试宝典</span>
+          <span>基础八股文</span>
+        </li>
+        <li>
+          <a className="flex gap-4">Vue</a>
+        </li>
+        <li>
+          <a className="flex gap-4">React</a>
+        </li>
+        <li>
+          <a className="flex gap-4">NodeJS</a>
+        </li>
+        <li>
+          <a className="flex gap-4">Webpack</a>
         </li>
         <li>
           <a className="flex gap-4">Javascript</a>
         </li>
         <li>
-          <a className="flex gap-4">HTML与浏览器</a>
+          <a className="flex gap-4">CSS</a>
         </li>
         <li>
-          <a className="flex gap-4">CSS与布局</a>
+          <a className="flex gap-4">HTML</a>
         </li>
         <li>
-          <a className="flex gap-4">服务器端常识</a>
+          <a className="flex gap-4">HTTP</a>
         </li>
         <li>
-          <a className="flex gap-4">MVVM框架</a>
+          <a className="flex gap-4">版本控制</a>
         </li>
         <li>
-          <a className="flex gap-4">工程化与Webpack</a>
+          <a className="flex gap-4">操作系统</a>
         </li>
         <li>
-          <a className="flex gap-4">性能与安全</a>
-        </li>
-        <li>
-          <a className="flex gap-4">数据结构与算法</a>
+          <a className="flex gap-4">算法</a>
         </li>
         <li></li>
         <li className="menu-title">
-          <span>精品实战课</span>
+          <span>源码造轮子</span>
         </li>
         <li>
-          <a className="flex gap-4">Vue源码实战</a>
+          <a className="flex gap-4">Mini-Vue</a>
         </li>
         <li>
-          <a className="flex gap-4">Vue组件库实现</a>
+          <a className="flex gap-4">Mini-Webpack</a>
         </li>
         <li>
-          <a className="flex gap-4">前端工程化实战</a>
+          <a className="flex gap-4">Mini-Vite</a>
         </li>
         <li>
-          <a className="flex gap-4">NodeJS实战</a>
+          <a className="flex gap-4">Mini-React</a>
         </li>
         <li>
-          <a className="flex gap-4">Nest实战</a>
+          <a className="flex gap-4">Mini-HTTP协议</a>
         </li>
         <li></li>
         <li className="menu-title">
-          <span>导航栏</span>
+          <span>实战课</span>
         </li>
         <li>
-          <a className="flex gap-4">Button 按钮</a>
+          <a className="flex gap-4">Nest中后台系统</a>
         </li>
         <li>
-          <a className="flex gap-4">Button 按钮</a>
+          <a className="flex gap-4">Nuxt实战</a>
         </li>
         <li>
-          <a>Item 3</a>
-        </li>
-        <li></li>
-        <li className="menu-title">
-          <span>导航栏</span>
+          <a>Vue3组件库实战</a>
         </li>
         <li>
-          <a className="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a className="flex gap-4">Button 按钮</a>
-        </li>
-        <li>
-          <a>Item 3</a>
+          <a>Webpack性能优化</a>
         </li>
         <li></li>
       </ul>
