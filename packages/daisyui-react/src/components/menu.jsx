@@ -22,72 +22,131 @@ export default function Menu() {
           <span>基础八股文</span>
         </li>
         <li>
-          <a className="flex gap-4">Vue</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[logos--vue]"></span>Vue
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">React</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[vscode-icons--file-type-reactjs]"></span>
+            React
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">NodeJS</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[logos--nodejs-icon]"></span>
+            NodeJS
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">Webpack</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[logos--webpack]"></span>
+            Webpack
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">Javascript</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[logos--javascript]"></span>
+            Javascript
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">CSS</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[vscode-icons--file-type-css]"></span>
+            CSS
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">HTML</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[vscode-icons--file-type-html]"></span>
+            HTML
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">HTTP</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[simple-icons--aiohttp]"></span>
+            HTTP
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">版本控制</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[mdi--git]"></span>
+            版本控制
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">操作系统</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[logos--linux-tux]"></span>
+            操作系统
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">算法</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[tabler--logic-nand]"></span>
+            算法
+          </a>
         </li>
         <li></li>
         <li className="menu-title">
           <span>源码造轮子</span>
         </li>
         <li>
-          <a className="flex gap-4">Mini-Vue</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[logos--vue]"></span>
+            简写Vue
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">Mini-Webpack</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[logos--webpack]"></span>
+            简写Webpack
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">Mini-Vite</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[logos--vitejs]"></span>
+            简写Vite
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">Mini-React</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[logos--react]"></span>
+            简写React
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">Mini-HTTP协议</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[simple-icons--aiohttp]"></span>
+            简写HTTP协议
+          </a>
         </li>
         <li></li>
         <li className="menu-title">
           <span>实战课</span>
         </li>
         <li>
-          <a className="flex gap-4">Nest中后台系统</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[vscode-icons--file-type-nestjs]"></span>
+            Nest中后台系统
+          </a>
         </li>
         <li>
-          <a className="flex gap-4">Nuxt实战</a>
+          <a className="flex gap-2">
+            <span className="flex-none icon-[logos--nuxt-icon]"></span>
+            Nuxt实战
+          </a>
         </li>
         <li>
-          <a>Vue3组件库实战</a>
+          <a>
+            <span className="flex-none icon-[logos--vue]"></span>
+            Vue3组件库实战
+          </a>
         </li>
         <li>
-          <a>Webpack性能优化</a>
+          <a>
+            <span className="flex-none icon-[logos--webpack]"></span>
+            Webpack性能优化
+          </a>
         </li>
         <li></li>
       </ul>

@@ -8,6 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@iconify/json": "^2.2.8",
+    "@iconify/tailwind": "^0.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router": "^6.5.0",

@@ -182,6 +182,8 @@ importers:
 
   packages/daisyui-react:
     specifiers:
+      '@iconify/json': ^2.2.8
+      '@iconify/tailwind': ^0.1.0
       '@vitejs/plugin-react': ^1.0.7
       autoprefixer: ^10.4.2
       daisyui: ^2.6.0
@@ -193,6 +195,8 @@ importers:
       tailwindcss: ^3.0.23
       vite: ^2.8.0
     dependencies:
+      '@iconify/json': registry.npmmirror.com/@iconify/json/2.2.8
+      '@iconify/tailwind': registry.npmmirror.com/@iconify/tailwind/0.1.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router: 6.6.1_react@17.0.2
@@ -12987,6 +12991,29 @@ packages:
     version: 1.2.1
     dev: true
 
+  registry.npmmirror.com/@iconify/json/2.2.8:
+    resolution: {integrity: sha512-Vusnz/QRrTmGFzzmZ1Mf6mG2OEbBWLrd/gXgaBpCbjP/abDLdKd7+DMRJlaZA/jqMJ0rsIL0juZ9FwApBnh/ww==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iconify/json/-/json-2.2.8.tgz}
+    name: '@iconify/json'
+    version: 2.2.8
+    dependencies:
+      '@iconify/types': registry.npmmirror.com/@iconify/types/2.0.0
+      pathe: registry.npmmirror.com/pathe/1.0.0
+    dev: false
+
+  registry.npmmirror.com/@iconify/tailwind/0.1.0:
+    resolution: {integrity: sha512-MyZZ2i5JiYD2IhfMDUoSON5fgvoKBKtwv5LRsRviNn9ZXrix0i49undcmSTrBDOQbVJsxxylTocu8tYpSJf9mg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iconify/tailwind/-/tailwind-0.1.0.tgz}
+    name: '@iconify/tailwind'
+    version: 0.1.0
+    dependencies:
+      '@iconify/types': registry.npmmirror.com/@iconify/types/2.0.0
+    dev: false
+
+  registry.npmmirror.com/@iconify/types/2.0.0:
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iconify/types/-/types-2.0.0.tgz}
+    name: '@iconify/types'
+    version: 2.0.0
+    dev: false
+
   registry.npmmirror.com/@istanbuljs/load-nyc-config/1.1.0:
     resolution: {integrity: sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz}
     name: '@istanbuljs/load-nyc-config'
@@ -18422,6 +18449,12 @@ packages:
     version: 4.0.0
     engines: {node: '>=8'}
     dev: true
+
+  registry.npmmirror.com/pathe/1.0.0:
+    resolution: {integrity: sha512-nPdMG0Pd09HuSsr7QOKUXO2Jr9eqaDiZvDwdyIhNG5SHYujkQHYKDfGQkulBxvbDHz8oHLsTgKN86LSwYzSHAg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pathe/-/pathe-1.0.0.tgz}
+    name: pathe
+    version: 1.0.0
+    dev: false
 
   registry.npmmirror.com/picocolors/1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/picocolors/-/picocolors-1.0.0.tgz}
