@@ -18,11 +18,11 @@ export default function Menu() {
       <ul className="menu menu-compact flex flex-col p-0 px-4">
         {/* 菜单 */}
         <li>
-          <a href="/" id="" class="flex gap-4   ">
-            <span class="flex-none">
+          <a href="/" id="" className="flex gap-4   ">
+            <span className="flex-none">
               <span className="icon-[mdi--map-marker-multiple]"></span>
             </span>{" "}
-            <span class="flex-1">路线图</span>{" "}
+            <span className="flex-1">路线图</span>{" "}
           </a>
         </li>
         <li></li>

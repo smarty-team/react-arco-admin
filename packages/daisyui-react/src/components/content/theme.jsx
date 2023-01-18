@@ -36,9 +36,9 @@ const themeList = [
 function List() {
   const { setTheme, theme: currentTheme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    console.log("currentTheme:", currentTheme);
-  });
+  // useEffect(() => {
+  //   console.log("currentTheme:", currentTheme);
+  // });
 
   const clickTheme = (theme) => () => setTheme(theme);
   return themeList.map((theme) => (
@@ -50,20 +50,21 @@ function List() {
       data-set-theme="light"
       data-act-class="outline"
       onClick={clickTheme(theme)}
+      key={theme}
     >
-      <div class="">
+      <div className="">
         <div
           data-theme={theme}
-          class="bg-base-100 text-base-content w-full cursor-pointer font-sans"
+          className="bg-base-100 text-base-content w-full cursor-pointer font-sans"
         >
-          <div class="grid grid-cols-5 grid-rows-3">
-            <div class="col-span-5 row-span-3 row-start-1 flex gap-1 py-3 px-4">
-              <div class="flex-grow text-sm font-bold">{theme}</div>{" "}
-              <div class="flex flex-shrink-0 flex-wrap gap-1">
-                <div class="bg-primary w-2 rounded"></div>{" "}
-                <div class="bg-secondary w-2 rounded"></div>{" "}
-                <div class="bg-accent w-2 rounded"></div>{" "}
-                <div class="bg-neutral w-2 rounded"></div>
+          <div className="grid grid-cols-5 grid-rows-3">
+            <div className="col-span-5 row-span-3 row-start-1 flex gap-1 py-3 px-4">
+              <div className="flex-grow text-sm font-bold">{theme}</div>{" "}
+              <div className="flex flex-shrink-0 flex-wrap gap-1">
+                <div className="bg-primary w-2 rounded"></div>{" "}
+                <div className="bg-secondary w-2 rounded"></div>{" "}
+                <div className="bg-accent w-2 rounded"></div>{" "}
+                <div className="bg-neutral w-2 rounded"></div>
               </div>
             </div>
           </div>
@@ -77,9 +78,9 @@ export default function Theme(props) {
   return (
     <div className="dropdown">
       <label tabIndex={0} className="btn gap-1 normal-case btn-ghost">
-        <i className="icon-[mdi--theme]" i />
+        <i className="icon-[mdi--theme]" />
         主题
-        <i className="icon-[ic--outline-keyboard-arrow-down]" i />
+        <i className="icon-[ic--outline-keyboard-arrow-down]" />
       </label>
       <div
         tabIndex={0}
