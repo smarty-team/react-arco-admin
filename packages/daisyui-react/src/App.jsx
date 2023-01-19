@@ -8,6 +8,7 @@ import Admin from "./pages/Admin";
 import VerifyCode from "./pages/VerifyCode";
 import PasswordConfirm from "./pages/PasswordConfirm";
 import { ThemeContext } from "./components/content/theme";
+import { Index } from "./pages";
 // const ThemeContext = createContext("light");
 
 function App(props, context) {
@@ -31,11 +32,12 @@ function ThemeApp(props) {
     <div className="App" data-theme={ctx.theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Admin />} />
+          <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verifyCode" element={<VerifyCode />} />
           <Route path="/passwordConfirm" element={<PasswordConfirm />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </BrowserRouter>
     </div>
