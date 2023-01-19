@@ -6,7 +6,7 @@ import Content from "../components/content/content";
 import Footer from "../components/content/footer";
 import Loading from "../components/content/loading";
 import { useState } from "react";
-export function Index() {
+export default function Index() {
   const navigate = useNavigate();
 
   const [display, setDispllay] = useState(true);

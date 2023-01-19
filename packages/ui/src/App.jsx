@@ -8,7 +8,7 @@ import Admin from "./pages/Admin";
 import VerifyCode from "./pages/VerifyCode";
 import PasswordConfirm from "./pages/PasswordConfirm";
 import { ThemeContext } from "./components/content/theme";
-import { Index } from "./pages";
+import Index from "./pages/Index";
 // const ThemeContext = createContext("light");
 
 function App(props, context) {
