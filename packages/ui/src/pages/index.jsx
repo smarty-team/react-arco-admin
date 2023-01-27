@@ -15,67 +15,106 @@ export default function Index() {
     setDispllay(false);
   }, 500);
 
-  const collapse = () => (
-    <div
-      tabIndex={0}
-      className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box"
-    >
-      <div className="collapse-title text-xl font-medium">
-        Focus me to see content
+  const list = [
+    "Vue组件之间通信方式有哪些",
+    "v-if和v-for哪个优先级更高？",
+    "简述 Vue 的生命周期以及每个阶段做的事",
+    "能说一说双向绑定使用和原理吗？",
+    "Vue中如何扩展一个组件",
+    "子组件可以直接改变父组件的数据",
+    "Vue要做权限管理该怎么做",
+    "Vue组件之间通信方式有哪些",
+    "Vue组件之间通信方式有哪些",
+  ];
+
+  const menus = [
+    { name: "Vue面试题", icon: `icon-[vscode-icons--file-type-vue]` },
+    { name: "React面试题", icon: `icon-[vscode-icons--file-type-reactjs]` },
+    { name: "NodeJS面试题", icon: `icon-[logos--nodejs-icon]` },
+    { name: "Webpack面试题", icon: `icon-[vscode-icons--file-type-webpack]` },
+    { name: "Linux面试题", icon: `icon-[logos--linux-tux]` },
+  ];
+  function Collapse() {
+    return (
+      <div
+        tabindex="0"
+        class="collapse collapse-open border border-base-100 bg-base-100 rounded-box mx-1"
+      >
+        <div class="collapse-title text-xl font-medium">
+          <span className="flex-none icon-[logos--vue]"></span>Vue面试题
+        </div>
+        <div class="collapse-content">
+          {list.map((c) => (
+            <div className="btn w-full my-1">{c}</div>
+          ))}
+        </div>
       </div>
-      <div className="collapse-content">
-        <p>tabIndex={0} attribute is necessary to make the div focusable</p>
+    );
+  }
+
+  function Hero1() {
+    return (
+      <div className="hero min-h-screen bg-base-200">
+        <div className="hero-content text-center">
+          {/* <div className="max-w-md">
+            <button class="btn btn-wide">Wide</button>
+            <button class="btn btn-wide">Wide</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate("/admin")}
+            >
+              Get Started
+            </button>
+          </div> */}
+
+          <div className="max-w flex">
+            <Collapse className="flex-auto" />
+            <Collapse className="flex-auto" />
+            <Collapse className="flex-auto" />
+
+            <Collapse className="flex-auto" />
+
+            <Collapse className="flex-auto" />
+
+            <Collapse className="flex-auto" />
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  function Hero2() {
+    return (
+      <div className="hero min-h-screen bg-base-200">
+        <div className="hero-content text-center">
+          <div className="max-w-md">
+            <h1 className="text-5xl font-bold">Hello there</h1>
+            <p className="py-6">
+              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+              et a id nisi.
+            </p>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate("/admin")}
+            >
+              Get Started
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-base-100 drawer drawer-mobile">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         <NavBar></NavBar>
-        <div className="hero min-h-screen bg-base-200">
-          <div className="hero-content text-center">
-            <div className="max-w-md">
-              {/* <h1 className="text-5xl font-bold">Hello there</h1>
-              <p className="py-6">
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                assumenda excepturi exercitationem quasi. In deleniti eaque aut
-                repudiandae et a id nisi.
-              </p> */}
 
-              {collapse}
-
-              <button
-                className="btn btn-primary"
-                onClick={() => navigate("/admin")}
-              >
-                Get Started
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="hero min-h-screen bg-base-200">
-          <div className="hero-content text-center">
-            <div className="max-w-md">
-              <h1 className="text-5xl font-bold">Hello there</h1>
-              <p className="py-6">
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                assumenda excepturi exercitationem quasi. In deleniti eaque aut
-                repudiandae et a id nisi.
-              </p>
-
-              {collapse}
-
-              <button
-                className="btn btn-primary"
-                onClick={() => navigate("/admin")}
-              >
-                Get Started
-              </button>
-            </div>
-          </div>
-        </div>
+        <Hero1 />
+        <Hero2 />
         <Footer></Footer>
       </div>
       <div className="drawer-side">
