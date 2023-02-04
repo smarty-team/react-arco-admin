@@ -83,8 +83,7 @@ export default function Index() {
     return (
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content text-center">
-          <div className="max-w-md">
-            <h1 className="text-5xl font-bold">Hello there</h1>
+          {/* <h1 className="text-5xl font-bold">Hello there</h1>
             <p className="py-6">
               Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
@@ -96,7 +95,22 @@ export default function Index() {
               onClick={() => navigate("/admin")}
             >
               Get Started
-            </button>
+            </button> */}
+
+          <div className="max-w flex flex-row flex-wrap">
+            {menus.map((menu) => (
+              <div class="card card-side bg-base-100 shadow-xl w-90 m-2">
+                <figure className="px-6 pt-6 w-full">
+                  <span className="flex-none icon-[logos--vue] text-6xl"></span>
+                </figure>
+                <div class="card-body">
+                  <h2 class="card-title w-40">Vue面试题</h2>
+                  <div class="card-actions justify-end">
+                    <button class="btn btn-primary">Watch</button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -109,8 +123,9 @@ export default function Index() {
       <div className="drawer-content">
         <NavBar></NavBar>
 
-        <Hero1 />
+        {/* <Hero1 /> */}
         <Hero2 />
+
         <Footer></Footer>
       </div>
       <div className="drawer-side">
