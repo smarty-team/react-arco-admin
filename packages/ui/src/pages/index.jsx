@@ -38,7 +38,7 @@ export default function Index() {
     return (
       <div
         tabindex="0"
-        class="collapse collapse-open border border-base-100 bg-base-100 rounded-box mx-1"
+        className=" w-[280px] collapse collapse-open border border-base-100 bg-base-100 rounded-box mx-1"
       >
         <div class="collapse-title text-xl font-medium">
           <span className="flex-none icon-[logos--vue]"></span>Vue面试题
@@ -55,19 +55,15 @@ export default function Index() {
   function Hero1() {
     return (
       <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content text-center">
-          {/* <div className="max-w-md">
-            <button class="btn btn-wide">Wide</button>
-            <button class="btn btn-wide">Wide</button>
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate("/admin")}
-            >
-              Get Started
-            </button>
-          </div> */}
+        <div className="text-center">
+          <h1 className="text-5xl font-bold">面试题大全</h1>
+          <p className="py-6">
+            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
+            a id nisi.
+          </p>
 
-          <div className="max-w flex">
+          <div className="max-w flex flex-wrap flex-row gap-6 mb-12">
             <Collapse className="flex-auto" />
             <Collapse className="flex-auto" />
             <Collapse className="flex-auto" />
