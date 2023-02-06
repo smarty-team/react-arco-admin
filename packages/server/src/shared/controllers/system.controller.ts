@@ -5,6 +5,9 @@ import {
 } from '../../shared/dtos/base-api-response.dto';
 import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 import { AuthGuard } from '@nestjs/passport';
+import * as cpuStat from "cpu-stat"
+import { promisify } from 'util'
+import * as os from 'os'
 
 @ApiTags('系统维护')
 @Controller('system')
@@ -29,6 +32,26 @@ export class SystemController {
         })
     }
 
+
+    @ApiOperation({
+        summary: '资源使用率',
+    })
+    @Get('/system')
+    async load(@Body() data) {
+
+        const percent = await promisify(cpuStat.usagePercent)()
+        const mem = ((os.totalmem() - os.freemem()) / os.totalmem())
+
+        return {
+            ok: 1,
+            data: {
+                cpu: percent,
+                mem
+            }
+        }
+    }
+
+
     @ApiOperation({
         summary: '数据库备份列表',
     })
@@ -37,7 +60,6 @@ export class SystemController {
         // await this.spawn('ls', ['-l'], { cwd: `./` })
 
         await this.spawn('docker-compose', [], { cwd: `./` })
-
         return {
             ok: 1
         }

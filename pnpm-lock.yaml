@@ -209,6 +209,7 @@ importers:
       axios: ^1.2.2
       class-transformer: ^0.5.1
       class-validator: ^0.14.0
+      cpu-stat: ^2.0.1
       cross-env: ^7.0.3
       eslint: ^8.31.0
       eslint-config-prettier: ^8.6.0
@@ -217,6 +218,7 @@ importers:
       ioredis: ^5.2.4
       jest: 29.3.1
       jest-resolver-tsconfig-paths: ^0.14.4
+      mem-stat: ^1.0.5
       mockjs: ^1.1.0
       mongodb: ^3.6.0
       mongoose: ^6.8.2
@@ -261,10 +263,12 @@ importers:
       axios: 1.2.2
       class-transformer: 0.5.1
       class-validator: 0.14.0
+      cpu-stat: registry.npmmirror.com/cpu-stat/2.0.1
       cross-env: 7.0.3
       fs-extra: 11.1.0
       ioredis: 5.2.4
       jest-resolver-tsconfig-paths: 0.14.4
+      mem-stat: registry.npmmirror.com/mem-stat/1.0.5
       mockjs: 1.1.0
       mongodb: 3.7.3
       mongoose: 6.8.3
@@ -11307,7 +11311,7 @@ packages:
     dependencies:
       ajv: registry.npmmirror.com/ajv/8.11.0
       ajv-formats: registry.npmmirror.com/ajv-formats/2.1.1
-      chokidar: registry.npmmirror.com/chokidar/3.5.3
+      chokidar: 3.5.3
       jsonc-parser: registry.npmmirror.com/jsonc-parser/3.2.0
       rxjs: registry.npmmirror.com/rxjs/6.6.7
       source-map: registry.npmmirror.com/source-map/0.7.4
@@ -15407,6 +15411,12 @@ packages:
       yaml: registry.npmmirror.com/yaml/1.10.2
     dev: true
 
+  registry.npmmirror.com/cpu-stat/2.0.1:
+    resolution: {integrity: sha512-bC4ts/0IjYfNV6Dc7F2NauWM0tip0fneZjRek8HqX2ZERC4oSt6dmV+GTN1mfE9OKbLAppv58M2PVzKLGB731w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/cpu-stat/-/cpu-stat-2.0.1.tgz}
+    name: cpu-stat
+    version: 2.0.1
+    dev: false
+
   registry.npmmirror.com/create-require/1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/create-require/-/create-require-1.1.1.tgz}
     name: create-require
@@ -17279,7 +17289,7 @@ packages:
       pretty-format: registry.npmmirror.com/pretty-format/29.3.1
       slash: registry.npmmirror.com/slash/3.0.0
       strip-json-comments: registry.npmmirror.com/strip-json-comments/3.1.1
-      ts-node: registry.npmmirror.com/ts-node/10.9.1_awa2wsr5thmg3i7jqycphctjfq
+      ts-node: 10.9.1_awa2wsr5thmg3i7jqycphctjfq
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -17990,6 +18000,12 @@ packages:
     name: media-typer
     version: 0.3.0
     engines: {node: '>= 0.6'}
+
+  registry.npmmirror.com/mem-stat/1.0.5:
+    resolution: {integrity: sha512-MjGf19a3gwoxDZeySexzULC9Zb+HSLVXOhVZLyxgcaGTsyR5jdi6SVtSi5nHfOoEYanM9nUZ54r7S+KkJvJd+g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/mem-stat/-/mem-stat-1.0.5.tgz}
+    name: mem-stat
+    version: 1.0.5
+    dev: false
 
   registry.npmmirror.com/memfs/3.4.12:
     resolution: {integrity: sha512-BcjuQn6vfqP+k100e0E9m61Hyqa//Brp+I3f0OBmN0ATHlFA8vx3Lt8z57R3u2bPqe3WGDBC+nF72fTH7isyEw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/memfs/-/memfs-3.4.12.tgz}
