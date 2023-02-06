@@ -8,11 +8,15 @@ import { AuthGuard } from '@nestjs/passport';
 import * as cpuStat from "cpu-stat"
 import { promisify } from 'util'
 import * as os from 'os'
+import { SystemProviders } from '../system.providers';
+import { SystemService } from '../services/system.service';
+import { CreateDictionaryDto, UpdateDictionaryDto } from '../dtos/dictionary.dto';
 
 @ApiTags('系统维护')
 @Controller('system')
 export class SystemController {
     constructor(
+        private readonly systemService: SystemService
     ) { }
 
 
@@ -48,6 +52,36 @@ export class SystemController {
                 cpu: percent,
                 mem
             }
+        }
+    }
+
+
+    @ApiOperation({
+        summary: '数据字典',
+    })
+    @ApiResponse({
+        status: HttpStatus.CREATED,
+        type: SwaggerBaseApiResponse(UpdateDictionaryDto),
+    })
+    @Post('/dictionary')
+    async setDic(@Body() dto: UpdateDictionaryDto) {
+
+        return {
+            ok: 1,
+            data: await this.systemService.update(dto)
+        }
+    }
+
+
+    @ApiOperation({
+        summary: '数据字典',
+    })
+    @Get('/dictionary')
+    async getDic(@Body() body) {
+        const { data } = await this.systemService.find()
+        return {
+            ok: 1,
+            data
         }
     }
 

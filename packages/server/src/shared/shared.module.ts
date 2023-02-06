@@ -13,6 +13,8 @@ import { UploadService } from './upload/upload.service'
 import { DatabaseProviders } from './database/database.providers';
 import { CaptchaService } from './captcha/captcha.service';
 import { SystemController } from './controllers/system.controller';
+import { SystemService } from './services/system.service';
+import { SystemProviders } from './system.providers';
 
 @Module({
   providers: [...DatabaseProviders],
@@ -52,10 +54,12 @@ export class DatabaseModule { }
     ConfigModule,
     ...DatabaseProviders,
     UploadService,
-    CaptchaService
+    CaptchaService,
+
   ],
   providers: [
     ...DatabaseProviders,
+    ...SystemProviders,
     // { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
 
     // {
@@ -63,7 +67,8 @@ export class DatabaseModule { }
     //   useClass: AllExceptionsFilter,
     // },
     CaptchaService,
-    UploadService
+    UploadService,
+    SystemService
   ],
 })
 export class SharedModule { }
