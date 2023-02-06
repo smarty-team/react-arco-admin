@@ -3,6 +3,7 @@ apps:
     name: server
     instances: 1
     watch: true
+    ignore_watch: static
     env:
       NODE_ENV: production
       RUNNING_ENV: prod
