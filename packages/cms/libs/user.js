@@ -1,34 +1,20 @@
 import Router from "next/router";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import useSWR from "swr";
 import { fetcher, fetcherWithToken, post } from "./fetcher";
+import { useStorage } from "./storage";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 // 获取用户信息
 export function useUser({
+  token,
   redirectTo = "", // 重定向地址
   callback = "", // 回跳地址
 } = {}) {
-  let token = "";
-
-  if (typeof window !== "undefined") {
-    // 获取本地存储的token
-    token = localStorage.getItem("token");
-
-    // token不存在则重定向到登录页
-    if (!token) {
-      const route = {
-        pathname: redirectTo || "/login",
-        query: { callback },
-      };
-      Router.push(route);
-    }
-  }
-
   // 请求用户信息
-  const { data: user, error } = useSWR(
-    [baseUrl + "/auth/info", token],
+  const { data: user, error, isLoading } = useSWR(
+    token ? [baseUrl + "/auth/info", token] : null, // 条件请求
     fetcherWithToken
   );
 
@@ -43,7 +29,7 @@ export function useUser({
     }
   }, [error]);
 
-  return { user, error };
+  return { user, error, isLoading };
 }
 
 export async function useLogin(loginData) {

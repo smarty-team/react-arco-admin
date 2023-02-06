@@ -5,6 +5,10 @@ import { getArticle } from "@/libs/article";
 import { flatMenu, getMenu, getMenuIds } from "libs/menu";
 import { useUser } from "@/libs/user";
 import Loading from "pages/components/loading";
+import { useRouter } from "next/router";
+import useStorage from "@/libs/storage";
+import { useEffect } from "react";
+import { useToken } from "@/libs/token";
 
 // 生成 `/posts/1`,`/posts/2`,...
 export async function getStaticPaths() {
@@ -28,14 +32,19 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Article({ menu, article }) {
-  // 客户端获取用户信息
-  const { user, error } = useUser({ callback: `/posts/${article._id}` });
+  const token = useToken(article._id)
+
+  // 获取用户信息
+  const { error, isLoading } = useUser({
+    token,
+    callback: `/posts/${article._id}`,
+  });
 
   // 显示错误信息
   if (error) return <div>获取用户失败，请重试！</div>;
 
-  // 如果用户信息不存在，显示加载状态
-  if (!user) return <Loading></Loading>;
+  // 显示加载状态
+  if (isLoading) return <Loading></Loading>;
 
   return (
     <Layout menu={menu}>

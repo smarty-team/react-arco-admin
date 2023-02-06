@@ -4,6 +4,7 @@ import Layout from "./components/layout";
 
 export async function getStaticProps() {
   const menu = await getMenu()
+
   return {
     // 作为属性传递给页面组件
     props: { menu: flatMenu(menu) },
