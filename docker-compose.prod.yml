@@ -17,6 +17,7 @@ services:
       - mongo
   redis:
     image: redis
+    command: redis-server --requirepass arco666psw
     ports:
       - "6379:6379"
   # server:
