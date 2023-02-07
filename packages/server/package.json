@@ -46,6 +46,7 @@
     "ioredis": "^5.2.4",
     "jest-resolver-tsconfig-paths": "^0.14.4",
     "mockjs": "^1.1.0",
+    "moment": "^2.29.4",
     "mongodb": "^3.6.0",
     "mongoose": "^6.8.2",
     "mysql2": "^2.3.3",

@@ -11,6 +11,10 @@ import * as os from 'os'
 import { SystemProviders } from '../system.providers';
 import { SystemService } from '../services/system.service';
 import { CreateDictionaryDto, UpdateDictionaryDto } from '../dtos/dictionary.dto';
+import * as path from 'path'
+import * as moment from 'moment'
+import * as fs from 'fs-extra'
+import { BackupDto } from '../dtos/backup.dto';
 
 @ApiTags('系统维护')
 @Controller('system')
@@ -30,10 +34,25 @@ export class SystemController {
 
             proc.stdout.pipe(process.stdout)
             proc.stderr.pipe(process.stderr)
+            let ret = ''
+            proc.stdout.on('data', data => {
+                ret += data.toString()
+            })
             proc.on('close', () => {
-                resolve('')
+                resolve(ret)
             })
         })
+    }
+
+    getTime() {
+        //转毫秒
+        var n = new Date();
+        console.log(n)
+        return n.getFullYear() + (n.getMonth() + 1) + n.getDate() + n.getHours() + n.getMinutes() + n.getSeconds();
+    }
+
+    getRootDir() {
+        return path.resolve(__dirname, '../../../../../..')
     }
 
 
@@ -90,21 +109,38 @@ export class SystemController {
         summary: '数据库备份列表',
     })
     @Get('/database')
-    async list(@Body() data) {
-        // await this.spawn('ls', ['-l'], { cwd: `./` })
+    async list() {
 
-        await this.spawn('docker-compose', [], { cwd: `./` })
+        const ret = await this.spawn('docker-compose', ['exec', '-T', 'mongo', 'ls', '/dump'], { cwd: './' })
+
+        const data = ("" + ret).split('\n')
+        data.pop()
+        return {
+            ok: 1,
+            data
+        }
+    } 1
+
+    @ApiOperation({
+        summary: '数据库备份',
+    })
+    @Post('/database/dump')
+    async dump(@Body() data) {
+        const ret = await this.spawn('docker-compose', ['exec', '-T', 'mongo', 'mongodump', '--db', 'nest-server', '--out', '/dump/' + moment().format('YYYYMMDDhhmmss')], { cwd: './' })
         return {
             ok: 1
         }
     }
 
+
     @ApiOperation({
-        summary: '数据库备份',
+        summary: '数据库恢复',
     })
-    @Post('/database/backup')
-    create(@Body() data) {
-        console.log('/database/backup', data)
+    @Post('/database/restore')
+    async restore(@Body() dto: BackupDto) {
+        console.log('恢复数据', dto.file)
+        const ret = await this.spawn('docker-compose', ['exec', '-T', 'mongo', 'mongorestore', '--db', 'nest-server', `/dump/${dto.file}/nest-server`], { cwd: './' })
+
         return {
             ok: 1
         }
