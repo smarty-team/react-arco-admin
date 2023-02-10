@@ -11,7 +11,7 @@ jobs:
       - name: Pull source
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: "47.98.252.43"
+          host: "123.249.115.108"
           username: root
           key: ${{ secrets.ACCESS_TOKEN }}
           script: |
