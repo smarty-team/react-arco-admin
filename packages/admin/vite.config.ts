@@ -14,14 +14,14 @@ export default defineConfig({
     port: 3002,
     proxy: {
       '/api': {
-        target: 'http://bus.josephxia.com:3000/',
-        // target: 'http://localhost:3000/',
+        // target: 'http://bus.josephxia.com:3000/',
+        target: 'http://localhost:3000/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       },
       '/static': {
-        target: 'http://bus.josephxia.com:3000/',
-        // target: 'http://localhost:3000/',
+        // target: 'http://bus.josephxia.com:3000/',
+        target: 'http://localhost:3000/',
         changeOrigin: true
       },
     }

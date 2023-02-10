@@ -15,12 +15,6 @@ export const routes: IRoute[] = [
   {
     name: 'menu.dashboard',
     key: 'dashboard',
-    // children: [
-    //   {
-    //     name: 'menu.dashboard.workplace',
-    //     key: 'dashboard/workplace',
-    //   },
-    // ],
   },
   {
     name: 'menu.user',
@@ -41,6 +35,26 @@ export const routes: IRoute[] = [
     name: 'menu.course',
     key: 'course',
     requiredPermissions: [{ resource: 'course' }],
+  },
+  {
+    name: 'menu.server',
+    key: 'server',
+    requiredPermissions: [{ resource: 'server' }],
+  },
+  {
+    name: 'menu.database',
+    key: 'database',
+    requiredPermissions: [{ resource: 'database' }],
+  },
+  {
+    name: 'menu.dictionary',
+    key: 'dictionary',
+    requiredPermissions: [{ resource: 'dictionary' }],
+  },
+  {
+    name: 'menu.log',
+    key: 'log',
+    requiredPermissions: [{ resource: 'log' }],
   },
 ];
 

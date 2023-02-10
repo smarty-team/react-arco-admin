@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from 'next/link'
 import Layout from "../components/layout";
 import ArticleViewer from "components/article-viewer";
 import { getArticle } from "@/libs/article";
@@ -6,8 +7,6 @@ import { flatMenu, getMenu, getMenuIds } from "libs/menu";
 import { useUser } from "@/libs/user";
 import Loading from "pages/components/loading";
 import { useRouter } from "next/router";
-import useStorage from "@/libs/storage";
-import { useEffect } from "react";
 import { useToken } from "@/libs/token";
 
 // 生成 `/posts/1`,`/posts/2`,...
@@ -41,7 +40,7 @@ export default function Article({ menu, article }) {
   });
 
   // 显示错误信息
-  if (error) return <div>获取用户失败，请重试！</div>;
+  if (error) return <div>获取用户失败，<Link href="/login" className="link link-info">请重试</Link>！</div>;
 
   // 显示加载状态
   if (isLoading) return <Loading></Loading>;

@@ -11,12 +11,7 @@ import '../style/index.css';
 import theme from './plugins/plugin-theme';
 
 // md editor plugins
-const plugins = [
-  gfm(),
-  frontmatter(),
-  highlight(),
-  theme()
-];
+const plugins = [gfm(), frontmatter(), highlight(), theme()];
 
 export function ArticleEditor({ article, setArticle }) {
   return (
@@ -26,12 +21,15 @@ export function ArticleEditor({ article, setArticle }) {
         onChange={(title) => {
           setArticle({ ...article, title });
         }}
-        autoFocus={false}
+        autoFocus={true}
+        placeholder="输入文章标题"
+        size="large"
+        style={{ fontSize: 32, fontWeight: 'bold' }}
       ></Input>
       <Editor
         value={article.content}
         plugins={plugins}
-        editorConfig={{autofocus: true}}
+        editorConfig={{ autofocus: true }}
         onChange={(content) => {
           setArticle({ ...article, content });
         }}
