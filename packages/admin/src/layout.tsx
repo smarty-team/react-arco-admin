@@ -10,7 +10,11 @@ import {
   IconVideoCamera,
   IconUser,
   IconUserGroup,
-  IconFile
+  IconFile,
+  IconCommon,
+  IconStorage,
+  IconBook,
+  IconList,
 } from '@arco-design/web-react/icon';
 import { useSelector } from 'react-redux';
 import qs from 'query-string';
@@ -45,6 +49,14 @@ function getIconFromKey(key) {
       return <IconUser className={styles.icon} />;
     case 'role':
       return <IconUserGroup className={styles.icon} />;
+    case 'server':
+      return <IconCommon className={styles.icon} />;
+    case 'database':
+      return <IconStorage className={styles.icon} />;
+    case 'dictionary':
+      return <IconBook className={styles.icon} />;
+    case 'log':
+      return <IconList className={styles.icon} />;
     default:
       return <div className={styles['icon-empty']} />;
   }
@@ -252,7 +264,7 @@ function PageLayout() {
                   </Breadcrumb>
                 </div>
               )}
-              <Content style={{ minHeight: "100vh" }} >
+              <Content style={{ minHeight: '100vh' }}>
                 <Switch>
                   {flattenRoutes.map((route, index) => {
                     return (
@@ -275,10 +287,9 @@ function PageLayout() {
             </div>
             {showFooter && <Footer />}
           </Layout>
-        </Layout >
-      )
-      }
-    </Layout >
+        </Layout>
+      )}
+    </Layout>
   );
 }
 

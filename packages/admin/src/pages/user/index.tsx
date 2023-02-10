@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Typography,
   Card,
@@ -28,6 +28,10 @@ function Index() {
       loadingDelay: 300,
     }
   );
+  useEffect(() =>{
+    console.log(data);
+    
+  })
   // 分页
   const pager = useMemo<PaginationProps>(
     () => ({

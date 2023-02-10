@@ -363,6 +363,10 @@ function Index() {
     }, 1000);
   };
 
+  // 重新生成静态文件
+  const regenerate = () => {
+    // todo
+  }
   return (
     <>
       <Card>
@@ -372,6 +376,7 @@ function Index() {
         <Space>
           <Button type="primary" onClick={addRootCategory}>添加分类</Button>
           <Button type="primary" onClick={addRootArticle}>添加文章</Button>
+          <Button type="outline" onClick={regenerate}>同步数据</Button>
         </Space>
 
         {/* 菜单、内容管理 */}
@@ -383,6 +388,7 @@ function Index() {
             renderTitle={renderTitle}
             renderExtra={renderExtra}
             onDrop={onDrop}
+            style={{marginTop: 15}}
           ></Tree>
         )}
 

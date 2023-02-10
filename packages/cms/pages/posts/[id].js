@@ -1,10 +1,13 @@
 import Head from "next/head";
+import Link from 'next/link'
 import Layout from "../components/layout";
 import ArticleViewer from "components/article-viewer";
 import { getArticle } from "@/libs/article";
 import { flatMenu, getMenu, getMenuIds } from "libs/menu";
 import { useUser } from "@/libs/user";
 import Loading from "pages/components/loading";
+import { useRouter } from "next/router";
+import { useToken } from "@/libs/token";
 
 // 生成 `/posts/1`,`/posts/2`,...
 export async function getStaticPaths() {
@@ -28,14 +31,19 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Article({ menu, article }) {
-  // 客户端获取用户信息
-  const { user, error } = useUser({ callback: `/posts/${article._id}` });
+  const token = useToken(article._id)
+
+  // 获取用户信息
+  const { error, isLoading } = useUser({
+    token,
+    callback: `/posts/${article._id}`,
+  });
 
   // 显示错误信息
-  if (error) return <div>获取用户失败，请重试！</div>;
+  if (error) return <div>获取用户失败，<Link href="/login" className="link link-info">请重试</Link>！</div>;
 
-  // 如果用户信息不存在，显示加载状态
-  if (!user) return <Loading></Loading>;
+  // 显示加载状态
+  if (isLoading) return <Loading></Loading>;
 
   return (
     <Layout menu={menu}>
