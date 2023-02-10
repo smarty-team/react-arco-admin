@@ -69,7 +69,7 @@ export default function verifyCode() {
     });
     // 登录成功
     if (data) {
-      router.push('/')
+      router.push(router.query.callback || '/')
     } else {
       alert('登录错误，请重试')
     }

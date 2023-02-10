@@ -20,7 +20,10 @@ export default function Register() {
       await useSms({ captchaId: data.id, ...formData });
       router.push({
         pathname: "/verifyCode",
-        query: { phoneNumber: formData.phoneNumber },
+        query: {
+          phoneNumber: formData.phoneNumber,
+          callback: router.query.callback,
+        },
       });
     } catch (error) {
       // 报错信息
@@ -98,12 +101,14 @@ export default function Register() {
                     <img src={data.image} onClick={mutate} />
                   )}
                 </div>
-                {errors.captchaCode && errors.captchaCode.type === "required" && (
-                  <Alert message="请输入验证码"></Alert>
-                )}
-                {errors.captchaCode && errors.captchaCode.type === "pattern" && (
-                  <Alert message="验证码输入有误"></Alert>
-                )}
+                {errors.captchaCode &&
+                  errors.captchaCode.type === "required" && (
+                    <Alert message="请输入验证码"></Alert>
+                  )}
+                {errors.captchaCode &&
+                  errors.captchaCode.type === "pattern" && (
+                    <Alert message="验证码输入有误"></Alert>
+                  )}
               </div>
               <div className="form-control mt-6">
                 <input
