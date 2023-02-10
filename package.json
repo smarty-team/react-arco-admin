@@ -6,8 +6,10 @@
   "scripts": {
     "dev:admin": "cd packages/admin;pnpm dev;",
     "dev:cms": "cd packages/cms;pnpm dev;",
+    "dev:ui": "cd packages/ui;pnpm dev;",
     "dev:server": "cd packages/server;pnpm dev;",
-    "serve": "docker-compose up -d redis mongo mongo-express server;",
+    "start:admin": "docker-compose up -d redis mongo mongo-express server admin;",
+    "start:server": "docker-compose up -d redis mongo mongo-express server;",
     "db:start": "docker-compose up -d redis mongo mongo-express",
     "db:stop": "docker-compose down",
     "db:dump": "docker-compose exec mongo mongodump --db nest-server --out /dump",
