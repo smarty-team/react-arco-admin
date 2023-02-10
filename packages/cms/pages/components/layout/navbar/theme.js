@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ThemeContext } from "@/libs/theme-context";
 
 const themeList = [
@@ -36,9 +36,9 @@ const themeList = [
 function List() {
   const { setTheme, theme: currentTheme } = useContext(ThemeContext);
 
-  // useEffect(() => {
-  //   console.log("currentTheme:", currentTheme);
-  // });
+  useEffect(() => {
+    console.log("currentTheme:", currentTheme);
+  });
 
   const clickTheme = (theme) => () => setTheme(theme);
   return themeList.map((theme) => (
@@ -76,7 +76,7 @@ function List() {
 
 export default function Theme(props) {
   return (
-    <div className="dropdown">
+    <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn gap-1 normal-case btn-ghost">
         <i className="icon-[mdi--theme]" />
         主题

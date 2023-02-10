@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ThemeContext } from "@/libs/theme-context";
 
 function App({ Component, pageProps }) {
-  let [theme, setTheme] = useState("dark");
+  let [theme, setTheme] = useState('light');
   return (
     <ThemeContext.Provider
       value={{

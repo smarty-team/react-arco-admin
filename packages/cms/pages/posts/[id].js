@@ -38,7 +38,6 @@ export default function Article({ menu, article }) {
     token,
     callback: `/posts/${article._id}`,
   });
-
   // 显示错误信息
   if (error) return <div>获取用户失败，<Link href="/login" className="link link-info">请重试</Link>！</div>;
 
@@ -52,7 +51,7 @@ export default function Article({ menu, article }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="prose max-w-full">
-        <ArticleViewer article={article}></ArticleViewer>
+        <h1 className="pl-5 mt-4">{article.title}</h1> <ArticleViewer article={article}></ArticleViewer>
       </div>
     </Layout>
   );
