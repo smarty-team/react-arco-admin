@@ -11,6 +11,8 @@ RUN pnpm config set registry https://registry.npm.taobao.org/
 # 产生扁平目录
 RUN pnpm install --shamefully-hoist 
 
+RUN mkdir /usr/src/app/.next
+
 COPY . .
 
 EXPOSE 3001
