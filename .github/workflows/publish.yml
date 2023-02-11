@@ -17,73 +17,82 @@ jobs:
           script: |
             cd /root/source/react-arco-admin
             git pull
-  Server:
-    runs-on: ubuntu-latest
-    name: "publish Server"
-    environment: npm
-    steps:
-      - uses: actions/checkout@master
-      - uses: pnpm/action-setup@v2.1.0
-        with:
-          version: 7.2.1
-      - name: Set Pnpm Registry
-        run: pnpm config set registry https://registry.npm.taobao.org/
-      - name: Install modules
-        run: cd packages/server && pnpm install
-      - name: Build
-        run: cd packages/server && pnpm run build
-      - name: Deploy to Aliyun
-        uses: easingthemes/ssh-deploy@v2.1.1
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
-          ARGS: "-avzr --delete"
-          SOURCE: "packages/server/dist"
-          REMOTE_HOST: "123.249.115.108"
-          REMOTE_USER: "root"
-          TARGET: "/root/source/react-arco-admin/packages/server"
-  UI:
-    runs-on: ubuntu-latest
-    name: "publish UI"
-    environment: npm
-    steps:
-      - uses: actions/checkout@master
-      - uses: pnpm/action-setup@v2.1.0
-        with:
-          version: 7.2.1
-      - name: Set Pnpm Registry
-        run: pnpm config set registry https://registry.npm.taobao.org/
-      - name: Install modules
-        run: cd packages/ui && pnpm install
-      - name: Build
-        run: cd packages/ui && pnpm run build
-      - name: Deploy to Aliyun
-        uses: easingthemes/ssh-deploy@v2.1.1
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
-          ARGS: "-avzr --delete"
-          SOURCE: "packages/ui/dist"
-          REMOTE_HOST: "123.249.115.108"
-          REMOTE_USER: "root"
-          TARGET: "/root/source/react-arco-admin/packages/ui"
-  Admin:
-    runs-on: ubuntu-latest
-    name: "publish Admin"
-    environment: npm
-    steps:
-      - uses: actions/checkout@master
-      - uses: pnpm/action-setup@v2.1.0
-        with:
-          version: 7.2.1
-      - name: Install modules
-        run: cd packages/admin && pnpm install
-      - name: Build
-        run: cd packages/admin && pnpm run build
-      - name: Deploy to Aliyun
-        uses: easingthemes/ssh-deploy@v2.1.1
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
-          ARGS: "-avzr --delete"
-          SOURCE: "packages/admin/dist"
-          REMOTE_HOST: "123.249.115.108"
-          REMOTE_USER: "root"
-          TARGET: "/root/source/react-arco-admin/packages/admin"
+            pnpm i
+            cd packages/server
+            pnpm build
+            cd packages/admin
+            pnpm build
+            cd packages/cms
+            pnpm build
+            cd packages/ui
+            pnpm build
+  # Server:
+  #   runs-on: ubuntu-latest
+  #   name: "publish Server"
+  #   environment: npm
+  #   steps:
+  #     - uses: actions/checkout@master
+  #     - uses: pnpm/action-setup@v2.1.0
+  #       with:
+  #         version: 7.2.1
+  #     - name: Set Pnpm Registry
+  #       run: pnpm config set registry https://registry.npm.taobao.org/
+  #     - name: Install modules
+  #       run: cd packages/server && pnpm install
+  #     - name: Build
+  #       run: cd packages/server && pnpm run build
+  #     - name: Deploy to Aliyun
+  #       uses: easingthemes/ssh-deploy@v2.1.1
+  #       env:
+  #         SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
+  #         ARGS: "-avzr --delete"
+  #         SOURCE: "packages/server/dist"
+  #         REMOTE_HOST: "123.249.115.108"
+  #         REMOTE_USER: "root"
+  #         TARGET: "/root/source/react-arco-admin/packages/server"
+  # UI:
+  #   runs-on: ubuntu-latest
+  #   name: "publish UI"
+  #   environment: npm
+  #   steps:
+  #     - uses: actions/checkout@master
+  #     - uses: pnpm/action-setup@v2.1.0
+  #       with:
+  #         version: 7.2.1
+  #     - name: Set Pnpm Registry
+  #       run: pnpm config set registry https://registry.npm.taobao.org/
+  #     - name: Install modules
+  #       run: cd packages/ui && pnpm install
+  #     - name: Build
+  #       run: cd packages/ui && pnpm run build
+  #     - name: Deploy to Aliyun
+  #       uses: easingthemes/ssh-deploy@v2.1.1
+  #       env:
+  #         SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
+  #         ARGS: "-avzr --delete"
+  #         SOURCE: "packages/ui/dist"
+  #         REMOTE_HOST: "123.249.115.108"
+  #         REMOTE_USER: "root"
+  #         TARGET: "/root/source/react-arco-admin/packages/ui"
+  # Admin:
+  #   runs-on: ubuntu-latest
+  #   name: "publish Admin"
+  #   environment: npm
+  #   steps:
+  #     - uses: actions/checkout@master
+  #     - uses: pnpm/action-setup@v2.1.0
+  #       with:
+  #         version: 7.2.1
+  #     - name: Install modules
+  #       run: cd packages/admin && pnpm install
+  #     - name: Build
+  #       run: cd packages/admin && pnpm run build
+  #     - name: Deploy to Aliyun
+  #       uses: easingthemes/ssh-deploy@v2.1.1
+  #       env:
+  #         SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
+  #         ARGS: "-avzr --delete"
+  #         SOURCE: "packages/admin/dist"
+  #         REMOTE_HOST: "123.249.115.108"
+  #         REMOTE_USER: "root"
+  #         TARGET: "/root/source/react-arco-admin/packages/admin"
