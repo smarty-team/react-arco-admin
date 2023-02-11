@@ -100,9 +100,9 @@ export class MenuController {
     })
     @Post('refresh')
     async refresh() {
-        const cmsRoot = path.resolve(this.getRootDir(), './packages/cms')
-        console.log('path:', cmsRoot)
-        const log = await this.spawn('pnpm', ['build'], { cwd: cmsRoot })
+        // const cmsRoot = path.resolve(this.getRootDir(), './packages/cms')
+        // console.log('path:', cmsRoot)
+        const log = await this.spawn('pm2', ['restart', 'cms'], { cwd: './' })
 
         return {
             ok: 1,
