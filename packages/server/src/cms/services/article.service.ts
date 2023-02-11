@@ -45,7 +45,8 @@ export class ArticleService {
     )
     const ret = await this.articleRepository.update(id, course)
 
-    await this.sync(id)
+    // TODO 暂时使用同步刷新
+    // await this.sync(id)
     return ret
   }
   /**

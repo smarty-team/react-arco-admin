@@ -20,10 +20,12 @@ jobs:
             pnpm i
             cd /root/source/react-arco-admin/packages/server
             pnpm build
+            pm2 restart server
             cd /root/source/react-arco-admin/packages/admin
             pnpm build
             cd /root/source/react-arco-admin/packages/cms
             pnpm build
+            pm2 restart cms
             cd /root/source/react-arco-admin/packages/ui
             pnpm build
   # Server:
