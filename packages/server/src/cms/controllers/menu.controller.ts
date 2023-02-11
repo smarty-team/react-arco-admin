@@ -98,14 +98,6 @@ export class MenuController {
     @ApiOperation({
         summary: '刷新全部内容',
     })
-    @ApiResponse({
-        status: HttpStatus.CREATED,
-        type: SwaggerBaseApiResponse(UpdateMenuDto),
-    })
-    @ApiResponse({
-        status: HttpStatus.NOT_FOUND,
-        type: BaseApiErrorResponse,
-    })
     @Post('refresh')
     async refresh() {
         const cmsRoot = path.resolve(this.getRootDir(), './packages/cms')
