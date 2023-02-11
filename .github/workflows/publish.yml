@@ -18,13 +18,13 @@ jobs:
             cd /root/source/react-arco-admin
             git pull
             pnpm i
-            cd packages/server
+            cd /root/source/react-arco-admin/packages/server
             pnpm build
-            cd packages/admin
+            cd /root/source/react-arco-admin/packages/admin
             pnpm build
-            cd packages/cms
+            cd /root/source/react-arco-admin/packages/cms
             pnpm build
-            cd packages/ui
+            cd /root/source/react-arco-admin/packages/ui
             pnpm build
   # Server:
   #   runs-on: ubuntu-latest
