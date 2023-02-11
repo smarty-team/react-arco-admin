@@ -33,9 +33,21 @@ export class UserService {
       order: { createdAt: 'DESC' },
       skip: (page - 1) * pageSize,
       take: (pageSize * 1),
-      cache: true
+      cache: true,
     })
 
+
+    const roles = await this.roleRepository.findBy({})
+
+
+    data.map(user => {
+      const index = roles.findIndex(role => '' + user.role === '' + role._id)
+      if (index !== -1) {
+        user['roleData'] = roles[index]
+      }
+    })
+
+    console.log('roles', roles)
     data.map(v => {
       Reflect.deleteProperty(v, 'password')
       Reflect.deleteProperty(v, 'salt')
