@@ -1,6 +1,13 @@
 import ActiveLink from "./active-link";
 
 export default function SideMenu({ menu }) {
+  const checkAuth = () => {
+    // 文章阅览数增加
+    const viewcount = localStorage.getItem("viewcount")
+      ? parseInt(localStorage.getItem("viewcount")!)
+      : 0;
+    localStorage.setItem("viewcount", viewcount + 1 + "");
+  };
   return (
     <ul>
       {menu.map((menuItem) => {
@@ -8,6 +15,7 @@ export default function SideMenu({ menu }) {
           return (
             <li key={menuItem.key}>
               <ActiveLink
+                onClick={checkAuth}
                 activeClassName="active"
                 href={`/posts/${menuItem.key}`}
               >

@@ -35,33 +35,22 @@ export default function Article({ menu, article }) {
   const { needLogin, message } = useNeedLogin();
   const router = useRouter();
 
-  // 文章阅览数增加
-  useEffect(() => {
-    const viewcount = localStorage.getItem("viewcount")
-      ? parseInt(localStorage.getItem("viewcount")!)
-      : 0;
-    localStorage.setItem("viewcount", viewcount + 1 + "");
-  }, []);
-
-  if (needLogin) {
-    return (
-      <Confirm
-        message={message}
-        callback={() => router.push(`/login?callback=/posts/${article._id}`)}
-      ></Confirm>
-    );
-  }
-
   return (
     <Layout menu={menu}>
       <Head>
         <title>{article.title}</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="prose max-w-full">
-        <h1 className="pl-5 mt-4">{article.title}</h1>{" "}
-        <ArticleViewer article={article}></ArticleViewer>
-      </div>
+      {needLogin ? (
+        <Confirm
+          message={message}
+          callback={() => router.push(`/login?callback=/posts/${article._id}`)}
+        ></Confirm>
+      ) : (
+        <div className="prose max-w-full">
+          <h1 className="pl-5 mt-4">{article.title}</h1>{" "}
+          <ArticleViewer article={article}></ArticleViewer>
+        </div>
+      )}
     </Layout>
   );
 }

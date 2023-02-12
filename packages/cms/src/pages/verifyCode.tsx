@@ -1,11 +1,10 @@
 import { useSms, useSmsLogin } from "../libs/user";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Alert from "../components/alert";
 import { useAppDispatch } from "../hooks";
 import { setLoginState } from "../stores/authSlice";
-import useStorage from "../libs/storage";
 
 export default function verifyCode() {
   const {
@@ -60,9 +59,9 @@ export default function verifyCode() {
     retime();
   }, []);
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-  async function onSubmit({ smsCode }) {
+  const onSubmit: SubmitHandler<FieldValues> = async ({ smsCode }) => {
     const token = await useSmsLogin({
       phoneNumber: router.query.phoneNumber,
       smsCode,
@@ -70,13 +69,18 @@ export default function verifyCode() {
     });
     if (token) {
       // 登录成功，设置登录状态
-      dispatch(setLoginState(true))
-      localStorage.setItem('token', token)
-      router.push((router.query.callback || '/') as string);
+      dispatch(setLoginState(true));
+      localStorage.setItem("token", token);
+      router.push((router.query.callback || "/") as string);
     } else {
       alert("登录错误，请重试");
     }
-  }
+  };
+  const codeInput = useCallback((input: HTMLInputElement) => {
+    if (input) {
+      input.focus();
+    }
+  }, []);
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -104,13 +108,14 @@ export default function verifyCode() {
                 <div className="flex flex-row">
                   <input
                     type="text"
-                    placeholder=""
-                    autoComplete="off"
                     className="w-3/6 input input-bordered mr-2"
                     {...register("smsCode", {
                       required: true,
                       pattern: /^\d{4}$/,
                     })}
+                    placeholder="请输入验证码"
+                    autoComplete="off"
+                    autoFocus
                   />
                   <button
                     className="w-3/6 btn btn-outline"
