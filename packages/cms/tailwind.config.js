@@ -1,4 +1,5 @@
 module.exports = {
-  content: ['./pages/**/*.{js,ts,jsx,tsx}'],
+  darkMode: ['class', '[data-theme="dark"]', '[data-theme="synthwave"]'],
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   plugins: [require('@tailwindcss/typography'), require('daisyui')],
 };

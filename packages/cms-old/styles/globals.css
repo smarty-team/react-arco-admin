@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.markdown-body {
+  padding: 0 20px;
+}
+
+.hljs {
+  background: transparent
+}
+
+/* 添加特定theme样式 */
+[data-theme="synthwave"] .navbar {
+  border-color:rgb(82, 52, 115)
+}
+[data-theme="retro"] .navbar {
+  border-color:rgb(193, 183, 136)
+}
+[data-theme="valentine"] .navbar {
+  border-color:rgb(184, 162, 184)
+}
+[data-theme="garden"] .navbar {
+  border-color:rgb(184, 179, 162)
+}

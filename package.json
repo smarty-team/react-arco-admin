@@ -18,5 +18,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.2",
+    "next-redux-wrapper": "^8.1.0",
+    "react-redux": "^8.0.5"
+  }
 }
