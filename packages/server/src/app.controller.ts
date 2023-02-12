@@ -14,24 +14,24 @@ export class AppController {
 
   ) { }
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+  // @Get()
+  // getHello(): string {
+  //   return this.appService.getHello();
+  // }
 
-  @ApiOperation({
-    summary: '初始化数据',
-  })
-  @Post('init')
-  async init() {
-    return await this.authService.init()
-  }
+  // @ApiOperation({
+  //   summary: '初始化数据',
+  // })
+  // @Post('init')
+  // async init() {
+  //   return await this.authService.init()
+  // }
 
-  @ApiOperation({
-    summary: '清空数据',
-  })
-  @Delete('del')
-  async clear() {
-    return await this.authService.clear()
-  }
+  // @ApiOperation({
+  //   summary: '清空数据',
+  // })
+  // @Delete('del')
+  // async clear() {
+  //   return await this.authService.clear()
+  // }
 }
