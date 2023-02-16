@@ -53,8 +53,6 @@ function transformPostsToSearchObjects(posts) {
 }
 
 (async function () {
-
-  
   dotenv.config();
 
   try {
