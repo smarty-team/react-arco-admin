@@ -16,6 +16,7 @@ jobs:
           key: ${{ secrets.ACCESS_TOKEN }}
           script: |
             cd /root/source/react-arco-admin
+            git checkout .
             git pull
             pnpm i
             cd /root/source/react-arco-admin/packages/server

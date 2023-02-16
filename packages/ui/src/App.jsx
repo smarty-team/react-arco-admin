@@ -12,7 +12,7 @@ import Index from "./pages/Index";
 // const ThemeContext = createContext("light");
 
 function App(props, context) {
-  let [theme, setTheme] = useState("dark");
+  let [theme, setTheme] = useState("light");
 
   return (
     <ThemeContext.Provider

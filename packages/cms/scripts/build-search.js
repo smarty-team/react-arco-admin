@@ -1,15 +1,17 @@
 import dotenv from "dotenv"
 import fetch from "node-fetch"
-import algoliasearch from "algoliasearch/lite"
+import algoliasearch from "algoliasearch"
 
 async function getPaginatedPosts(page) {
   const pageSize = 10;
+  // const server = 'http://localhost:3000'
+  const server = process.env.SERVER
+
   try {
-    const {
-      data: { data, meta },
-    } = await fetch(
-      `${process.env.SERVER}/article?pageSize=${pageSize}&page=${page}`
-    ).then((res) => res.json());
+    const url = `${server}/article?pageSize=${pageSize}&page=${page}`
+    console.log('url:', url)
+    const res = await fetch(url)
+    const { data, meta } = await res.json()
     const total = meta.total;
     const posts = data ? data : [];
     return { posts, total };
@@ -53,12 +55,13 @@ function transformPostsToSearchObjects(posts) {
 }
 
 (async function () {
+
   dotenv.config();
 
   try {
     const posts = await getAllPosts();
     const transformed = transformPostsToSearchObjects(posts);
-
+    console.log('transformed', transformed)
     // initialize the client with your environment variables
     const client = algoliasearch(
       process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
@@ -73,8 +76,7 @@ function transformPostsToSearchObjects(posts) {
 
     // check the output of the response in the console
     console.log(
-      `🎉 Sucessfully added ${
-        algoliaResponse.objectIDs.length
+      `🎉 Sucessfully added ${algoliaResponse.objectIDs.length
       } records to Algolia search. Object IDs:\n${algoliaResponse.objectIDs.join(
         "\n"
       )}`
