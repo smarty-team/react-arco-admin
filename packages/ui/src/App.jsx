@@ -9,6 +9,8 @@ import VerifyCode from "./pages/VerifyCode";
 import PasswordConfirm from "./pages/PasswordConfirm";
 import { ThemeContext } from "./components/content/theme";
 import Index from "./pages/Index";
+import Loading from "./components/content/loading";
+import Landing from "./pages/Landing";
 // const ThemeContext = createContext("light");
 
 function App(props, context) {
@@ -38,6 +40,7 @@ function ThemeApp(props) {
           <Route path="/verifyCode" element={<VerifyCode />} />
           <Route path="/passwordConfirm" element={<PasswordConfirm />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/landing" element={<Landing />} />
         </Routes>
       </BrowserRouter>
     </div>
