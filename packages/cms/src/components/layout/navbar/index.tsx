@@ -9,6 +9,7 @@ import {
 } from "../../../stores/authSlice";
 import LoginButton from "./login-button";
 import { useRouter } from "next/router";
+import Search from "../../search";
 
 export default function NavBar() {
   const userInfo = useAppSelector(selectUserInfo);
@@ -22,7 +23,9 @@ export default function NavBar() {
   return (
     <div className="navbar bg-base-100 border-b dark:border-b-slate-700">
       <ToggleButton></ToggleButton>
-      <div className="flex-1"></div>
+      <div className="flex-1">
+        <Search></Search>
+      </div>
       <Theme></Theme>
       {/* 如果登录显示用户信息否则显示登录按钮 */}
       {isLogin ? (
