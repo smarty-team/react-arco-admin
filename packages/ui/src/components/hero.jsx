@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <div className="px-4 sm:px-6 xl:px-8 pt-10 pb-16">
       <h1 className="text-5xl leading-none font-extrabold tracking-tight mb-4">
-        开始【前端工程师】进阶之旅
+        🚀 前端工程师进阶之旅
       </h1>
       <p className="text-2xl tracking-tight mb-10">用最适合您的方式学习</p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8">
