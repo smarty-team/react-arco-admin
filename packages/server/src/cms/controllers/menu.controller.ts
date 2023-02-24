@@ -14,22 +14,30 @@ import {
     Scope,
     UseGuards,
     HttpStatus,
+    UploadedFile,
 
 } from '@nestjs/common';
 import { MenuService } from '../services/menu.service';
 
-import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiTags, ApiResponse, ApiConsumes } from '@nestjs/swagger';
 
 import {
     BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
 } from '../../shared/dtos/base-api-response.dto';
 import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 import { CreateMenuDto, UpdateMenuDto } from '../dtos/menu.dto';
+import { ArticleService } from '../services/article.service';
+
 import * as path from 'path'
+import { UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UploadDTO } from '@/user/dtos/upload.dto';
+
 @ApiTags('菜单')
 @Controller('menus')
 export class MenuController {
-    constructor(private readonly menuService: MenuService) { }
+    constructor(private readonly menuService: MenuService,
+        private readonly articleService: ArticleService) { }
 
     @ApiOperation({
         summary: '更新菜单',
@@ -109,5 +117,22 @@ export class MenuController {
             log
         }
     }
+
+
+    @ApiOperation({
+        summary: '文章导入',
+    })
+    @Post('/article/import')
+    @ApiConsumes('multipart/form-data')
+    @UseInterceptors(FileInterceptor('file'))
+    async articleImport(@UploadedFile() file,
+        @Body() uploadDTO: UploadDTO,) {
+        // 执行上传
+        this.menuService.import(file)
+        return {
+            ok: 1
+        }
+    }
+
 
 }

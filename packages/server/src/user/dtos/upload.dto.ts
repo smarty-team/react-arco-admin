@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UploadDTO {
 
-    @ApiProperty()
+    @ApiProperty({ example: 'xxx' })
     name: string;
 
 

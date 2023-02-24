@@ -23,9 +23,15 @@ export class UploadService {
         const fileType = arr[arr.length - 1]
         const fileName = currentSign + '.' + fileType
 
-        await outputFile(uploadDir + '/' + fileName + '', file.buffer)
+        const uploadPath = uploadDir + '/' + fileName + ''
+        await outputFile(uploadPath, file.buffer)
 
-        return '/static/upload/' + fileName
+        return {
+            url: '/static/upload/' + fileName,
+            path: uploadPath
+        }
+
+
     }
 
 }
