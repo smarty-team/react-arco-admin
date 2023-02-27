@@ -15,7 +15,7 @@ export class ArticleService {
 
   async create(course: CreateArticleDto) {
     const ret = await this.articleRepository.save(course)
-    await this.sync('' + ret._id)
+    // await this.sync('' + ret._id)
     return ret
   }
 

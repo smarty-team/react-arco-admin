@@ -95,7 +95,7 @@ export class UserService {
  * 上传头像
  */
   async uploadAvatar(file) {
-    const url = await this.uploadService.upload(file)
+    const { url } = await this.uploadService.upload(file)
     return { data: url }
   }
 

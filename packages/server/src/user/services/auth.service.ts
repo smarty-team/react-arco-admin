@@ -278,7 +278,7 @@ export class AuthService {
    * 上传
    */
   async uploadAvatar(id: string, file) {
-    const url = await this.uploadService.upload(file)
+    const { url } = await this.uploadService.upload(file)
 
     this.userService.update(id, { avatar: url })
 

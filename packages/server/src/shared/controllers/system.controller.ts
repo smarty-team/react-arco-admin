@@ -13,8 +13,10 @@ import { SystemService } from '../services/system.service';
 import { CreateDictionaryDto, UpdateDictionaryDto } from '../dtos/dictionary.dto';
 import * as path from 'path'
 import * as moment from 'moment'
-import * as fs from 'fs-extra'
+import * as fse from 'fs-extra'
+import * as fs from 'fs'
 import { BackupDto } from '../dtos/backup.dto';
+import { ensureDir } from 'fs-extra';
 
 @ApiTags('系统维护')
 @Controller('system')
@@ -145,6 +147,5 @@ export class SystemController {
             ok: 1
         }
     }
-
-
 }
+

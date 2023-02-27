@@ -18,7 +18,7 @@ export class CreateMenuDto {
         }]
     })
     @IsNotEmpty()
-    menus: [];
+    menus: any[];
 }
 
 export class UpdateMenuDto extends PartialType(CreateMenuDto) {
