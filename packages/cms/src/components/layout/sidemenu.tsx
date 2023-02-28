@@ -22,11 +22,13 @@ export default function SideMenu({ menu }) {
         {menu.map((menuItem) => {
           if (menuItem.type === "article") {
             return (
-              <li key={menuItem.key}>
+              <li key={menuItem.key} className="w-full">
                 <ActiveLink
                   onClick={checkAuth}
+                  className="text-ellipsis overflow-hidden whitespace-nowrap block w-[306px]"
                   activeClassName="active"
                   href={`/posts/${menuItem.key}`}
+                  title={menuItem.title}
                 >
                   {menuItem.title}
                 </ActiveLink>
@@ -34,7 +36,7 @@ export default function SideMenu({ menu }) {
             );
           } else {
             return (
-              <li className="menu-title" key={menuItem.key}>
+              <li className="menu-title" key={menuItem.title}>
                 <span>{menuItem.title}</span>
               </li>
             );

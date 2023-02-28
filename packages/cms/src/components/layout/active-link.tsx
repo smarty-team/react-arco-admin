@@ -8,13 +8,14 @@ export interface ActiveLinkPropsType {
   className?: string;
   as?: string;
   href: string;
-  onClick?: () => void
+  onClick?: () => void;
+  title?: string;
 };
 
 const ActiveLink = ({
   children,
   activeClassName,
-  className,
+  className = '',
   ...props
 }: ActiveLinkPropsType) => {
   const { asPath, isReady } = useRouter();
