@@ -108,10 +108,11 @@ export class AuthController {
   @Post('registerCode')
   async registerCode(@Body() registerCodeDto: RegisterCodeDTO,): Promise<any> {
 
-    await this.authService.registerCode(registerCodeDto)
+    const code = await this.authService.registerCode(registerCodeDto)
 
     return {
-      data: '验证码已生成'
+      data: '验证码已生成',
+      code
     }
   }
 
