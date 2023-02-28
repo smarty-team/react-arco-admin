@@ -9,7 +9,6 @@ import {
 import { FormInstance } from '@arco-design/web-react/es/Form';
 import { IconLock, IconPhone } from '@arco-design/web-react/icon';
 import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 import useStorage from '@/utils/useStorage';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';

@@ -1,26 +1,25 @@
 import { useSms, useSmsLogin } from "../libs/user";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Alert from "../components/alert";
 import { useAppDispatch } from "../hooks";
 import { setLoginState } from "../stores/authSlice";
 
 export default function verifyCode() {
+  const router = useRouter();
+  
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
-
-  const router = useRouter();
 
   let timer;
 
   const [btnText, setBtnText] = useState("重新发送(60s)");
   const [isDisabled, setDisabled] = useState(true);
   const [validTime, setValidTime] = useState(60);
-  const [promptInfo, setPromptInfo] = useState(`验证码已发送至 +86 ${router.query.phoneNumber}`)
 
   const timeRef = useRef<number>();
   timeRef.current = validTime;
@@ -77,11 +76,14 @@ export default function verifyCode() {
       alert("登录错误，请重试");
     }
   };
-  const codeInput = useCallback((input: HTMLInputElement) => {
-    if (input) {
-      input.focus();
+
+  // 回车登录处理
+  const onkeydown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(onSubmit)();
     }
-  }, []);
+  };
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -101,7 +103,9 @@ export default function verifyCode() {
                 </label>
                 <label className="label">
                   <span className="text text-gray-400">
-                    {promptInfo}
+                    {/* 验证码已发送至 +86 ${router.query.phoneNumber} */}
+                    {/* 测试显示结果 */}
+                    测试系统，短信验证码为 {router.query.smsCode}
                   </span>
                 </label>
               </div>
@@ -110,6 +114,7 @@ export default function verifyCode() {
                   <input
                     type="text"
                     className="w-3/6 input input-bordered mr-2"
+                    defaultValue={router.query.smsCode}
                     {...register("smsCode", {
                       required: true,
                       pattern: /^\d{4}$/,
@@ -117,6 +122,7 @@ export default function verifyCode() {
                     placeholder="请输入验证码"
                     autoComplete="off"
                     autoFocus
+                    onKeyDown={onkeydown}
                   />
                   <button
                     className="w-3/6 btn btn-outline"

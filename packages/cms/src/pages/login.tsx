@@ -17,10 +17,13 @@ export default function Register() {
   async function onSubmit(formData) {
     // 发送验证码请求
     try {
-      await useSms({ captchaId: data.id, ...formData });
+      const { code } = await useSms({ captchaId: data.id, ...formData });
+      console.log(code);
+
       router.push({
         pathname: "/verifyCode",
         query: {
+          smsCode: code, // 测试使用
           phoneNumber: formData.phoneNumber,
           callback: router.query.callback,
         },
@@ -95,11 +98,7 @@ export default function Register() {
                       pattern: /^[1-9a-zA-Z]{4}$/,
                     })}
                   />
-                  {isLoading ? (
-                    <ReactLoading type="spin" color="#fff" />
-                  ) : (
-                    <img src={data.image} onClick={mutate} />
-                  )}
+                  {data ? <img src={data.image} onClick={mutate} /> : null}
                 </div>
                 {errors.captchaCode &&
                   errors.captchaCode.type === "required" && (

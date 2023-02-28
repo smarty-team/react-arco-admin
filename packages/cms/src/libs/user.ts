@@ -70,10 +70,10 @@ export function useCapcha() {
   return { data, error, isLoading, mutate };
 }
 
+// 请求短信验证码
 export async function useSms(data) {
-  // 请求登录接口
-  const msg = await post(baseUrl + "/auth/registerCode", data);
-  return msg;
+  const code = await post(baseUrl + "/auth/registerCode", data);
+  return code;
 }
 
 export async function useSmsLogin(registerData) {
