@@ -18,7 +18,7 @@ export default function NavBar() {
   const router = useRouter();
   const logout = () => {
     dispatch(setUserInfo(null));
-    router.push("/");
+    router.push("/login");
   };
   return (
     <div className="navbar bg-base-100 border-b dark:border-b-slate-700">
