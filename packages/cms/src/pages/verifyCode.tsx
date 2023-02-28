@@ -8,12 +8,12 @@ import { setLoginState } from "../stores/authSlice";
 
 export default function verifyCode() {
   const router = useRouter();
-  
+
   const {
     register,
     handleSubmit,
-    formState: { errors }
-  } = useForm();
+    formState: { errors },
+  } = useForm({ values: { smsCode: router.query.smsCode } });
 
   let timer;
 
@@ -114,15 +114,15 @@ export default function verifyCode() {
                   <input
                     type="text"
                     className="w-3/6 input input-bordered mr-2"
+                    placeholder="请输入验证码"
+                    autoComplete="off"
+                    autoFocus
+                    onKeyDown={onkeydown}
                     defaultValue={router.query.smsCode}
                     {...register("smsCode", {
                       required: true,
                       pattern: /^\d{4}$/,
                     })}
-                    placeholder="请输入验证码"
-                    autoComplete="off"
-                    autoFocus
-                    onKeyDown={onkeydown}
                   />
                   <button
                     className="w-3/6 btn btn-outline"
@@ -132,6 +132,9 @@ export default function verifyCode() {
                     {btnText}
                   </button>
                 </div>
+                {errors.smsCode && errors.smsCode.type === "required" && (
+                  <Alert message="请输入验证码"></Alert>
+                )}
                 {errors.smsCode && errors.smsCode.type === "pattern" && (
                   <Alert message="验证码输入有误"></Alert>
                 )}

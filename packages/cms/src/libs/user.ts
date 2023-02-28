@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { selectUserInfo, setUserInfo } from "../stores/authSlice";
-import { fetcher, fetcherWithToken, post } from "./fetcher";
+import { fetcher, post } from "./fetcher";
 import useStorage from "./storage";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
