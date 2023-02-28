@@ -44,6 +44,7 @@ export default function Article({ menu, article }) {
         <Confirm
           title="需要登录"
           message={message}
+          btnText="去登录"
           callback={() => router.push(`/login?callback=/posts/${article._id}`)}
         ></Confirm>
       ) : (

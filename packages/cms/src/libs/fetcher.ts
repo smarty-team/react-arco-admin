@@ -23,19 +23,23 @@ export const post = (url: string, data?: any) =>
     .then(responseHandler)
     .then((json) => json.data);
 
+export interface ResponseError {
+  status: number;
+  message: string;
+}
+    
 async function responseHandler(res: Response) {
   // 如果状态码不在 200-299 的范围内，报错
   if (res.ok) {
     return res.json()
   } else {
     console.log(res);
-    
-    const error = new Error('获取数据时发生了错误')
+    const data = await res.json()
+    const error = {
+      status: data.status,
+      message: data.message || '获取数据时发生了错误',
+    }
     console.dir(error);
-    
-    // 将额外的信息附加到错误对象上。
-    error.info = await res.json()
-    error.status = res.status
     throw error
   }
 }

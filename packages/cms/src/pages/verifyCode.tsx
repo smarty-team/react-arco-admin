@@ -5,6 +5,8 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Alert from "../components/alert";
 import { useAppDispatch } from "../hooks";
 import { setLoginState } from "../stores/authSlice";
+import { ResponseError } from "../libs/fetcher";
+import { Confirm } from "../components/confirm";
 
 export default function verifyCode() {
   const router = useRouter();
@@ -60,20 +62,22 @@ export default function verifyCode() {
   }, []);
 
   const dispatch = useAppDispatch();
-
+  const [loginError, setLoginError] = useState<ResponseError | null>(null);
   const onSubmit: SubmitHandler<FieldValues> = async ({ smsCode }) => {
-    const token = await useSmsLogin({
-      phoneNumber: router.query.phoneNumber,
-      smsCode,
-      verifyCode: "0000",
-    });
-    if (token) {
+    try {
+      const token = await useSmsLogin({
+        phoneNumber: router.query.phoneNumber,
+        smsCode,
+        // verifyCode: "0000",
+      });
       // 登录成功，设置登录状态
       dispatch(setLoginState(true));
       localStorage.setItem("token", token);
       router.push((router.query.callback || "/") as string);
-    } else {
-      alert("登录错误，请重试");
+    } catch (error) {
+      console.log(error);
+
+      setLoginError(error as ResponseError);
     }
   };
 
@@ -147,6 +151,14 @@ export default function verifyCode() {
                 ></input>
               </div>
             </form>
+
+            {loginError && (
+              <Confirm
+                title="请求出错"
+                message={loginError.message}
+                callback={() => setLoginError(null)}
+              ></Confirm>
+            )}
           </div>
         </div>
       </div>
