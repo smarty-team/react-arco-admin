@@ -18,13 +18,14 @@ import {
 } from '@nestjs/common';
 import { ArticleService } from '../services/article.service';
 
-import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 
 import {
   BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
 } from '../../shared/dtos/base-api-response.dto';
 import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 import { CreateArticleDto, UpdateArticleDto } from '../dtos/article.dto';
+import { AuthGuard } from '@nestjs/passport';
 @ApiTags('文章')
 @Controller('article')
 export class ArticleController {
@@ -41,6 +42,8 @@ export class ArticleController {
     status: HttpStatus.NOT_FOUND,
     type: BaseApiErrorResponse,
   })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   async create(@Body() createCourseDto: CreateArticleDto) {
     return {
@@ -100,6 +103,8 @@ export class ArticleController {
     status: HttpStatus.NOT_FOUND,
     type: BaseApiErrorResponse,
   })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateCourseDto: UpdateArticleDto) {
     return {
@@ -113,6 +118,8 @@ export class ArticleController {
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
   })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.articleService.remove(id);

@@ -27,6 +27,8 @@ export class RoleController {
     status: HttpStatus.NOT_FOUND,
     type: BaseApiErrorResponse,
   })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Post('')
   create(@Body() Role: CreateRoleDto) {
     return this.RoleService.create(Role);
@@ -69,6 +71,8 @@ export class RoleController {
     status: HttpStatus.NOT_FOUND,
     type: BaseApiErrorResponse,
   })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return {
@@ -104,6 +108,8 @@ export class RoleController {
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
   })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.RoleService.remove(id);

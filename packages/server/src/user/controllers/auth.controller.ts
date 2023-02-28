@@ -111,8 +111,8 @@ export class AuthController {
     const code = await this.authService.registerCode(registerCodeDto)
 
     return {
-      data: '验证码已生成',
-      code
+      msg: '验证码已生成',
+      data: { code }
     }
   }
 

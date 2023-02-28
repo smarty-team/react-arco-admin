@@ -19,7 +19,7 @@ import {
 } from '@nestjs/common';
 import { MenuService } from '../services/menu.service';
 
-import { ApiOperation, ApiTags, ApiResponse, ApiConsumes } from '@nestjs/swagger';
+import { ApiOperation, ApiTags, ApiResponse, ApiConsumes, ApiBearerAuth } from '@nestjs/swagger';
 
 import {
     BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
@@ -32,6 +32,7 @@ import * as path from 'path'
 import { UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadDTO } from '@/user/dtos/upload.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('菜单')
 @Controller('menus')
@@ -50,6 +51,8 @@ export class MenuController {
         status: HttpStatus.NOT_FOUND,
         type: BaseApiErrorResponse,
     })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
     @Post()
     async create(@Body() updateMenuDto: UpdateMenuDto) {
         return {
@@ -106,6 +109,8 @@ export class MenuController {
     @ApiOperation({
         summary: '刷新全部内容',
     })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
     @Post('refresh')
     async refresh() {
         // const cmsRoot = path.resolve(this.getRootDir(), './packages/cms')
@@ -125,6 +130,8 @@ export class MenuController {
     @Post('/article/import')
     @ApiConsumes('multipart/form-data')
     @UseInterceptors(FileInterceptor('file'))
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
     async articleImport(@UploadedFile() file,
         @Body() uploadDTO: UploadDTO,) {
         // 执行上传

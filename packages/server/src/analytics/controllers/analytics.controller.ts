@@ -16,13 +16,14 @@ import {
   HttpStatus,
 
 } from '@nestjs/common';
-import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 
 import {
   BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
 } from '../../shared/dtos/base-api-response.dto';
 import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 import * as Mock from 'mockjs';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('数据统计')
 @Controller('workplace')
@@ -32,6 +33,8 @@ export class AnalyticsController {
   @ApiOperation({
     summary: 'Content Data',
   })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Get('/overview-content')
   async overview_content() {
     const year = new Date().getFullYear();
@@ -54,6 +57,8 @@ export class AnalyticsController {
     summary: '/popular-contents',
   })
   @Get('/popular-contents')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   async popular_contents() {
     const
       page = 1,
@@ -77,6 +82,8 @@ export class AnalyticsController {
     summary: 'Percentage of content categories',
   })
   @Get('/content-percentage')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   async content_percentages() {
     return [
       {
@@ -100,6 +107,8 @@ export class AnalyticsController {
   @ApiOperation({
     summary: 'Announcement',
   })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Get('/announcement')
   async announcement() {
     return [

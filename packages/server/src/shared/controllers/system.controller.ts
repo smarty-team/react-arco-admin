@@ -61,6 +61,8 @@ export class SystemController {
     @ApiOperation({
         summary: '资源使用率',
     })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
     @Get('/system')
     async load(@Body() data) {
 
@@ -84,6 +86,8 @@ export class SystemController {
         status: HttpStatus.CREATED,
         type: SwaggerBaseApiResponse(UpdateDictionaryDto),
     })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
     @Post('/dictionary')
     async setDic(@Body() dto: UpdateDictionaryDto) {
 
@@ -97,6 +101,8 @@ export class SystemController {
     @ApiOperation({
         summary: '数据字典',
     })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
     @Get('/dictionary')
     async getDic(@Body() body) {
         const { data } = await this.systemService.find()
