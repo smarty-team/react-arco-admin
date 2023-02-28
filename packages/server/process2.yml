@@ -1,9 +1,11 @@
 apps:
   - script: dist/src/main.js
-    name: test_server
+    name: prod_server
     instances: 1
     watch: true
     ignore_watch: static | mongodb
     env:
       NODE_ENV: production
       RUNNING_ENV: prod
+      APP_PORT: 3003
+      DB_NAME: nest-server2
