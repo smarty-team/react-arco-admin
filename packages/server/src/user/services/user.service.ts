@@ -47,7 +47,6 @@ export class UserService {
       }
     })
 
-    console.log('roles', roles)
     data.map(v => {
       Reflect.deleteProperty(v, 'password')
       Reflect.deleteProperty(v, 'salt')

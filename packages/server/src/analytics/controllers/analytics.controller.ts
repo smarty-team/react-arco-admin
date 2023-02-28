@@ -33,8 +33,6 @@ export class AnalyticsController {
   @ApiOperation({
     summary: 'Content Data',
   })
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   @Get('/overview-content')
   async overview_content() {
     const year = new Date().getFullYear();
@@ -57,8 +55,6 @@ export class AnalyticsController {
     summary: '/popular-contents',
   })
   @Get('/popular-contents')
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   async popular_contents() {
     const
       page = 1,
@@ -82,8 +78,6 @@ export class AnalyticsController {
     summary: 'Percentage of content categories',
   })
   @Get('/content-percentage')
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   async content_percentages() {
     return [
       {
@@ -107,8 +101,6 @@ export class AnalyticsController {
   @ApiOperation({
     summary: 'Announcement',
   })
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   @Get('/announcement')
   async announcement() {
     return [

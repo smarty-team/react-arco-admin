@@ -33,9 +33,9 @@ export class RolesGuard implements CanActivate {
     // console.log('context:', context.switchToHttp())
 
     const { user } = context.switchToHttp().getRequest();
-    console.log('访问控制: ', user)
+    console.log('RolesGuard: ', context.switchToHttp().getRequest().url)
     const { permissions } = await this.authService.info(user.id)
-    console.log('permissions', permissions)
+    // console.log('permissions', permissions)
     if (permissions) {
 
       // if (requiredRoles.some((role) => user.roles?.includes(role))) {
