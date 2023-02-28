@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.prose :where(h1):not(:where([class~="not-prose"] *)) {
+  margin-top: 20px;
+}
+
 .markdown-body {
-  padding: 0 20px;
+  padding: 30px 50px;
+  width: 100%;
 }
 
 .hljs {

@@ -38,17 +38,18 @@ export default function Article({ menu, article }) {
   return (
     <Layout menu={menu}>
       <Head>
-        <title>{article.title}</title>
+        <title>{article ? article.title + '前端大班车' : '前端大班车'}</title>
       </Head>
       {needLogin ? (
         <Confirm
+          title="需要登录"
           message={message}
           callback={() => router.push(`/login?callback=/posts/${article._id}`)}
         ></Confirm>
       ) : (
         <div className="prose max-w-full">
-          <h1 className="pl-5 mt-4">{article.title}</h1>{" "}
-          <ArticleViewer article={article}></ArticleViewer>
+          {article ? <ArticleViewer article={article}></ArticleViewer> : '没有内容可以显示，可以试试别的文章'}
+          
         </div>
       )}
     </Layout>
