@@ -77,7 +77,7 @@ export class MenuService {
       .filter(v => fs.statSync(category + '/' + v).isDirectory());
 
     const children = [];
-    for (const article of list) {
+    for (let article of list) {
       children.push(await await this.importArticle(article, category + '/' + article));
     }
     return {
@@ -88,12 +88,17 @@ export class MenuService {
     };
   }
   async importArticle(title, dir) {
-    console.log('importArticle ......', dir);
-    const content = fs.readFileSync(dir + '/' + title + '.md').toString();
+    // console.log('importArticle ......', dir);
+    [title] = fs.readdirSync(dir).filter(v => v !== 'image')
+    if (!title) return
+    let article = (dir + '/' + title)
+    // .replace(/(\s+)/g, '\\$1')
+    console.log('importArticle ......', article);
+    const content = fs.readFileSync(article).toString();
+    title = title.replace('.md', '')
     const { _id } = await this.articleService.create({ title, content });
     console.log('创建文章成功', _id);
     return { key: _id, title, type: 'article' };
   }
-
 
 }

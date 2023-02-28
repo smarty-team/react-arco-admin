@@ -121,7 +121,7 @@ export class SystemController {
             ok: 1,
             data
         }
-    } 1
+    }
 
     @ApiOperation({
         summary: '数据库备份',
