@@ -20,6 +20,7 @@ export default function verifyCode() {
   const [btnText, setBtnText] = useState("重新发送(60s)");
   const [isDisabled, setDisabled] = useState(true);
   const [validTime, setValidTime] = useState(60);
+  const [promptInfo, setPromptInfo] = useState(`验证码已发送至 +86 ${router.query.phoneNumber}`)
 
   const timeRef = useRef<number>();
   timeRef.current = validTime;
@@ -100,7 +101,7 @@ export default function verifyCode() {
                 </label>
                 <label className="label">
                   <span className="text text-gray-400">
-                    验证码已发送至 +86 {router.query.phoneNumber}
+                    {promptInfo}
                   </span>
                 </label>
               </div>

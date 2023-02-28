@@ -1,8 +1,7 @@
 import { flatMenu, getMenu } from "../libs/menu";
 import Head from "next/head";
 import Layout from "../components/layout";
-import Counter from "../features/counter/Counter";
-import Search from "../components/search";
+import Hero from "../components/hero";
 
 export async function getStaticProps() {
   const menu = await getMenu()
@@ -20,8 +19,7 @@ export default function Home({menu}) {
         <title>前端大班车</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Home Page</h1>
-      <Counter />
+      <Hero></Hero>
     </Layout>
   );
 }

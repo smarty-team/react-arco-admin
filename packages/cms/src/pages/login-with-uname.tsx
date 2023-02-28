@@ -2,8 +2,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { useLogin } from "@/libs/user";
-import Alert from "./components/alert";
+import { useLogin } from "../libs/user";
+import Alert from "../components/alert";
 
 export default function Login() {
   const {

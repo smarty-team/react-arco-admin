@@ -1,10 +1,13 @@
-// ./components/Search/index.js
-
-// “algoliasearch/lite” is the search-only version of the API client — optimized for size and search
 import algoliasearch from "algoliasearch/lite";
-import { InstantSearch, SearchBox, Hits } from "react-instantsearch-hooks-web";
+import {
+  InstantSearch,
+  SearchBox,
+  Hits,
+  useInstantSearch,
+  useSearchBox,
+} from "react-instantsearch-hooks-web";
 import "instantsearch.css/themes/satellite.css";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import ActiveLink from "../layout/active-link";
 
 const searchClient = algoliasearch(
@@ -21,17 +24,24 @@ type Article = {
 };
 
 function Hit({ hit }: { hit: Article }) {
-  
+  const { clear } = useSearchBox();
   const createdAt = useMemo(
     () => "发布日期：" + hit.createdAt.split("T")[0],
     [hit.createdAt]
   );
 
   return (
-    <ActiveLink href={`/posts/${hit.objectID}`}>
+    <ActiveLink href={`/posts/${hit.objectID}`} onClick={clear}>
       <h1>{hit.title}</h1>
       <p>{createdAt}</p>
     </ActiveLink>
+  );
+}
+
+function SearchResults() {
+  const { results } = useInstantSearch();
+  return (
+    <>{results.query && results.nbHits ? <Hits hitComponent={Hit} /> : null}</>
   );
 }
 
@@ -40,7 +50,7 @@ export default function Search() {
     <div className="relative">
       <InstantSearch searchClient={searchClient} indexName="my_cms_content">
         <SearchBox />
-        <Hits hitComponent={Hit} />
+        <SearchResults></SearchResults>
       </InstantSearch>
     </div>
   );
