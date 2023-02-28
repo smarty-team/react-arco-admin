@@ -317,10 +317,13 @@ export class AuthService {
     }
 
     // TODO 测试状态
-    // const code = this.getCode()
-    const code = '0000'
+    const code = this.generateCode()
+    // const code = '0000'
     this.logger.log(null, '生成验证码：' + code)
     await this.redis.set('verifyCode' + dto.phoneNumber, code, "EX", 60);
+
+    return code
+
 
     // phoneCodeList[phone] = code;
 
