@@ -6,7 +6,8 @@
     "start": "next start",
     "type-check": "tsc",
     "test": "jest",
-    "postbuild": "node ./scripts/build-search.mjs"
+    "postbuild": "node ./scripts/build-search.mjs",
+    "start:prod": "next build;next start -p 3001;"
   },
   "dependencies": {
     "@bytemd/plugin-frontmatter": "^1.20.2",

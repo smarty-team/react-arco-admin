@@ -33,9 +33,7 @@ export class ArticleService {
   }
 
   async findOne(id: string) {
-    console.log('id', id)
     return await this.articleRepository.findOneBy(id)
-
   }
 
   async update(id: string, course: UpdateArticleDto) {

@@ -1,0 +1,9 @@
+apps:
+  - script: pnpm
+    args: start:prod
+    name: cms
+    instances: 1
+    watch: true
+    env:
+      NODE_ENV: production
+      RUNNING_ENV: prod
