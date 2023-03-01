@@ -7,6 +7,7 @@ import {
   useSearchBox,
 } from "react-instantsearch-hooks-web";
 import "instantsearch.css/themes/satellite.css";
+import '../../styles/search.module.css'
 import { useEffect, useMemo } from "react";
 import ActiveLink from "../layout/active-link";
 
