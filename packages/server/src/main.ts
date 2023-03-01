@@ -29,7 +29,7 @@ async function bootstrap() {
   // 创建文档
   generateDocument(app)
   // await app.listen(3000, '0.0.0.0');
-
-  await app.listen(3000);
+  console.log('APPPROT', process.env.APP_PORT)
+  await app.listen(process.env.APP_PORT);
 }
 bootstrap();

@@ -29,17 +29,14 @@ export default (): any => ({
   // },
 
   jwt: {
-    // secret: process.env.JWT_SECRET, // 密钥
-    secret: 'ranshu666',
+    secret: process.env.JWT_SECRET, // 密钥
     signOptions: {
-      // expiresIn: process.env.JWT_EXPIRES_IN, // token 过期时效
-      expiresIn: '24h'
+      expiresIn: process.env.JWT_EXPIRES_IN, // token 过期时效
     },
   },
 
   defaultAdminUserPassword: process.env.DEFAULT_ADMIN_USER_PASSWORD,
   redis: {
-    // url: 'redis://localhost:6379/',
     url: process.env.REDIS_URL
   },
 
