@@ -7,7 +7,6 @@ import {
   useSearchBox,
 } from "react-instantsearch-hooks-web";
 import "instantsearch.css/themes/satellite.css";
-import '../../styles/search.module.css'
 import { useEffect, useMemo } from "react";
 import ActiveLink from "../layout/active-link";
 
@@ -48,9 +47,9 @@ function SearchResults() {
 
 export default function Search() {
   return (
-    <div className="relative">
+    <div className="relative lg:ml-4 ">
       <InstantSearch searchClient={searchClient} indexName="my_cms_content">
-        <SearchBox />
+        <SearchBox classNames={{input: 'dark:rounded-none'}}/>
         <SearchResults></SearchResults>
       </InstantSearch>
     </div>
