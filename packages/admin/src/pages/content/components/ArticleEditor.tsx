@@ -9,15 +9,16 @@ import highlight from '@bytemd/plugin-highlight';
 import { Editor } from '@bytemd/react';
 import '../style/index.css';
 import theme from './plugins/plugin-theme';
+import iframe from './plugins/plugin-iframe';
 
 // md editor plugins
-const plugins = [gfm(), frontmatter(), highlight(), theme()];
+const plugins = [gfm(), frontmatter(), highlight(), theme(), iframe()];
 
 export function ArticleEditor({ article, setArticle }) {
   return (
     <div>
       <Input
-        value={article.title}
+        value={article.title || ''}
         onChange={(title) => {
           setArticle({ ...article, title });
         }}
@@ -32,7 +33,7 @@ export function ArticleEditor({ article, setArticle }) {
         editorConfig={{ autofocus: true }}
         onChange={(content) => {
           setArticle({ ...article, content });
-        }}
+        }} remarkRehype={{allowDangerousHtml: true}}
       />
     </div>
   );

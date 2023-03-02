@@ -21,6 +21,7 @@
     "@tailwindcss/typography": "^0.5.9",
     "algoliasearch": "^4.14.3",
     "autoprefixer": "^10.4.13",
+    "bytemd": "^1.17.4",
     "daisyui": "^2.50.0",
     "dotenv": "^16.0.3",
     "highlight.js": "^11.7.0",
