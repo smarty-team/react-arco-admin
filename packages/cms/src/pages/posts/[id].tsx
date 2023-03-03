@@ -1,11 +1,9 @@
 import Head from "next/head";
-import Link from "next/link";
 import Layout from "../../components/layout";
 import { ArticleViewer } from "../../components/article-viewer";
 import { getArticle } from "../../libs/article";
 import { flatMenu, getMenu, getMenuIds } from "../../libs/menu";
 import { useNeedLogin } from "../../libs/user";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Confirm } from "../../components/confirm";
 
@@ -49,8 +47,7 @@ export default function Article({ menu, article }) {
         ></Confirm>
       ) : (
         <div className="prose max-w-full">
-          {article ? <ArticleViewer article={article}></ArticleViewer> : '没有内容可以显示，可以试试别的文章'}
-          
+          {article ? <ArticleViewer article={article}></ArticleViewer> : '没有内容可以显示，可以试试别的文章'}  
         </div>
       )}
     </Layout>
