@@ -3,7 +3,7 @@
 /node_modules
 /mongodb/data/*
 /static
-
+*/**/.env
 
 # Logs
 logs

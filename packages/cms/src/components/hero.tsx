@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <div className="px-4 sm:px-6 xl:px-8 pt-10 pb-16">
       <h1 className="text-5xl leading-none font-extrabold tracking-tight mb-4">
-        🚀 前端工程师进阶之旅
+        🚀 工程师进阶之旅
       </h1>
       <p className="text-2xl tracking-tight mb-10">用最适合您的方式学习</p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8">
@@ -112,7 +112,7 @@ function CardA1(props) {
       </div>
       <div
         className="absolute bottom-0 left-0 right-0 h-20 hidden sm:block"
-        // style="background:linear-gradient(to top, rgb(135, 94, 245), rgba(135, 94, 245, 0))"
+      // style="background:linear-gradient(to top, rgb(135, 94, 245), rgba(135, 94, 245, 0))"
       ></div>
     </div>
   );
@@ -142,7 +142,7 @@ function CardA2(props) {
       </div>
       <div
         className="absolute bottom-0 left-0 right-0 h-20 hidden sm:block"
-        // style="background:linear-gradient(to top, rgb(135, 94, 245), rgba(135, 94, 245, 0))"
+      // style="background:linear-gradient(to top, rgb(135, 94, 245), rgba(135, 94, 245, 0))"
       ></div>
     </div>
   );
@@ -172,7 +172,7 @@ function CardA3(props) {
       </div>
       <div
         className="absolute bottom-0 left-0 right-0 h-20 hidden sm:block"
-        // style="background:linear-gradient(to top, rgb(135, 94, 245), rgba(135, 94, 245, 0))"
+      // style="background:linear-gradient(to top, rgb(135, 94, 245), rgba(135, 94, 245, 0))"
       ></div>
     </div>
   );
@@ -182,7 +182,7 @@ function CardA4(props) {
   return (
     <div className="w-full relative text-white overflow-hidden rounded-3xl flex shadow-lg">
       <div
-        className={`w-full flex md:flex-col bg-gradient-to-br from-purple-500  to-indigo-500`}
+        className={`w-full flex md:flex-col bg-gradient-to-br from-green-500  to-green-800`}
       >
         <div className="sm:max-w-sm sm:flex-none md:w-auto md:flex-auto flex flex-col items-start relative z-10 p-6 xl:p-8">
           <h2 className="text-xl font-semibold mb-2 text-shadow">
@@ -192,7 +192,7 @@ function CardA4(props) {
             大厂真题 50 +
           </p>
           <a
-            className="mt-auto bg-violet-800 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold py-2 px-4 inline-flex"
+            className="mt-auto bg-green-800 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold py-2 px-4 inline-flex"
             href="/docs/installation"
           >
             开始学习
@@ -202,7 +202,7 @@ function CardA4(props) {
       </div>
       <div
         className="absolute bottom-0 left-0 right-0 h-20 hidden sm:block"
-        // style="background:linear-gradient(to top, rgb(135, 94, 245), rgba(135, 94, 245, 0))"
+      // style="background:linear-gradient(to top, rgb(135, 94, 245), rgba(135, 94, 245, 0))"
       ></div>
     </div>
   );
@@ -212,7 +212,7 @@ function CardA5(props) {
   return (
     <div className="w-full relative text-white overflow-hidden rounded-3xl flex shadow-lg">
       <div
-        className={`w-full flex md:flex-col bg-gradient-to-br from-pink-500 to-rose-500`}
+        className={`w-full flex md:flex-col bg-gradient-to-br from-blue-500 to-indigo-800`}
       >
         <div className="sm:max-w-sm sm:flex-none md:w-auto md:flex-auto flex flex-col items-start relative z-10 p-6 xl:p-8">
           <h2 className="text-xl font-semibold mb-2 text-shadow">JS、TS系列</h2>
@@ -220,7 +220,7 @@ function CardA5(props) {
             大厂真题 30 +
           </p>
           <a
-            className="mt-auto bg-rose-900 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold py-2 px-4 inline-flex"
+            className="mt-auto bg-blue-900 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold py-2 px-4 inline-flex"
             href="/docs/installation"
           >
             开始学习
@@ -230,7 +230,7 @@ function CardA5(props) {
       </div>
       <div
         className="absolute bottom-0 left-0 right-0 h-20 hidden sm:block"
-        // style="background:linear-gradient(to top, rgb(135, 94, 245), rgba(135, 94, 245, 0))"
+      // style="background:linear-gradient(to top, rgb(135, 94, 245), rgba(135, 94, 245, 0))"
       ></div>
     </div>
   );
@@ -240,7 +240,7 @@ function CardA6(props) {
   return (
     <div className="w-full relative text-white overflow-hidden rounded-3xl flex shadow-lg">
       <div
-        className={`w-full flex md:flex-col bg-gradient-to-br from-yellow-400 to-orange-500`}
+        className={`w-full flex md:flex-col bg-gradient-to-br from-pink-400 to-red-500`}
       >
         <div className="sm:max-w-sm sm:flex-none md:w-auto md:flex-auto flex flex-col items-start relative z-10 p-6 xl:p-8">
           <h2 className="text-xl font-semibold mb-2 text-shadow">NodeJS系列</h2>
@@ -248,7 +248,7 @@ function CardA6(props) {
             大厂真题 20 +
           </p>
           <a
-            className="mt-auto bg-amber-900 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold py-2 px-4 inline-flex"
+            className="mt-auto bg-red-900 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold py-2 px-4 inline-flex"
             href="/docs/installation"
           >
             开始学习
@@ -258,7 +258,7 @@ function CardA6(props) {
       </div>
       <div
         className="absolute bottom-0 left-0 right-0 h-20 hidden sm:block"
-        // style="background:linear-gradient(to top, rgb(135, 94, 245), rgba(135, 94, 245, 0))"
+      // style="background:linear-gradient(to top, rgb(135, 94, 245), rgba(135, 94, 245, 0))"
       ></div>
     </div>
   );
