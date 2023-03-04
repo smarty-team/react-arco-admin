@@ -321,7 +321,7 @@ function ListCard() {
     <ul className="grid sm:grid-cols-2 gap-6 xl:gap-8">
       <li>
         <a
-          href="https://github.com/tailwindlabs/tailwindcss/discussions"
+          href="https://github.com/smarty-team/react-arco-admin"
           className="flex items-start space-x-4"
         >
           <svg
@@ -336,13 +336,13 @@ function ListCard() {
             ></path>
           </svg>
           <div className="flex-auto">
-            <h3 className="font-bold text-gray-900">GitHub Discussions</h3>
-            <p>联系 Tailwind CSS 社区的成员。</p>
+            <h3 className="font-bold text-gray-900">GitHub </h3>
+            <p>学习本站源代码</p>
           </div>
         </a>
       </li>
       <li>
-        <a href="/discord" className="flex items-start space-x-4">
+        <a href="https://www.josephxia.com/landing" className="flex items-start space-x-4">
           <svg
             fill="currentColor"
             className="flex-none text-indigo-400 w-12 h-12"
@@ -360,12 +360,12 @@ function ListCard() {
             ></path>
           </svg>
           <div className="flex-auto">
-            <h3 className="font-bold text-gray-900">Discord</h3>
-            <p>加入我们的 Discord 群组与其它的 Tailwind 用户交流。</p>
+            <h3 className="font-bold text-gray-900">视频课程</h3>
+            <p>学习本站视频搭建方法</p>
           </div>
         </a>
       </li>
-      <li>
+      {/* <li>
         <a
           href="https://twitter.com/tailwindcss"
           className="flex items-start space-x-4"
@@ -386,10 +386,10 @@ function ListCard() {
             <p>关注 Tailwind 的推特账户，了解新闻和更新。</p>
           </div>
         </a>
-      </li>
+      </li> */}
       <li>
         <a
-          href="https://www.youtube.com/tailwindlabs"
+          href="https://space.bilibili.com/478824720"
           className="flex items-start space-x-4"
         >
           <svg fill="currentColor" className="flex-none text-red-500 w-12 h-12">
@@ -401,8 +401,27 @@ function ListCard() {
             ></path>
           </svg>
           <div className="flex-auto">
-            <h3 className="font-bold text-gray-900">YouTube</h3>
-            <p>观看 Tailwind 的网络直播和专题教程。</p>
+            <h3 className="font-bold text-gray-900">Bilibili</h3>
+            <p>欢迎参观全栈然叔的B栈。</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://space.bilibili.com/480140591"
+          className="flex items-start space-x-4"
+        >
+          <svg fill="currentColor" className="flex-none text-red-500 w-12 h-12">
+            <rect width="48" height="48" rx="12"></rect>
+            <path
+              d="M36.83 18.556c0-2.285-1.681-4.124-3.758-4.124a184.713 184.713 0 00-8.615-.182h-.914c-2.925 0-5.799.05-8.612.183-2.072 0-3.753 1.848-3.753 4.133A75.6 75.6 0 0011 23.99a78.487 78.487 0 00.173 5.429c0 2.285 1.68 4.139 3.753 4.139 2.955.137 5.987.198 9.07.192 3.087.01 6.11-.054 9.069-.193 2.077 0 3.758-1.853 3.758-4.138.121-1.813.177-3.62.172-5.434a73.982 73.982 0 00-.165-5.428zM21.512 28.97v-9.979l7.363 4.987-7.363 4.992z"
+              fill="currentColor"
+              className="text-red-50"
+            ></path>
+          </svg>
+          <div className="flex-auto">
+            <h3 className="font-bold text-gray-900">Bilibili</h3>
+            <p>欢迎参观全栈然叔的B栈。</p>
           </div>
         </a>
       </li>
