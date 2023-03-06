@@ -1,79 +1,74 @@
-import React, { useMemo } from "react";
-import { getFlattenRoutes, routes } from "./routes";
-import { Typography } from "@arco-design/web-react";
-// 排版 Typography
-// Title 标题
-// Text  文本
-// Paragraph 段落
+import { Grid } from '@arco-design/web-react';
 
-// 布局
-// Grid 栅格
-// Layout 布局
-// Space 间距
+// 栅格：
+// Row 行
+// Col 列
+const Row = Grid.Row;
+const Col = Grid.Col;
 
-const Title = Typography.Title;
-const Text = Typography.Text;
-const Paragraph = Typography.Paragraph;
-
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      {/* 排版 */}
-      <Typography style={{ marginTop: -40 }}>
-        <Title>Design system</Title>
-        <Paragraph>
-          A design is a plan or specification for the construction of an object
-          or system or for the implementation of an activity or process, or the
-          result of that plan or specification in the form of a prototype,
-          product or process. The verb to design expresses the process of
-          developing a design.
-        </Paragraph>
-        <Paragraph>
-          In some cases, the direct construction of an object without an
-          explicit prior plan (such as in craftwork, some engineering, coding,
-          and graphic design) may also be considered
-          <Text bold>to be a design activity.</Text>
-        </Paragraph>
-        <Title heading={2}>ArcoDesign</Title>
-        <Paragraph>
-          The ArcoDesign component library defines a set of default particle
-          variables, and a custom theme is to <Text mark>customize</Text> and{" "}
-          <Text underline>overwrite</Text> this variable list.
-        </Paragraph>
-        <Paragraph blockquote>
-          A design is a plan or specification for the construction of an object
-          or system or for the implementation of an activity or process, or the
-          result of that plan or specification in the form of a{" "}
-          <Text code>prototype</Text>, <Text code>product</Text> or
-          <Text code>process</Text>. The verb to design expresses the process of
-          developing a design.
-        </Paragraph>
-        <Paragraph mark underline delete>
-          A design is a plan or specification for the construction of an object
-          or system or for the implementation of an activity or process.
-        </Paragraph>
-        <Paragraph>
-          <ul>
-            <li>
-              Architectural blueprints
-              <ul>
-                <li>Architectural blueprints</li>
-              </ul>
-            </li>
-            <li>Engineering drawings</li>
-            <li>Business processes</li>
-          </ul>
-        </Paragraph>
-        <Paragraph>
-          <ol>
-            <li>Architectural blueprints</li>
-            <li>Engineering drawings</li>
-            <li>Business processes</li>
-          </ol>
-        </Paragraph>
-      </Typography>
+    <div style={{ width: '100%' }} className='grid-demo-background'>
+      <Row className='grid-demo' style={{ marginBottom: 16 }}>
+        <Col span={24}>
+          <div>24 - 100%</div>
+        </Col>
+      </Row>
+      <Row className='grid-demo' style={{ marginBottom: 16 }}>
+        <Col span={12}>
+          <div>12 - 50%</div>
+        </Col>
+        <Col span={12}>
+          <div>12 - 50%</div>
+        </Col>
+      </Row>
+      <Row className='grid-demo' style={{ marginBottom: 16 }}>
+        <Col span={8}>
+          <div>8 - 33.33%</div>
+        </Col>
+        <Col span={8}>
+          <div>8 - 33.33%</div>
+        </Col>
+        <Col span={8}>
+          <div>8 - 33.33%</div>
+        </Col>
+      </Row>
+      <Row className='grid-demo' style={{ marginBottom: 16 }}>
+        <Col span={6}>
+          <div>6 - 25%</div>
+        </Col>
+        <Col span={6}>
+          <div>6 - 25%</div>
+        </Col>
+        <Col span={6}>
+          <div>6 - 25%</div>
+        </Col>
+        <Col span={6}>
+          <div>6 - 25%</div>
+        </Col>
+      </Row>
+      <Row className='grid-demo'>
+        <Col span={4}>
+          <div>4 - 16.66%</div>
+        </Col>
+        <Col span={4}>
+          <div>4 - 16.66%</div>
+        </Col>
+        <Col span={4}>
+          <div>4 - 16.66%</div>
+        </Col>
+        <Col span={4}>
+          <div>4 - 16.66%</div>
+        </Col>
+        <Col span={4}>
+          <div>4 - 16.66%</div>
+        </Col>
+        <Col span={4}>
+          <div>4 - 16.66%</div>
+        </Col>
+      </Row>
     </div>
   );
-}
+};
 
 export default App;
