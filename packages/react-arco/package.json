@@ -11,7 +11,9 @@
   "dependencies": {
     "@arco-design/web-react": "^2.45.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router": "^6.8.2",
+    "react-router-dom": "^6.8.2"
   },
   "devDependencies": {
     "@arco-plugins/vite-react": "^1.3.3",

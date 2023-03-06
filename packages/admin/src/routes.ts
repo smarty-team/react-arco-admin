@@ -13,18 +13,24 @@ export type IRoute = AuthParams & {
 
 export const routes: IRoute[] = [
   {
-    name: 'menu.dashboard',
-    key: 'dashboard',
+    name: 'menu.dashboard', // locale包中的key
+    key: 'dashboard', // 唯一区分菜单项，也是路由path，决定icon
     children: [
       {
         name: 'menu.dashboard.workplace',
         key: 'dashboard/workplace',
       },
     ],
+    // breadcrumb: true,// 是否显示在面包屑中
+    // ignore: true,// 是否渲染为菜单项
   },
   {
     name: 'Example',
     key: 'example',
+  },
+  {
+    name: 'menu.user',
+    key: 'user',
   },
 ];
 
