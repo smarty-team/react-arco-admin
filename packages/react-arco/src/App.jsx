@@ -36,7 +36,7 @@ const getTableData = ({ current, pageSize }) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
-        list: data.slice((current - 1) * pageSize, current * pageSize),
+        data: data.slice((current - 1) * pageSize, current * pageSize),
         total: data.length,
       });
     }, 1000);
@@ -65,8 +65,10 @@ function App() {
   //   onSuccess: ({ total }) => setPagination({ ...pagination, total }),
   //   refreshDeps: [pagination.current, pagination.pageSize],
   // });
-
-  const { data, pagination, loading } = usePagination(() => getTableData(pagination), {
+  
+  // 声明式
+  // axios 编程式
+  const { pagination, data, loading } = usePagination(getTableData, {
     defaultCurrent: 1,
     defaultPageSize: 2
   })
@@ -123,7 +125,7 @@ function App() {
         <Sider>Sider</Sider>
         <Content>
           <Table
-            data={data?.list}
+            data={data?.data}
             columns={columns}
             loading={loading}
             pagination={pagination}
