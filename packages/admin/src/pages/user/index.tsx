@@ -9,7 +9,8 @@ import {
   Typography,
 } from '@arco-design/web-react';
 import { usePagination } from 'ahooks';
-import React from 'react';
+import React, { useState } from 'react';
+import DrawerForm from './form';
 
 const { Title } = Typography;
 
@@ -29,6 +30,22 @@ const deleteTableData = async (id: string) => {
   );
   return { ok: res.affected === 1 };
 };
+
+export const initial = {
+  _id: '',
+  phoneNumber: '',
+  password: '',
+  name: '',
+  avatar: '',
+  email: '',
+  job: '',
+  jobName: '',
+  organization: '',
+  location: '',
+  personalWebsite: '',
+};
+
+export type User = typeof initial
 
 export default function UserPage() {
   const { data, pagination, loading, refresh } = usePagination(getTableData, {
@@ -91,13 +108,22 @@ export default function UserPage() {
     if (operation === 'delete') {
       const { ok } = await deleteTableData(record._id);
       if (ok) {
-        Message.success('删除用户成功')
-        refresh()
+        Message.success('删除用户成功');
+        refresh();
       } else {
-        Message.error('删除用户失败，请重试！')
+        Message.error('删除用户失败，请重试！');
       }
     } else {
+      setEditedItem(record)
+      setVisible(true);
     }
+  };
+
+  const [visible, setVisible] = useState(false);
+  const [editedItem, setEditedItem] = useState(initial)
+  const onAdd = () => {
+    setEditedItem(initial)
+    setVisible(true);
   };
   return (
     // 容器
@@ -107,7 +133,7 @@ export default function UserPage() {
 
       {/* 操作按钮 */}
       <Space direction="vertical" style={{ width: '100%' }}>
-        <Button>新增</Button>
+        <Button onClick={onAdd}>新增</Button>
         {/* 数据表格 */}
         <Table
           data={data?.list}
@@ -118,6 +144,9 @@ export default function UserPage() {
           style={{ width: '100%' }}
         ></Table>
       </Space>
+
+      {/* 表单 */}
+      <DrawerForm {...{ visible, setVisible, editedItem, callback: () => refresh() }}></DrawerForm>
     </Card>
   );
 }

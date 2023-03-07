@@ -30,8 +30,8 @@ export class UserController {
     status: HttpStatus.NOT_FOUND,
     type: BaseApiErrorResponse,
   })
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt'))
   @Post('')
   create(@Body() user: CreateUserDto) {
     return this.userService.create(user);
@@ -85,8 +85,8 @@ export class UserController {
   @ApiOperation({
     summary: '更新单个用户',
   })
-  @UseGuards(AuthGuard('jwt'))
-  @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt'))
+  // @ApiBearerAuth()
   @ApiResponse({
     status: HttpStatus.OK,
     type: SwaggerBaseApiResponse(CreateUserDto),
