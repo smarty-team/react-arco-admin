@@ -1,27 +1,61 @@
-import { Table, Layout, Space, Button, Drawer } from "@arco-design/web-react";
+import {
+  Table,
+  Layout,
+  Space,
+  Button,
+  Drawer,
+  Form,
+  Input,
+} from "@arco-design/web-react";
 import React, { useEffect, useState } from "react";
-import { useRequest, usePagination } from "ahooks";
 
 const { Header, Sider, Content, Footer } = Layout;
 
 function App() {
+  const [visible, setVisible] = useState(false);
 
-  const [visible, setVisible] = useState(false)
+  const [form] = Form.useForm()
   
+  const fill = () => {
+    form.setFieldsValue({
+      username: 'cz',
+      password: 'xxx'
+    })
+  }
   return (
     <Layout style={{ height: "400px" }}>
       <Header>
-        <Space>
-          <Button type="primary">Item1</Button>
-          <Button type="primary">Item2</Button>
-          <Button type="primary">Item3</Button>
-          <Button type="primary">Item4</Button>
-        </Space>
+        <Space>表单</Space>
       </Header>
       <Layout>
         <Sider>Sider</Sider>
         <Content>
-          <Button onClick={() => setVisible(true)}>新增</Button>
+          <Button onClick={fill}>填充</Button>
+          <Button onClick={() => form.resetFields()}>重置</Button>
+          {/* 基本 */}
+          {/* 提交 */}
+          <Form
+            onSubmit={(v) => {
+              console.log(v);
+            }}
+            form={form}
+          >
+            <Form.Item label="用户名" field="username" rules={[
+              { required: true, message: '用户名必填' },
+              { minLength: 6, message: '用户名至少6位'}
+            ]}>
+              <Input></Input>
+            </Form.Item>
+            <Form.Item label="密码" field="password">
+              <Input type="password"></Input>
+            </Form.Item>
+            <Form.Item>
+              <Button htmlType="submit">登录</Button>
+            </Form.Item>
+          </Form>
+          {/* 交互 */}
+
+          {/* 校验 */}
         </Content>
       </Layout>
       <Footer>Footer</Footer>
