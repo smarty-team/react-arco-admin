@@ -1,5 +1,7 @@
 import { Table, Layout, Space, Button } from "@arco-design/web-react";
 import React, { useEffect, useState } from "react";
+import { useRequest, usePagination } from "ahooks";
+
 const { Header, Sider, Content, Footer } = Layout;
 
 // 基础属性：
@@ -29,32 +31,50 @@ const data = [
   },
 ];
 
-const getTableData = ({ current, pageSize }) => ({
-  data: data.slice((current - 1) * pageSize, current * pageSize),
-  total: data.length,
-});
+// 修改为异步请求
+const getTableData = ({ current, pageSize }) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        list: data.slice((current - 1) * pageSize, current * pageSize),
+        total: data.length,
+      });
+    }, 1000);
+  });
+};
+
+// useRequest
+// usePagination
 
 function App() {
+  // 分页信息
+  // const [pagination, setPagination] = useState({
+  //   current: 1,
+  //   pageSize: 2,
+  //   total: 0,
+  // });
 
   // 表格数据
-  const [data, setData] = useState([]);
-  // 分页信息
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 2,
-    total: 0,
-  });
-  
-  useEffect(() => {
-    const {data, total} = getTableData(pagination);
-    setData(data)
-    setPagination({...pagination, total})
-  }, [pagination.current, pagination.pageSize]);
+  // const [data, setData] = useState([]);
+  // useEffect(() => {
+  //   const { data, total } = getTableData(pagination);
+  //   setData(data);
+  //   setPagination({ ...pagination, total });
+  // }, [pagination.current, pagination.pageSize]);
+  // const { data, loading } = useRequest(() => getTableData(pagination), {
+  //   onSuccess: ({ total }) => setPagination({ ...pagination, total }),
+  //   refreshDeps: [pagination.current, pagination.pageSize],
+  // });
 
-  const onChange = (pagination) => {
-    setPagination(pagination)
-  }
+  const { data, pagination, loading } = usePagination(() => getTableData(pagination), {
+    defaultCurrent: 1,
+    defaultPageSize: 2
+  })
   
+  // const onChange = (pagination) => {
+  //   setPagination(pagination);
+  // };
+
   const tableCallback = (record, operation) => {
     console.log("操作", operation);
     console.log("记录", record);
@@ -102,7 +122,12 @@ function App() {
       <Layout>
         <Sider>Sider</Sider>
         <Content>
-          <Table data={data} columns={columns} pagination={pagination} onChange={onChange}></Table>
+          <Table
+            data={data?.list}
+            columns={columns}
+            loading={loading}
+            pagination={pagination}
+          ></Table>
         </Content>
       </Layout>
       <Footer>Footer</Footer>
