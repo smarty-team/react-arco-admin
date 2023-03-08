@@ -12,8 +12,8 @@
     "start:server": "docker-compose up -d redis mongo mongo-express server;",
     "db:start": "docker-compose up -d redis mongo mongo-express",
     "db:stop": "docker-compose down",
-    "db:dump": "docker-compose exec mongo mongodump --db nest-server --out /dump",
-    "db:restore": "docker-compose exec mongo mongorestore --db nest-server /dump/nest-server"
+    "db:dump": "docker-compose exec mongo mongodump --db nest-server --out /dump/init",
+    "db:restore": "docker-compose exec mongo mongorestore --db nest-server /dump/init/nest-server"
   },
   "keywords": [],
   "author": "",

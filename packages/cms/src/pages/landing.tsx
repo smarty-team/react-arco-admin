@@ -101,7 +101,7 @@ function Primary() {
         <div className="lg:pl-10 lg:pb-32">
           <div className="mb-2 py-4 text-center lg:py-10 lg:text-left">
             <h1 className="font-title mb-2 text-4xl font-extrabold sm:text-5xl lg:text-6xl">
-              🚀 Web全栈工程师进阶实战
+              🚀 React全栈进阶实战
             </h1>{" "}
             <h2 className="font-title text-lg font-extrabold sm:text-xl lg:text-2xl">
               基于Typscript、React 、NestJS 、NextJS、Docker的企业级实战课程
@@ -125,11 +125,21 @@ function Primary() {
           </div>{" "}
           <div className="mt-4 flex flex-1 justify-center space-x-2 lg:mt-6 lg:justify-start">
             <a
-              href="https://duz.xet.tech/s/1XcGXv"
+              href="https://www.josephxia.com"
               target="_blank"
               className="btn btn-ghost btn-active lg:btn-lg normal-case"
             >
-              <span className="hidden sm:inline">浏览Demo</span>
+              <span className="inline">体验Demo</span>
+
+            </a>{" "}
+            <a
+              href="https://admin.josephxia.com"
+              target="_blank"
+              className="btn btn-ghost btn-active lg:btn-lg normal-case"
+            >
+
+              <span className="inline">体验Admin</span>
+
             </a>{" "}
             <a href="/docs/install" className="btn lg:btn-lg normal-case">
               购买链接
