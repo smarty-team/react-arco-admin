@@ -47,7 +47,7 @@ export default function Article({ menu, article }) {
         ></Confirm>
       ) : (
         <div className="prose max-w-full">
-          {article ? <ArticleViewer article={article}></ArticleViewer> : '没有内容可以显示，可以试试别的文章'}  
+          {article ? <ArticleViewer article={article}></ArticleViewer> : <div className="p-4">没有内容可以显示，可以试试别的文章</div>}  
         </div>
       )}
     </Layout>

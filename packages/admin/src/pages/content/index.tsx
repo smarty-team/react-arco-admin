@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useMemo, useState } from 'react';
 import {
   Typography,
   Card,
@@ -63,7 +63,10 @@ const iconStyle: CSSProperties = {
 function Index() {
   // 获取菜单数据
   const { data: treeData, mutate } = useRequest<MenuItem[], null>(getMenu);
-
+  // const filteredTreeData = useMemo(
+  //   () => treeData.filter((item) => !!item),
+  //   [treeData]
+  // );
   // 更新菜单数据
   const { run } = useRequest(updateMenu, { manual: true });
 
@@ -365,7 +368,7 @@ function Index() {
   // 重新生成静态文件
   const regenerate = () => {
     // todo
-  }
+  };
   return (
     <>
       <Card>
@@ -373,9 +376,15 @@ function Index() {
 
         {/* 创建根目录和文章 */}
         <Space>
-          <Button type="primary" onClick={addRootCategory}>添加分类</Button>
-          <Button type="primary" onClick={addRootArticle}>添加文章</Button>
-          <Button type="outline" onClick={regenerate}>同步数据</Button>
+          <Button type="primary" onClick={addRootCategory}>
+            添加分类
+          </Button>
+          <Button type="primary" onClick={addRootArticle}>
+            添加文章
+          </Button>
+          <Button type="outline" onClick={regenerate}>
+            同步数据
+          </Button>
         </Space>
 
         {/* 菜单、内容管理 */}
@@ -387,7 +396,7 @@ function Index() {
             renderTitle={renderTitle}
             renderExtra={renderExtra}
             onDrop={onDrop}
-            style={{marginTop: 15}}
+            style={{ marginTop: 15 }}
           ></Tree>
         )}
 

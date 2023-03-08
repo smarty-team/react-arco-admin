@@ -24,11 +24,10 @@ export default function theme(): BytemdPlugin {
       const links = document.querySelectorAll('a')
       links.forEach(link => {
         if (link.href.startsWith('https://www.bilibili.com/video/')) {
-          const bvid = link.href.split('https://www.bilibili.com/video/')[1].slice(0, -1)
+          const bvid = link.href.split('https://www.bilibili.com/video/')[1].slice(0)  
           const aid = bv2av(bvid)
           const video = document.createElement('iframe')
-          video.src = `https://player.bilibili.com/player.html?
-                        aid=${aid}&bvid=${bvid}`
+          video.src = `//player.bilibili.com/player.html?aid=${aid}&bvid=${bvid}`
           video.style.overflow = 'hidden'
           video.style.borderWidth = '0'
           video.allowFullscreen = true
