@@ -130,19 +130,20 @@ function Primary() {
               className="btn btn-ghost btn-active lg:btn-lg normal-case"
             >
               <span className="inline">体验Demo</span>
-
             </a>{" "}
             <a
               href="https://admin.josephxia.com"
               target="_blank"
               className="btn btn-ghost btn-active lg:btn-lg normal-case"
             >
-
               <span className="inline">体验Admin</span>
-
             </a>{" "}
-            <a href="/docs/install" className="btn lg:btn-lg normal-case">
-              购买链接
+            <a
+              href="https://duz.xet.tech/s/1cJU74"
+              target="_blank"
+              className="btn lg:btn-lg normal-case"
+            >
+              5折购买
             </a>
           </div>
         </div>{" "}
