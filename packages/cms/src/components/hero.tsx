@@ -269,7 +269,7 @@ function Card2() {
     <Fragment>
       <h2 className="flex-none">🚌</h2>
       <p className="flex-auto text-white text-lg font-medium">
-        本站由【Web全栈工程师进阶课程】代码实现
+        本站由【Web全栈工程师进阶课程】代码实现，课程上新<span className="text-red-400">限时 5 折</span>👉🏻👉🏻👉🏻
       </p>
       <a
         href="/landing"

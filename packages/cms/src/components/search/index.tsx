@@ -45,9 +45,9 @@ function SearchResults() {
   );
 }
 
-export default function Search() {
+export default function Search(props) {
   return (
-    <div className="relative lg:ml-4 ">
+    <div className="relative lg:ml-4 lg:block hidden">
       <InstantSearch searchClient={searchClient} indexName="my_cms_content">
         <SearchBox classNames={{input: 'dark:rounded-none'}}/>
         <SearchResults></SearchResults>

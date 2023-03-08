@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { getAllRoles } from '@/pages/role/api';
 import { Drawer, Form, Input, Message, Select } from '@arco-design/web-react';
 import { useRequest } from 'ahooks';
@@ -112,7 +112,14 @@ export function FormUser({ user, visible, setVisible, callback }: Props) {
         <FormItem label="用户角色" field="role" rules={[{ required: true }]}>
           <Select placeholder="请选择一个用户角色" options={rolesOptions} />
         </FormItem>
-        <FormItem label="用户名称" field="name">
+        <FormItem
+          label="用户名称"
+          field="name"
+          rules={[
+            { required: true, message: '手机号是必填项' },
+            { match: /^1[3456789]\d{9}$/, message: '请输入正确的手机号' },
+          ]}
+        >
           <Input placeholder="请输入用户名" />
         </FormItem>
         <FormItem label="头像" field="avatar">

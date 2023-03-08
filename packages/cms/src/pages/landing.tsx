@@ -1,5 +1,7 @@
 // import { useNavigate } from "react-router";
 
+import Image from "next/image";
+
 // import Menu from "../components/menu";
 // import NavBar from "../components/content/navbar";
 // import Footer from "../components/content/footer";
@@ -14,6 +16,13 @@ export default function Landing() {
         {/* <NavBar></NavBar> */}
         <Hero1></Hero1>
         {/* <Footer></Footer> */}
+        <Image
+          src="/code.png"
+          alt="扫码购买"
+          width={100}
+          height={100}
+          className="fixed right-4 bottom-5"
+        ></Image>
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer" className="drawer-overlay"></label>
@@ -172,7 +181,8 @@ function Section1() {
             研磨一套React专属课程体系
           </h3>{" "}
           <p className="mx-auto mb-5 w-full max-w-lg">
-            从0到１平滑上手 <span className="badge badge-outline"> NestJS </span>+{" "}
+            从0到１平滑上手{" "}
+            <span className="badge badge-outline"> NestJS </span>+{" "}
             <span className="badge badge-outline"> React </span> +{" "}
             <span className="badge badge-outline"> NextJS </span> + {"     "}
             全栈开发。
