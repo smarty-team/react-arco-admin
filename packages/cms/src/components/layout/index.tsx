@@ -1,6 +1,7 @@
 import SideMenu from "./sidemenu";
 import NavBar from "./navbar/index";
 import Footer from "./footer";
+import Link from "next/link";
 
 export default function Layout({ menu, children }) {
   return (
@@ -20,7 +21,7 @@ export default function Layout({ menu, children }) {
         <label htmlFor="my-drawer" className="drawer-overlay"></label>
         {/* 侧边栏 */}
         <div className="menu w-80 bg-base-200 p-2">
-          <a className="btn btn-ghost text-2xl w-[154px] mb-4">前端大班车</a>
+          <Link href="/" className="btn btn-ghost text-2xl w-[154px] mb-4">前端大班车</Link>
           <SideMenu menu={menu}></SideMenu>
         </div>
       </div>

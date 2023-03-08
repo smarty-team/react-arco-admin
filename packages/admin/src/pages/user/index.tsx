@@ -5,7 +5,6 @@ import {
   Table,
   PaginationProps,
   Button,
-  Form,
   Message,
   Popconfirm,
 } from '@arco-design/web-react';
@@ -68,7 +67,7 @@ function Index() {
         });
       } catch (error) {
         // 操作失败
-        Message.success('删除用户失败，请重试!');
+        Message.error('删除用户失败，请重试!');
       }
     }
   };

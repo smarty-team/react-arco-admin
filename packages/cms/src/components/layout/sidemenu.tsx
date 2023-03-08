@@ -14,6 +14,13 @@ export default function SideMenu({ menu }) {
         {/* <li className="menu-title"><span>实战课程</span></li> */}
         <li>
           <a
+            href="https://duz.xet.tech/s/1cJU74"
+            target="_blank"
+          >
+            <i className="text-xl icon-[vscode-icons--file-type-reactts]"></i>
+            React全栈进阶实战课
+          </a>
+          <a
             href="https://duz.xet.tech/s/4jUOJx?shareBind=true"
             target="_blank"
           >
@@ -27,7 +34,7 @@ export default function SideMenu({ menu }) {
             target="_blank"
           >
             <i className="text-xl icon-[vscode-icons--file-type-vueconfig]"></i>
-            Vue源码全家桶:剖析+手写
+            Vue2|3源码全家桶剖析+手写
           </a>
         </li>
         <li>

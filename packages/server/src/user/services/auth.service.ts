@@ -253,6 +253,10 @@ export class AuthService {
   ): Promise<TokenVO> {
     const user = await this.checkLoginForm(loginDTO)
     const token = await this.certificate(user)
+    this.logger.log(null, 'Log Login...')
+    this.logger.log(null, 'Debug Login...')
+    this.logger.warn(null, 'Warn Login...')
+    this.logger.error(null, 'Error Login...')
     return {
       data: {
         token
