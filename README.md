@@ -9,6 +9,7 @@
 # 数据库管理
 # 启动Mongo + Redis
 pnpm db:start
+# 访问 localhost:8081
 
 # 停止Mongo + Redis
 pnpm db:stop

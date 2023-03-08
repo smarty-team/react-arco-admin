@@ -58,6 +58,7 @@ export class MenuService {
 
     // const root = path.resolve('../../contents/大班车测试内容');
     const list = fs.readdirSync(root)
+      .filter(menu => menu !== 'image')
       .filter(menu => fs.statSync(root + '/' + menu).isDirectory());
     const menus = [];
     for (const menu of list) {
@@ -71,8 +72,13 @@ export class MenuService {
 
   }
 
+  /**
+   * 导入品类
+   * @param name 
+   * @param category 
+   * @returns 
+   */
   async importCategory(name, category) {
-    console.log('importDir ......', category);
     const list = fs.readdirSync(category)
       .filter(v => fs.statSync(category + '/' + v).isDirectory());
 
@@ -82,18 +88,17 @@ export class MenuService {
     }
     return {
       key: Date.now().toString(),
-      title: name,
+      // 去掉序号
+      title: name.slice(3),
       type: 'category',
       children
     };
   }
   async importArticle(title, dir) {
-    // console.log('importArticle ......', dir);
     [title] = fs.readdirSync(dir).filter(v => v !== 'image')
     if (!title) return
     let article = (dir + '/' + title)
     // .replace(/(\s+)/g, '\\$1')
-    console.log('importArticle ......', article);
     const content = fs.readFileSync(article).toString();
     title = title.replace('.md', '')
     const { _id } = await this.articleService.create({ title, content });
