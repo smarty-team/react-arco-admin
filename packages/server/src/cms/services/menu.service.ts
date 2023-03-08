@@ -58,6 +58,7 @@ export class MenuService {
 
     // const root = path.resolve('../../contents/大班车测试内容');
     const list = fs.readdirSync(root)
+      .filter(menu => menu !== 'image')
       .filter(menu => fs.statSync(root + '/' + menu).isDirectory());
     const menus = [];
     for (const menu of list) {
