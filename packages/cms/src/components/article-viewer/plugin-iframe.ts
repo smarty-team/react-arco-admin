@@ -26,6 +26,8 @@ export default function pluginIframe(): BytemdPlugin {
         if (link.href.startsWith('https://www.bilibili.com/video/')) {
           const bvid = link.href.split('https://www.bilibili.com/video/')[1].slice(0)
           const aid = bv2av(bvid)
+          console.log(`//player.bilibili.com/player.html?aid=${aid}&bvid=${bvid}`);
+          
           const video = document.createElement('iframe')
           video.src = `//player.bilibili.com/player.html?aid=${aid}&bvid=${bvid}`
           video.style.overflow = 'hidden'
