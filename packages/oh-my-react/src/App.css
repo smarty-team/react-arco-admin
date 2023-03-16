@@ -55,3 +55,16 @@
 .todo-list li.editing .view {
 	display: none;
 }
+
+button.selected {
+  border-color: #646cff;
+}
+
+.filters {
+  list-style: none;
+  display: flex;
+}
+
+.filters li {
+  margin-right: 6px;
+}
