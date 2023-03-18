@@ -19,6 +19,9 @@ export const todoStorage = {
   },
 };
 
+// className
+// inline styles
+// CSS Module
 function App() {
   const { todos, addTodo, removeTodo, updateTodo } = useTodos(
     todoStorage.fetch()

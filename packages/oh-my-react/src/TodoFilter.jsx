@@ -1,31 +1,19 @@
+import styles from "./TodoFilter.module.css";
+
 export default function TodoFilter({ visibility, setVisibility }) {
   return (
     <div className="footer">
-      <ul className="filters">
-        <li>
-          <button
-            className={visibility === "all" ? "selected" : ""}
-            onClick={() => setVisibility("all")}
-          >
-            All
-          </button>
-        </li>
-        <li>
-          <button
-            className={visibility === "active" ? "selected" : ""}
-            onClick={() => setVisibility("active")}
-          >
-            Active
-          </button>
-        </li>
-        <li>
-          <button
-            className={visibility === "completed" ? "selected" : ""}
-            onClick={() => setVisibility("completed")}
-          >
-            Completed
-          </button>
-        </li>
+      <ul className={styles.filters}>
+        {["all", "active", "completed"].map((v) => (
+          <li className={styles.filtersLi} key={v}>
+            <button
+              className={visibility === v ? styles.selected : ""}
+              onClick={() => setVisibility(v)}
+            >
+              {v}
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   );

@@ -1,0 +1,12 @@
+.selected {
+  border-color: #646cff;
+}
+
+.filters {
+  list-style: none;
+  display: flex;
+}
+
+.filtersLi {
+  margin-right: 6px;
+}

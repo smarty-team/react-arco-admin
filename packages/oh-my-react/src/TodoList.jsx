@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import classnames from "classnames";
 
-export default function TodoList({ todos, removeTodo, updateTodo }) {  
+export default function TodoList({ todos, removeTodo, updateTodo }) {
   const changeState = (e, currentTodo) => {
     currentTodo.completed = e.target.checked;
     // 必须重新设置状态，否则组件不会重新渲染
     // 更新数组需要全新对象，否则组件不会重新渲染
-    updateTodo(currentTodo)
+    updateTodo(currentTodo);
   };
 
   const initial = {
@@ -49,7 +50,7 @@ export default function TodoList({ todos, removeTodo, updateTodo }) {
     // 监听enter
     if (e.code === "Enter") {
       if (editedTodo.title) {
-        updateTodo(editedTodo)
+        updateTodo(editedTodo);
       }
       setEditedTodo(initial);
     }
@@ -65,11 +66,11 @@ export default function TodoList({ todos, removeTodo, updateTodo }) {
       {/* 列表 */}
       {todos.map((todo) => (
         <li
-          className={[
-            "todo",
-            todo.completed ? "completed" : "",
-            editedTodo.title && editedTodo.id === todo.id ? "editing" : "",
-          ].join(" ")}
+          className={classnames({
+            todo: true,
+            completed: todo.completed,
+            editing: editedTodo.id === todo.id,
+          })}
           key={todo.id}
         >
           <div className="view">
