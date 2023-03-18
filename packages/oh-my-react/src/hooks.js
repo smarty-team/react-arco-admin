@@ -1,13 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { todoStorage } from "./App";
 
 // 接收初始数据，将其声明为状态，同时提供状态操作方法给外界使用
 export function useTodos(data) {
   const [todos, setTodos] = useState(data);
-
-  useEffect(() => {
-    todoStorage.save(todos)
-  }, [todos])
   
   const addTodo = (title) => {
     setTodos([

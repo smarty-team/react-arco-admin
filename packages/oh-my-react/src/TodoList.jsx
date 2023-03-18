@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 import classnames from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { selectFilteredTodos, removeTodo, updateTodo } from "./store/todoSlice";
 
-export default function TodoList({ todos, removeTodo, updateTodo }) {
+export default function TodoList() {
+  // 获取todos和dispatch
+  const todos = useSelector(selectFilteredTodos);
+  const dispatch = useDispatch();
+
   const changeState = (e, currentTodo) => {
-    currentTodo.completed = e.target.checked;
+    // currentTodo.completed = e.target.checked;
     // 必须重新设置状态，否则组件不会重新渲染
     // 更新数组需要全新对象，否则组件不会重新渲染
-    updateTodo(currentTodo);
+    // updateTodo(currentTodo);
+    dispatch(updateTodo({ ...currentTodo, completed: e.target.checked }));
   };
 
   const initial = {
@@ -43,14 +50,16 @@ export default function TodoList({ todos, removeTodo, updateTodo }) {
       setEditedTodo({ ...editedTodo, title: e.target.value });
     } else {
       // title为空删除该项
-      removeTodo(editedTodo.id);
+      // removeTodo(editedTodo.id);
+      dispatch(removeTodo(editedTodo.id));
     }
   };
   const onEdited = (e) => {
     // 监听enter
     if (e.code === "Enter") {
       if (editedTodo.title) {
-        updateTodo(editedTodo);
+        // updateTodo(editedTodo);
+        dispatch(updateTodo(editedTodo));
       }
       setEditedTodo(initial);
     }
@@ -82,7 +91,10 @@ export default function TodoList({ todos, removeTodo, updateTodo }) {
               onChange={(e) => changeState(e, todo)}
             />
             <span onDoubleClick={() => editTodo(todo)}>{todo.title}</span>
-            <button className="destroy" onClick={() => removeTodo(todo.id)}>
+            <button
+              className="destroy"
+              onClick={() => dispatch(removeTodo(editedTodo.id))}
+            >
               X
             </button>
           </div>
