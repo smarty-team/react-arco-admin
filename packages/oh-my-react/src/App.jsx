@@ -4,6 +4,7 @@ import "./App.css";
 import TodoList from "./TodoList";
 import { useFilter, useTodos } from "./hooks";
 import TodoFilter from "./TodoFilter";
+import { Counter } from "./store";
 
 // useState, useEffect, useContext
 // useReducer, useCallback, useMemo, useRef, ...
@@ -46,6 +47,8 @@ function App() {
   return (
     <div className="App">
       <h2>待办事项</h2>
+
+      <Counter></Counter>
 
       {/* 新增待办 */}
       <div>
