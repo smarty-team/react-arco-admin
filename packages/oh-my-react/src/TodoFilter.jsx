@@ -35,7 +35,9 @@ export default function TodoFilter() {
   const dispatch = useDispatch();
 
   // 设置过滤
-  const setVisibility = (filter) => dispatch(setVisibilityFilter(filter));
+  const setVisibility = (filter) => {
+    dispatch(setVisibilityFilter(filter));
+  };
 
   const getButtonText = (filter) => {
     return filter === VisibilityFilters.SHOW_ALL

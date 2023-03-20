@@ -23,7 +23,7 @@ const todoSlice = createSlice({
   initialState,
   reducers: {
     addTodo: ({ value: todos }, { payload: title }) => {
-      const id = todos[todos.length - 1] ? todos[todos.length - 1].id + 1 : 1
+      const id = Math.floor(Math.random() * 10000)
       todos.push({
         id,
         title,
