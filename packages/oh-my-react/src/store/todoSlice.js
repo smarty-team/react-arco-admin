@@ -23,7 +23,7 @@ const todoSlice = createSlice({
   initialState,
   reducers: {
     addTodo: ({ value: todos }, { payload: title }) => {
-      const id = Math.floor(Math.random() * 10000)
+      const id = Math.floor(Math.random() * 10000);
       todos.push({
         id,
         title,
@@ -43,10 +43,13 @@ const todoSlice = createSlice({
 
 // selector用于选出想要的数据
 export const selectTodos = (state) => state.todos.value;
+export const selectTodoById = (state, id) =>
+  state.todos.value.find((todo) => todo.id === +id);
 export const selectFilteredTodos = createSelector(
   (state) => state.visibility, // 选出所需状态作为输入
-  (state) => state.todos.value,// 选出所需状态作为输入
-  (visibility, todos) => { // 接收输入并执行派生逻辑
+  (state) => state.todos.value, // 选出所需状态作为输入
+  (visibility, todos) => {
+    // 接收输入并执行派生逻辑
     switch (visibility) {
       case VisibilityFilters.SHOW_ACTIVE:
         return todos.filter((todo) => todo.completed === false);

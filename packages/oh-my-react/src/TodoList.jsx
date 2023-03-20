@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import classnames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFilteredTodos, removeTodo, updateTodo } from "./store/todoSlice";
-
+import { Link } from "react-router-dom";
 export default function TodoList() {
   // 获取todos和dispatch
   const todos = useSelector(selectFilteredTodos);
@@ -90,7 +90,8 @@ export default function TodoList() {
               checked={todo.completed}
               onChange={(e) => changeState(e, todo)}
             />
-            <span onDoubleClick={() => editTodo(todo)}>{todo.title}</span>
+            {/* <span onDoubleClick={() => editTodo(todo)}>{todo.title}</span> */}
+            <Link to={`/edit/${todo.id}`}>{todo.title}</Link>
             <button
               className="destroy"
               onClick={() => dispatch(removeTodo(editedTodo.id))}
