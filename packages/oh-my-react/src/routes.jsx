@@ -6,6 +6,8 @@ import Login from "./Login";
 import { redirect } from "react-router-dom";
 import { updateTodo } from "./store/todoSlice";
 import { store } from "./store/index";
+import RequireAuth from "./RequireAuth";
+import ErrorPage from "./ErrorPage";
 
 export async function editTodoAction({ request, params }) {
   // 获取表单数据
@@ -28,7 +30,12 @@ export async function editTodoAction({ request, params }) {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
+    element: (
+      <RequireAuth>
+        <App></App>
+      </RequireAuth>
+    ),
+    errorElement: <ErrorPage></ErrorPage>
   },
   {
     path: "/edit/:id",
