@@ -1,24 +1,40 @@
-import { useSelector } from "react-redux";
-import { useParams, Form, useNavigate } from "react-router-dom";
-import { selectTodoById } from "./store/todoSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+import { selectTodoById, updateTodo } from "./store/todoSlice";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+
+// react-hook-form
 
 export default function EditTodo() {
   const { id } = useParams();
 
   // 从redux获取id对应的项
-  const editedTodo = useSelector(state => selectTodoById(state, id))
+  const editedTodo = useSelector((state) => selectTodoById(state, id));
+
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({defaultValues: editedTodo});
+
+  const dispatch = useDispatch()
   
-  const navigate = useNavigate()
+  const onSubmit = (data) => {
+    console.log(data);
+    dispatch(updateTodo(data))
+    navigate('/')
+  }
   
   return (
-    <Form method="post">
+    <form onSubmit={handleSubmit(onSubmit)}>
       <p>
         <label>
           <span>name: </span>
-          <input 
-            type="text" 
-            defaultValue={editedTodo.title} 
-            name="title" />
+          <input type="text" {...register("title", { required: true })} />
+          { errors.title && errors.title.type === 'required' && <p>title为必填项</p>}
         </label>
       </p>
       <p>
@@ -26,15 +42,16 @@ export default function EditTodo() {
           <span>completed: </span>
           <input
             type="checkbox"
-            defaultChecked={editedTodo.completed}
-            name="completed"
+             {...register("completed")}
           />
         </label>
       </p>
       <p>
         <button type="submit">保存</button>
-        <button type="button" onClick={()=>navigate('/')}>取消</button>
+        <button type="button" onClick={() => navigate("/")}>
+          取消
+        </button>
       </p>
-    </Form>
+    </form>
   );
 }
