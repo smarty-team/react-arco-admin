@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectRole, setRole } from "./store/userSlice";
 import { useNavigate } from "react-router-dom";
 import AuthWrapper from "./AuthWrapper";
-import { useTitle } from "ahooks";
+import { useTitle, useRequest } from "ahooks";
+import { useEffect } from "react";
+import { setTodos } from "./store/todoSlice";
 
 // useState, useEffect, useContext
 // useReducer, useCallback, useMemo, useRef, ...
@@ -23,6 +25,29 @@ import { useTitle } from "ahooks";
 // - Effect: 定时器、防抖、节流
 // - DOM：操作DOM
 
+// 数据获取：
+// - 传统axios
+//   axios.get(url, {}).then(res => res.xxxx)
+// - hooks
+//   {data, loading, error} = useRequest(getTodos)
+
+function getTodos() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve([
+        { id: 1, title: "创建项目", completed: true },
+        { id: 2, title: "组件和JSX", completed: true },
+        { id: 3, title: "react hooks", completed: false },
+      ])
+    }, 2000);
+  })
+  // return Promise.resolve([
+  //   { id: 1, title: "创建项目", completed: true },
+  //   { id: 2, title: "组件和JSX", completed: true },
+  //   { id: 3, title: "react hooks", completed: false },
+  // ]);
+}
+
 function App() {
   const role = useSelector(selectRole);
   const dispatch = useDispatch();
@@ -34,7 +59,14 @@ function App() {
     navigate("/login");
   }
 
-  useTitle('TodoMVC');
+  useTitle("TodoMVC");
+
+  const { data, loading, error } = useRequest(getTodos);
+  useEffect(() => {
+    if (data) {
+      dispatch(setTodos(data));
+    }
+  }, [data]);
 
   return (
     <div className="App">
@@ -51,8 +83,8 @@ function App() {
       </AuthWrapper>
 
       {/* 待办列表 */}
-      <TodoList></TodoList>
-
+      {loading ? <div>loading...</div> : <TodoList></TodoList>}
+      
       {/* 过滤 */}
       <TodoFilter></TodoFilter>
     </div>

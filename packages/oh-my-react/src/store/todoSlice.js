@@ -13,7 +13,7 @@ export const todoStorage = {
 };
 
 const initialState = {
-  value: todoStorage.fetch(),
+  value: [],
 };
 
 // 创建todoSlice保存todos状态
@@ -22,6 +22,9 @@ const todoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
+    setTodos(state, { payload }) {
+      state.value = payload
+    },
     addTodo: ({ value: todos }, { payload: title }) => {
       const id = Math.floor(Math.random() * 10000);
       todos.push({
@@ -61,5 +64,5 @@ export const selectFilteredTodos = createSelector(
   }
 );
 // actionCreator用于创建dispatch()需要的action
-export const { addTodo, removeTodo, updateTodo } = todoSlice.actions;
+export const { setTodos, addTodo, removeTodo, updateTodo } = todoSlice.actions;
 export default todoSlice.reducer;
