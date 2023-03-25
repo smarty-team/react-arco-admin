@@ -206,6 +206,7 @@ importers:
       '@types/react': ^18.0.27
       '@types/react-dom': ^18.0.10
       '@vitejs/plugin-react': ^3.1.0
+      ahooks: ^3.7.5
       classnames: ^2.3.1
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -216,6 +217,7 @@ importers:
       vite: ^4.1.0
     dependencies:
       '@reduxjs/toolkit': 1.9.2_k4ae6lp43ej6mezo3ztvx6pykq
+      ahooks: 3.7.5_react@18.2.0
       classnames: 2.3.2
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0

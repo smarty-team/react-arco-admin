@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectRole, setRole } from "./store/userSlice";
 import { useNavigate } from "react-router-dom";
 import AuthWrapper from "./AuthWrapper";
+import { useTitle } from "ahooks";
 
 // useState, useEffect, useContext
 // useReducer, useCallback, useMemo, useRef, ...
@@ -13,16 +14,28 @@ import AuthWrapper from "./AuthWrapper";
 // className
 // inline styles
 // CSS Module
+
+// ahooks分类：
+// - 数据请求 useRequest
+// - Scene 表格 滚动 翻页
+// - LifeCycle 挂载 卸载
+// - State： 状态处理 cookie localStorage
+// - Effect: 定时器、防抖、节流
+// - DOM：操作DOM
+
 function App() {
-  const role = useSelector(selectRole)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const role = useSelector(selectRole);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   function onLogout() {
     // 清空角色
-    dispatch(setRole(''))
+    dispatch(setRole(""));
     // 跳转登录页
-    navigate('/login')
+    navigate("/login");
   }
+
+  useTitle('TodoMVC');
+
   return (
     <div className="App">
       <div>
@@ -33,7 +46,7 @@ function App() {
       <h2>待办事项</h2>
 
       {/* 新增待办 */}
-      <AuthWrapper roles={['admin']}>
+      <AuthWrapper roles={["admin"]}>
         <AddTodo></AddTodo>
       </AuthWrapper>
 

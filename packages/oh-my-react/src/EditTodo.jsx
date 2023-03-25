@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { selectTodoById, updateTodo } from "./store/todoSlice";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useTitle } from "ahooks";
 
 // react-hook-form
 
@@ -27,6 +27,8 @@ export default function EditTodo() {
     dispatch(updateTodo(data))
     navigate('/')
   }
+  
+  useTitle(editedTodo.title + ' | Edit')
   
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
