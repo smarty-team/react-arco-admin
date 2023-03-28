@@ -7,11 +7,16 @@ import {
 import { generateDocument } from './doc'
 import { join } from 'path'
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   // const app = await NestFactory.create(AppModule);
 
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
+
+  app.useGlobalPipes(new ValidationPipe({
+    forbidUnknownValues: false
+  }))
 
   // const app = await NestFactory.create<NestFastifyApplication>(
   //   AppModule,
