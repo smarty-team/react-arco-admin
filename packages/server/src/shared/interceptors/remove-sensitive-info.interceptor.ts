@@ -15,7 +15,8 @@ export class RemoveSensitiveInfoInterceptor implements NestInterceptor {
         const request = context.switchToHttp().getRequest();
         return next.handle().pipe(
             map((res) => {
-                console.log('After...', res.data)
+                res = JSON.parse(JSON.stringify(res))
+                console.log('res:', res.data)
                 this.delValue(res, 'password')
                 this.delValue(res, 'salt')
                 return res
@@ -27,7 +28,7 @@ export class RemoveSensitiveInfoInterceptor implements NestInterceptor {
         for (let key in data) {
             if (key === targetKey) {
                 delete data[key]
-            } else if (typeof data[key] === 'object') {
+            } else if (typeof data[key] === 'object' && data[key]) {
                 this.delValue(data[key], targetKey);
             }
         }
