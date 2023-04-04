@@ -8,6 +8,8 @@ import { generateDocument } from './doc'
 import { join } from 'path'
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
+import { RemoveSensitiveInfoInterceptor } from './shared/interceptors/remove-sensitive-info.interceptor';
+
 
 async function bootstrap() {
   // const app = await NestFactory.create(AppModule);
@@ -17,6 +19,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({
     forbidUnknownValues: false
   }))
+
+  app.useGlobalInterceptors(new RemoveSensitiveInfoInterceptor())
 
   // const app = await NestFactory.create<NestFastifyApplication>(
   //   AppModule,
