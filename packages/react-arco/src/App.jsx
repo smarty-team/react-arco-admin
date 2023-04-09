@@ -1,74 +1,62 @@
-import {
-  Table,
-  Layout,
-  Space,
-  Button,
-  Drawer,
-  Form,
-  Input,
-} from "@arco-design/web-react";
-import React, { useEffect, useState } from "react";
-
-const { Header, Sider, Content, Footer } = Layout;
-
 function App() {
-  const [visible, setVisible] = useState(false);
-
-  const [form] = Form.useForm()
-  
-  const fill = () => {
-    form.setFieldsValue({
-      username: 'cz',
-      password: 'xxx'
-    })
-  }
+  const [file, setFile] = React.useState();
   return (
-    <Layout style={{ height: "400px" }}>
-      <Header>
-        <Space>表单</Space>
-      </Header>
-      <Layout>
-        <Sider>Sider</Sider>
-        <Content>
-          <Button onClick={fill}>填充</Button>
-          <Button onClick={() => form.resetFields()}>重置</Button>
-          {/* 基本 */}
-          {/* 提交 */}
-          <Form
-            onSubmit={(v) => {
-              console.log(v);
-            }}
-            form={form}
-          >
-            <Form.Item label="用户名" field="username" rules={[
-              { required: true, message: '用户名必填' },
-              { minLength: 6, message: '用户名至少6位'}
-            ]}>
-              <Input></Input>
-            </Form.Item>
-            <Form.Item label="密码" field="password">
-              <Input type="password"></Input>
-            </Form.Item>
-            <Form.Item>
-              <Button htmlType="submit">登录</Button>
-            </Form.Item>
-          </Form>
-          {/* 交互 */}
-
-          {/* 校验 */}
-        </Content>
-      </Layout>
-      <Footer>Footer</Footer>
-      <Drawer
-        width={330}
-        title={<span>title</span>}
-        visible={visible}
-        okText="确定"
-        onOk={() => setVisible(false)}
-      >
-        some text,some content...
-      </Drawer>
-    </Layout>
+    // <Upload
+    //     action='/'
+    //     fileList={file ? [file] : []}
+    //     showUploadList={false}
+    //     onChange={(_, currentFile) => {
+    //     	// 设置url为原始图提供预览
+    //       setFile({
+    //         ...currentFile,
+    //         url: URL.createObjectURL(currentFile.originFile),
+    //       });
+    //     }}
+    //     onProgress={(currentFile) => {
+    //     	// 进度反馈
+    //       setFile(currentFile);
+    //     }}
+    //   ></Upload>
+    <Upload>
+      <div className={cs}>
+        {file && file.url ? (
+          <div className="arco-upload-list-item-picture custom-upload-avatar">
+            <img src={file.url} />
+            <div className="arco-upload-list-item-picture-mask">
+              <IconEdit />
+            </div>
+            {file.status === "uploading" && file.percent < 100 && (
+              <Progress
+                percent={file.percent}
+                type="circle"
+                size="mini"
+                style={{
+                  position: "absolute",
+                  left: "50%",
+                  top: "50%",
+                  transform: "translateX(-50%) translateY(-50%)",
+                }}
+              />
+            )}
+          </div>
+        ) : (
+          <div className="arco-upload-trigger-picture">
+            {/* 如果存在头像显示头像，否则显示plus图标 */}
+            {form.getFieldValue("avatar") ? (
+              <Image
+                width={100}
+                src={form.getFieldValue("avatar")}
+                alt="用户头像"
+                preview={false}
+              />
+            ) : (
+              <div className="arco-upload-trigger-picture-text">
+                <IconPlus />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </Upload>
   );
 }
-export default App;
