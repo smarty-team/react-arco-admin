@@ -23,6 +23,8 @@ const getTableData = async ({ current, pageSize }) => {
   } = await fetch(`/api/user?pageSize=${pageSize}&page=${current}`).then(
     (res) => res.json()
   );
+  // const {data} = await service.get<{name: string}>('/api/user')
+  const user = await http.get<{name: string}>('/api/user')
   return { list, total };
 };
 

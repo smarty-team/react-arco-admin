@@ -33,6 +33,7 @@ service.interceptors.request.use(
 
 // 3.响应拦截
 service.interceptors.response.use(
+  // {data:{}}  res.data.data -> res.data
   (response: AxiosResponse) => response.data,
   (error: AxiosError) => {
     // 根据状态码决定错误处理方式：
