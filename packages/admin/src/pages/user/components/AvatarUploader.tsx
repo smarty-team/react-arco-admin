@@ -14,6 +14,7 @@ export default function () {
     <div>
       <Upload
         disabled={disabled}
+        // 自定义请求头，便于验证权限
         headers={{ Authorization: 'Bearer ' + localStorage.getItem('token') }}
         action="/api/user/upload"
         fileList={file ? [file] : []}
