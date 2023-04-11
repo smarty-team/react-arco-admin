@@ -26,10 +26,13 @@ import {
 import { PaginationParams2Dto } from '../../shared/dtos/pagination-params.dto'
 import { CreateArticleDto, UpdateArticleDto } from '../dtos/article.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ConfigService } from '@nestjs/config';
 @ApiTags('文章')
 @Controller('article')
 export class ArticleController {
-  constructor(private readonly articleService: ArticleService) { }
+  constructor(
+    private readonly articleService: ArticleService
+  ) { }
 
   @ApiOperation({
     summary: '新增文章',

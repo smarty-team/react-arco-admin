@@ -33,12 +33,14 @@ import { UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadDTO } from '@/user/dtos/upload.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ConfigService } from '@nestjs/config';
 
 @ApiTags('菜单')
 @Controller('menus')
 export class MenuController {
     constructor(private readonly menuService: MenuService,
-        private readonly articleService: ArticleService) { }
+        private readonly articleService: ArticleService
+    ) { }
 
     @ApiOperation({
         summary: '更新菜单',
