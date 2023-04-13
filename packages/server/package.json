@@ -44,6 +44,7 @@
     "cpu-stat": "^2.0.1",
     "cross-env": "^7.0.3",
     "fs-extra": "^11.1.0",
+    "helmet": "^6.1.4",
     "ioredis": "^5.2.4",
     "jest-resolver-tsconfig-paths": "^0.14.4",
     "mockjs": "^1.1.0",

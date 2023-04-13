@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "next --port 3001",
     "build": "next build",
-    "start": "next start -p 3001",
+    "start": "next build;next start -p 3001",
     "type-check": "tsc",
     "test": "jest",
     "postbuild": "node ./scripts/build-search.mjs",
