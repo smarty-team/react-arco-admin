@@ -1,13 +1,15 @@
 import React, { useMemo } from 'react';
 import { useState } from 'react';
-import { Drawer, Form, Input, Message } from '@arco-design/web-react';
+import { Drawer, Form, Input, Message, Select } from '@arco-design/web-react';
 import { User } from '.';
+import { useRequest } from 'ahooks';
+import { getAllRoles } from '../role/api';
 
 type FormProps = {
   visible: boolean;
   setVisible: (b: boolean) => void;
   editedItem: User;
-  callback: (editedItem?: Partial<User>) => void
+  callback: (editedItem?: Partial<User>) => void;
 };
 
 const name = '用户信息';
@@ -42,6 +44,21 @@ function UserForm({ visible, setVisible, editedItem, callback }: FormProps) {
     [editedItem._id]
   );
 
+  // 获取可用角色
+  const { data: roles, run } = useRequest(getAllRoles, {
+    manual: true,
+  });
+
+  const rolesOptions = useMemo(() => {
+    if (roles) {
+      return roles.map((role) => ({
+        label: role.name,
+        value: role._id,
+      }));
+    }
+    return [];
+  }, [roles]);
+
   const onSubmit = () => {
     form.validate(async (errors) => {
       const operation = editedItem._id ? '编辑' : '新增';
@@ -58,7 +75,9 @@ function UserForm({ visible, setVisible, editedItem, callback }: FormProps) {
             Message.error(operation + '用户失败，请重试!');
           }
         } else {
+          // 设置一个默认密码
           const editedItem = form.getFieldsValue();
+          editedItem.password = '123456'
           const { ok, data } = await addTableData(editedItem);
           if (ok) {
             callback && callback(data);
@@ -83,6 +102,10 @@ function UserForm({ visible, setVisible, editedItem, callback }: FormProps) {
       }}
       afterOpen={() => {
         form.setFieldsValue(editedItem);
+        // 获取用户可用角色
+        if (!roles) {
+          run();
+        }
       }}
       afterClose={() => {
         form.resetFields();
@@ -105,6 +128,9 @@ function UserForm({ visible, setVisible, editedItem, callback }: FormProps) {
           rules={[{ required: true, message: '用户名是必填项' }]}
         >
           <Input placeholder="请输入用户名" />
+        </Form.Item>
+        <Form.Item label="用户角色" field="role" rules={[{ required: true }]}>
+          <Select placeholder="请选择一个用户角色" options={rolesOptions} />
         </Form.Item>
         <Form.Item label="邮箱" field="email">
           <Input placeholder="请输入邮箱" />

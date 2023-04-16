@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Typography,
   Card,
@@ -11,6 +11,9 @@ import {
   Input,
   Message,
   Popconfirm,
+  Tree,
+  TreeNodeProps,
+  Checkbox,
 } from '@arco-design/web-react';
 import { usePagination } from 'ahooks';
 import {
@@ -21,10 +24,27 @@ import {
   Role,
   initial,
 } from './api';
+import { IRoute, routes } from '@/routes';
+import useLocale from '@/utils/useLocale';
+import { TreeDataType } from '@arco-design/web-react/es/Tree/interface';
+import PermissionWrapper from '@/components/PermissionWrapper';
 
 const Text = Typography.Text;
 const Title = Typography.Title;
 const FormItem = Form.Item;
+
+function generateMenus(routes: IRoute[], t: Record<string, string>) {
+  return routes.map((route) => {
+    const item: TreeDataType = {
+      title: t[route.name] || route.name,
+      key: route.key,
+    };
+    if (route.children) {
+      item.children = generateMenus(route.children, t);
+    }
+    return item;
+  });
+}
 
 // 权限选择结果
 let authSelectResult: { [key: string]: string[] } = {};
@@ -145,7 +165,7 @@ function Index() {
       title: '操作',
       dataIndex: 'operations',
       render: (_: unknown, record: Role) => (
-        <>
+        <PermissionWrapper requiredPermissions={[{resource: 'role', actions: ['read', 'write']}]}>
           <Button
             type="text"
             size="small"
@@ -164,7 +184,7 @@ function Index() {
               删除
             </Button>
           </Popconfirm>
-        </>
+        </PermissionWrapper>
       ),
     },
   ];
@@ -174,13 +194,53 @@ function Index() {
     authSelectResult = {};
   };
 
+  const t = useLocale();
+  const menus = generateMenus(routes, t);
+  const RenderAuthTree = (node: TreeNodeProps) => {
+    const options = ['read', 'write'];
+    const { selected, setSelected } = Checkbox.useCheckbox(options);
+    useEffect(() => {
+      if (editedItem.permissions) {
+        // 根据正在编辑的选项的permissions信息设置选中状态
+        setSelected(editedItem.permissions[node.dataRef.key]);
+        if (editedItem.permissions[node.dataRef.key]) {
+          // 如果key在permissions中则保存到选择结果中
+          authSelectResult[node.dataRef.key] =
+            editedItem.permissions[node.dataRef.key];
+          console.log('authSelectResult初始化', authSelectResult);
+        }
+      }
+    }, [editedItem.permissions]);
+
+    return (
+      <Checkbox.Group
+        value={selected}
+        options={options}
+        onChange={(value) => {
+          // 如果用户选择某页面至少一个权限，则写入权限选择结果对象
+          // 否则，用户取消选择某页面所有权限，则删除之前已存在的选择记录
+          if (value.length) {
+            authSelectResult[node._key] = value;
+          } else {
+            delete authSelectResult[node._key];
+          }
+          console.log('authSelectResult变化', authSelectResult);
+          setSelected(value);
+          // editedItem.permissions[node.dataRef.key] = value;
+          // onEditedItemChange('permissions', editedItem.permissions);
+        }}
+      />
+    );
+  };
   return (
     <>
       <Card>
         <Title heading={6}>用户管理</Title>
-        <Button onClick={onAdd} type="primary" style={{ marginBottom: 10 }}>
-          新增
-        </Button>
+        <PermissionWrapper requiredPermissions={[{resource: 'role', actions: ['read', 'write']}]}>
+          <Button onClick={onAdd} type="primary" style={{ marginBottom: 10 }}>
+            新增
+          </Button>
+        </PermissionWrapper>
         <Table
           rowKey="_id"
           loading={loading}
@@ -211,6 +271,13 @@ function Index() {
               value={editedItem.name}
               onChange={(value: string) => onEditedItemChange('name', value)}
             />
+          </FormItem>
+          <FormItem label="权限设置">
+            <Tree
+              treeData={menus}
+              blockNode
+              renderExtra={RenderAuthTree}
+            ></Tree>
           </FormItem>
         </Form>
       </Drawer>

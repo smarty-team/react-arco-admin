@@ -16,6 +16,7 @@ import checkLogin from './utils/checkLogin';
 import changeTheme from './utils/changeTheme';
 import useStorage from './utils/useStorage';
 import './mock';
+import { getUserInfo } from './pages/login/api/user';
 
 const store = createStore(rootReducer);
 
@@ -39,10 +40,10 @@ function Index() {
       type: 'update-userInfo',
       payload: { userLoading: true },
     });
-    axios.get('/api/user/userInfo').then((res) => {
+    getUserInfo().then((userInfo) => {
       store.dispatch({
         type: 'update-userInfo',
-        payload: { userInfo: res.data, userLoading: false },
+        payload: { userInfo, userLoading: false },
       });
     });
   }
