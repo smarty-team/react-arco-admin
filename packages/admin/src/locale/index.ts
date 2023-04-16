@@ -8,7 +8,7 @@ const i18n = {
     'menu.user.switchRoles': 'Switch Roles',
     'menu.user.role.admin': 'Admin',
     'menu.user.role.user': 'General User',
-    'menu.role': 'role',
+    'menu.role': 'Role',
     'navbar.logout': 'Logout',
     'settings.title': 'Settings',
     'settings.themeColor': 'Theme Color',
