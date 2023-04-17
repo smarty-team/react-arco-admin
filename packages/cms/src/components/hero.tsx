@@ -342,7 +342,7 @@ function ListCard() {
         </a>
       </li>
       <li>
-        <a href="https://www.josephxia.com/landing" className="flex items-start space-x-4">
+        <a href="https://www.codebus.tech/landing" className="flex items-start space-x-4">
           <svg
             fill="currentColor"
             className="flex-none text-indigo-400 w-12 h-12"

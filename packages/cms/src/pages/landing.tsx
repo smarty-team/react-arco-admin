@@ -125,14 +125,14 @@ function Primary() {
           </div>{" "}
           <div className="mt-4 flex flex-1 justify-center space-x-2 lg:mt-6 lg:justify-start">
             <a
-              href="https://www.josephxia.com"
+              href="https://www.codebus.tech"
               target="_blank"
               className="btn btn-ghost btn-active lg:btn-lg normal-case"
             >
               <span className="inline">体验Demo</span>
             </a>{" "}
             <a
-              href="https://admin.josephxia.com"
+              href="http://admin.codebus.tech"
               target="_blank"
               className="btn btn-ghost btn-active lg:btn-lg normal-case"
             >
