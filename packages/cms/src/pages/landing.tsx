@@ -132,7 +132,7 @@ function Primary() {
               <span className="inline">体验Demo</span>
             </a>{" "}
             <a
-              href="http://admin.codebus.tech"
+              href="https://admin.codebus.tech"
               target="_blank"
               className="btn btn-ghost btn-active lg:btn-lg normal-case"
             >
