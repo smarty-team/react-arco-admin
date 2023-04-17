@@ -6,7 +6,7 @@
 基于Typscript、React 、NestJS 、NextJS、Docker的企业级实战课程
 </p>
 
-<a href="https://www.josephxia.com/landing">🔥 体验 Demo</a>
+<a href="https://www.codebus.tech/landing">🔥 体验 Demo</a>
 
 <a href="https://appwhrkrsz84443.pc.xiaoe-tech.com/p/t_pc/goods_pc_detail/goods_detail/p_6402a238e4b07b0558395e96">🔥 购买课程</a>
 
