@@ -11,6 +11,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { RemoveSensitiveInfoInterceptor } from './shared/interceptors/remove-sensitive-info.interceptor';
 
 import * as helmet from 'helmet';
+import rateLimit from 'express-rate-limit'
 
 async function bootstrap() {
   // const app = await NestFactory.create(AppModule);
@@ -28,6 +29,11 @@ async function bootstrap() {
       },
     }
   }))
+
+  app.use(rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+  }),)
 
   app.useGlobalPipes(new ValidationPipe({
     forbidUnknownValues: false

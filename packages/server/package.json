@@ -43,6 +43,7 @@
     "compressing": "^1.7.0",
     "cpu-stat": "^2.0.1",
     "cross-env": "^7.0.3",
+    "express-rate-limit": "^6.7.0",
     "fs-extra": "^11.1.0",
     "helmet": "^6.1.4",
     "ioredis": "^5.2.4",
