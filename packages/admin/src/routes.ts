@@ -64,6 +64,7 @@ export const getName = (path: string, routes) => {
 //   return result;
 // };
 
+// 生成路由
 const useRoute = (userPermission): [IRoute[], string] => {
   console.log(userPermission);
   

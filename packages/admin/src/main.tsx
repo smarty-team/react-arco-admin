@@ -41,6 +41,7 @@ function Index() {
       payload: { userLoading: true },
     });
     getUserInfo().then((userInfo) => {
+      // 存入redux
       store.dispatch({
         type: 'update-userInfo',
         payload: { userInfo, userLoading: false },
