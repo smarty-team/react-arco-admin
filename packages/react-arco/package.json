@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@arco-design/web-react": "^2.45.1",
+    "@types/mockjs": "^1.0.7",
     "ahooks": "^3.7.5",
+    "axios": "^1.4.0",
+    "mockjs": "^1.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.8.2",
