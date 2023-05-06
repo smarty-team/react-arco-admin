@@ -1,4 +1,4 @@
-name: Public Admin
+name: Public Test Admin
 
 on:
   push:
