@@ -21,9 +21,11 @@ import { getUserInfo } from './pages/login/api/user';
 const store = createStore(rootReducer);
 
 function Index() {
+  // 获取本地存储设置
   const [lang, setLang] = useStorage('arco-lang', 'en-US');
   const [theme, setTheme] = useStorage('arco-theme', 'light');
 
+  // 组件库语言包
   function getArcoLocale() {
     switch (lang) {
       case 'zh-CN':
@@ -61,6 +63,7 @@ function Index() {
     changeTheme(theme);
   }, [theme]);
 
+  // 语言和风格初始值
   const contextValue = {
     lang,
     setLang,
