@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useContext } from "react";
-// import { ThemeContext } from "../../theme-context";
+import { ThemeContext } from "../../theme-context";
 
 const themeList = [
   "light",
