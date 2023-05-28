@@ -1,9 +1,7 @@
-import React, { useContext, useEffect } from "react";
+'use client'
 
-export const ThemeContext = React.createContext({
-  theme: "light",
-  setTheme: (theme) => {},
-});
+import React, { useContext } from "react";
+// import { ThemeContext } from "../../theme-context";
 
 const themeList = [
   "light",
@@ -40,7 +38,7 @@ const themeList = [
 function List() {
   const { setTheme, theme: currentTheme } = useContext(ThemeContext);
 
-  const clickTheme = (theme) => () => setTheme(theme);
+  const clickTheme = (theme: string) => () => setTheme(theme);
   return (
     <>
       {themeList.map((theme) => (
@@ -78,7 +76,7 @@ function List() {
   );
 }
 
-export default function Theme(props) {
+export default function Theme() {
   return (
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn gap-1 normal-case btn-ghost">
