@@ -1,13 +1,49 @@
 import ActiveLink from "./active-link";
+import useSWR from "swr";
 
-export default function SideMenu({ menu }) {
-  const checkAuth = () => {
-    // 文章阅览数增加
-    const viewcount = localStorage.getItem("viewcount")
-      ? parseInt(localStorage.getItem("viewcount")!)
-      : 0;
-    localStorage.setItem("viewcount", viewcount + 1 + "");
-  };
+// 获取菜单数据
+export function getMenu(url: string) {
+  return fetch(url, { next: { revalidate: 3600 }}) // 每小时刷新
+    .then((res) => res.json())
+    .then((json) => flatMenu(json.data.menus)); // 拍平
+}
+
+// 转换属性结构为拍平的数组
+// 传入menu形如：
+// [
+//   {
+//       "key": "1",
+//       "title": "前端框架",
+//       "type": "category",
+//       "children": [
+//           {
+//               "key": "639bcdc938613444f37c4365",
+//               "title": "vuejs入门",
+//               "type": "article"
+//           }
+//       ]
+//   }
+// ]
+export interface MenuItem {
+  key: string;
+  title: string;
+  type: "category" | "article";
+  children?: MenuItem[];
+}
+export function flatMenu(menus: MenuItem[], result: MenuItem[] = []) {
+  for (const menu of menus) {
+    result.push(menu);
+    if (menu.type === "category" && menu.children && menu.children.length) {
+      flatMenu(menu.children, result);
+      delete menu.children;
+    }
+  }
+  return result;
+}
+
+export default function SideMenu() {
+  const { data: menu, isLoading } = useSWR("/data-api/menus", getMenu);
+
   return (
     <>
       <ul className="menu menu-compact">
@@ -47,31 +83,32 @@ export default function SideMenu({ menu }) {
         </li>
         {/* <li><a href="https://appuwwsm6cl6690.h5.xiaoeknow.com/p/course/big_column/p_62b2ce2ee4b0ba331dcb87c1?share_from=u_62a4606541f8b_KDYfWMVVMD&share_type=5&share_user_id=u_62a4606541f8b_KDYfWMVVMD" target="_blank">🛫 精通React</a></li> */}
       </ul>
-      <ul className="menu menu-compact">
-        {menu.map((menuItem) => {
-          if (menuItem.type === "article") {
-            return (
-              <li key={menuItem.key} className="w-full">
-                <ActiveLink
-                  onClick={checkAuth}
-                  className="text-ellipsis overflow-hidden whitespace-nowrap block w-[306px]"
-                  activeClassName="active"
-                  href={`/posts/${menuItem.key}`}
-                  title={menuItem.title}
-                >
-                  {menuItem.title}
-                </ActiveLink>
-              </li>
-            );
-          } else {
-            return (
-              <li className="menu-title mt-4" key={menuItem.title}>
-                <span>{menuItem.title}</span>
-              </li>
-            );
-          }
-        })}
-      </ul>
+      {!isLoading && (
+        <ul className="menu menu-compact">
+          {menu?.map((menuItem) => {
+            if (menuItem.type === "article") {
+              return (
+                <li key={menuItem.key} className="w-full">
+                  <ActiveLink
+                    className="text-ellipsis overflow-hidden whitespace-nowrap block w-[306px]"
+                    activeClassName="active"
+                    href={`/posts/${menuItem.key}`}
+                    title={menuItem.title}
+                  >
+                    {menuItem.title}
+                  </ActiveLink>
+                </li>
+              );
+            } else {
+              return (
+                <li className="menu-title mt-4" key={menuItem.title}>
+                  <span>{menuItem.title}</span>
+                </li>
+              );
+            }
+          })}
+        </ul>
+      )}
     </>
   );
 }

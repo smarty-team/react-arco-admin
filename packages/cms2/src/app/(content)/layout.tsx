@@ -45,7 +45,7 @@ export default function RootLayout({
                 <a className="btn btn-ghost text-2xl w-[154px] mb-4">
                   前端大班车
                 </a>
-                {/* <SideMenu menu={menu}></SideMenu> */}
+                <SideMenu />
               </div>
             </div>
           </div>
