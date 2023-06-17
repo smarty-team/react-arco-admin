@@ -10,7 +10,6 @@ export default async function Home() {
 
   // 数据请求
   const post =  await getData()
-  console.log(post);
   
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
