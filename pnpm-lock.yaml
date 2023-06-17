@@ -226,6 +226,7 @@ importers:
       '@bytemd/plugin-gfm': ^1.21.0
       '@bytemd/plugin-highlight-ssr': ^1.21.0
       '@bytemd/react': ^1.21.0
+      '@reduxjs/toolkit': ^1.9.2
       '@tailwindcss/typography': ^0.5.9
       '@types/node': 20.2.1
       '@types/react': 18.2.6
@@ -239,6 +240,7 @@ importers:
       postcss: 8.4.23
       react: 18.2.0
       react-dom: 18.2.0
+      react-redux: ^8.1.0
       sass: ^1.62.1
       swr: ^2.1.5
       tailwindcss: 3.3.2
@@ -248,6 +250,7 @@ importers:
       '@bytemd/plugin-gfm': 1.21.0_bytemd@1.21.0
       '@bytemd/plugin-highlight-ssr': 1.21.0_bytemd@1.21.0
       '@bytemd/react': 1.21.0_react@18.2.0
+      '@reduxjs/toolkit': 1.9.2_f3gfxqpqfo3vym2a7k67mfkzam
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.3.2
       '@types/node': 20.2.1
       '@types/react': 18.2.6
@@ -261,6 +264,7 @@ importers:
       postcss: 8.4.23
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-redux: 8.1.0_btal7t7cylfmygpubcgfa7o26m
       sass: 1.62.1
       swr: 2.1.5_react@18.2.0
       tailwindcss: 3.3.2
@@ -4758,6 +4762,25 @@ packages:
       reselect: 4.1.7
     dev: false
 
+  /@reduxjs/toolkit/1.9.2_f3gfxqpqfo3vym2a7k67mfkzam:
+    resolution: {integrity: sha512-5ZAZ7hwAKWSii5T6NTPmgIBUqyVdlDs+6JjThz6J6dmHLDm6zCzv2OjHIFAi3Vvs1qjmXU0bm6eBojukYXjVMQ==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.0 || ^18
+      react-redux: ^7.2.1 || ^8.0.2
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-redux:
+        optional: true
+    dependencies:
+      immer: 9.0.19
+      react: 18.2.0
+      react-redux: 8.1.0_btal7t7cylfmygpubcgfa7o26m
+      redux: 4.2.0
+      redux-thunk: 2.4.2_redux@4.2.0
+      reselect: 4.1.7
+    dev: false
+
   /@reduxjs/toolkit/1.9.2_react-redux@8.0.5:
     resolution: {integrity: sha512-5ZAZ7hwAKWSii5T6NTPmgIBUqyVdlDs+6JjThz6J6dmHLDm6zCzv2OjHIFAi3Vvs1qjmXU0bm6eBojukYXjVMQ==}
     peerDependencies:
@@ -6325,7 +6348,7 @@ packages:
   /@types/hoist-non-react-statics/3.3.1:
     resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
     dependencies:
-      '@types/react': 17.0.52
+      '@types/react': 18.2.6
       hoist-non-react-statics: 3.3.2
 
   /@types/istanbul-lib-coverage/2.0.4:
@@ -6524,7 +6547,6 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
-    dev: false
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
@@ -14360,6 +14382,43 @@ packages:
       hoist-non-react-statics: 3.3.2
       react-is: 18.2.0
       use-sync-external-store: 1.2.0
+    dev: false
+
+  /react-redux/8.1.0_btal7t7cylfmygpubcgfa7o26m:
+    resolution: {integrity: sha512-CtHZzAOxi7GQvTph4dVLWwZHAWUjV2kMEQtk50OrN8z3gKxpWg3Tz7JfDw32N3Rpd7fh02z73cF6yZkK467gbQ==}
+    peerDependencies:
+      '@reduxjs/toolkit': ^1 || ^2.0.0-beta.0
+      '@types/react': ^16.8 || ^17.0 || ^18.0
+      '@types/react-dom': ^16.8 || ^17.0 || ^18.0
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+      react-native: '>=0.59'
+      redux: ^4 || ^5.0.0-beta.0
+    peerDependenciesMeta:
+      '@reduxjs/toolkit':
+        optional: true
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+      redux:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.20.7
+      '@reduxjs/toolkit': 1.9.2_f3gfxqpqfo3vym2a7k67mfkzam
+      '@types/hoist-non-react-statics': 3.3.1
+      '@types/react': 18.2.6
+      '@types/react-dom': 18.2.4
+      '@types/use-sync-external-store': 0.0.3
+      hoist-non-react-statics: 3.3.2
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-is: 18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
   /react-refresh/0.13.0:
