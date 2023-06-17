@@ -25,3 +25,78 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.prose :where(h1):not(:where([class~="not-prose"] *)) {
+  margin-top: 20px;
+}
+
+.markdown-body {
+  padding: 30px 50px;
+  width: 100%;
+}
+
+.hljs {
+  background: transparent;
+}
+
+/* 添加特定theme样式 */
+[data-theme="synthwave"] .navbar {
+  border-color: rgb(82, 52, 115)
+}
+
+[data-theme="retro"] .navbar {
+  border-color: rgb(193, 183, 136)
+}
+
+[data-theme="valentine"] .navbar {
+  border-color: rgb(184, 162, 184)
+}
+
+[data-theme="garden"] .navbar {
+  border-color: rgb(184, 179, 162)
+}
+
+.ais-Hits {
+  position: absolute;
+  z-index: 1000;
+  width: 300px;
+}
+
+.ais-SearchBox-input {
+  box-shadow: none !important;
+}
+.ais-SearchBox-input:focus {
+  border-color: #d6d6e7 !important;
+}
+[data-theme="dark"] .ais-SearchBox-input {
+  background-color: #2a303c;
+  border-color: rgb(51 65 85 / var(--tw-border-opacity));
+  color: currentColor
+}
+[data-theme="dark"] .ais-SearchBox-input:focus {
+  border-color: rgb(51 65 85 / var(--tw-border-opacity)) !important;
+}
+.ais-Hits-item,
+.ais-InfiniteHits-item {
+  padding: 0 !important;
+}
+[data-theme="dark"] .ais-Hits-item,
+[data-theme="dark"] .ais-InfiniteHits-item {
+  background-color:#2a2a2a !important;
+}
+.ais-Hits-item>a {
+  padding: 1rem;
+  display: inline-block;
+  width: 100%;
+}
+
+.ais-Hits-item>a:hover {
+  background-color: rgb(236, 234, 234)
+}
+[data-theme="dark"] .ais-Hits-item>a:hover {
+  background-color: rgb(50, 50, 50)
+}
+.ais-Hits-item h1 {
+  font-weight: 400;
+  font-size: 1rem;
+}

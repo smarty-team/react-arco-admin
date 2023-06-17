@@ -1,5 +1,6 @@
 "use client";
 
+import "highlight.js/styles/github-dark.css";
 import "./globals.css";
 
 import { useState } from "react";
