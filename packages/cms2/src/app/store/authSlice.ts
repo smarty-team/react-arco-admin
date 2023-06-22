@@ -13,7 +13,7 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  isLogin: !!localStorage.getItem('token'),
+  isLogin: !!localStorage?.getItem('token'),
   userInfo: null
 }
 
