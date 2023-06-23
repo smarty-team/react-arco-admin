@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { getMenu, getMenuIds } from "../../libs/menu";
 import { ArticleViewer } from "./components/article-viewer";
 
@@ -11,6 +12,17 @@ export async function getArticle(id: string) {
   return fetch("http://localhost:3000/article/" + id)
     .then((res) => res.json())
     .then((json) => json.data);
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const article = await getArticle(params.id);
+  return {
+    title: article.title,
+  }
 }
 
 export default async function Post({ params }: { params: { id: string } }) {

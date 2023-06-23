@@ -1,5 +1,11 @@
 import Image from 'next/image'
 import Counter from './components/Counter';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '前端大班车',
+  keywords: ['frontend', 'react', 'vue', 'js']
+}
 
 async function getData() {
  const res = await fetch('https://jsonplaceholder.typicode.com/posts/1')
